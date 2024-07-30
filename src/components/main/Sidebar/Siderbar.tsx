@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import Image from "next/image";
 import SidebarItem from "./SidebarItem";
+import SidebarThemeChange from "@/components/checkboxes/SidebarThemeChange";
 const Siderbar = () => {
   const [isHovered, setIsHovered] = useState(true);
 
@@ -28,7 +29,7 @@ const Siderbar = () => {
         <div className="stroke mt-5"></div>
         <div className="flex flex-col mt-[30px]">
           <span className="nav-subtitle">General</span>
-          <div className="flex flex-col gap-1 mt-3 cursor-pointer">
+          <div className="flex flex-col gap-2 mt-3 cursor-pointer">
             <SidebarItem
               title={"Home"}
               src={"/sidemenu/home.svg"}
@@ -70,7 +71,7 @@ const Siderbar = () => {
         <div className="stroke mt-3"></div>
         <div className="flex flex-col mt-[30px]">
           <span className="nav-subtitle">Other</span>
-          <div className="flex flex-col gap-1 mt-3 cursor-pointer">
+          <div className="flex flex-col gap-2 mt-3 cursor-pointer">
             <SidebarItem
               title={"Settings"}
               src={"/sidemenu/settings.svg"}
@@ -86,6 +87,7 @@ const Siderbar = () => {
           </div>
         </div>
         <div className="stroke mt-3"></div>
+        <SidebarThemeChange />
         <div className="absolute bottom-7">
           <p className="text-xs text-[#8e8e8e] font-normal leading-5 pr-5">
             Order an advertisement, About us, Copyright (DMCA), Privacy,
@@ -95,7 +97,6 @@ const Siderbar = () => {
       </div>
     </aside>
   );
-  s;
 };
 
 export default Siderbar;

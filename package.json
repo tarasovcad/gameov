@@ -16,6 +16,7 @@
     "test:ui": "vitest --coverage --ui"
   },
   "dependencies": {
+    "lucide-react": "^0.417.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
