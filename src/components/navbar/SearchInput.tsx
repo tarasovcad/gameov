@@ -8,7 +8,7 @@ const SearchInput = () => {
   return (
     <div className="flex-grow mr-4">
       <form>
-        <div className="relative">
+        <div className="relative max-w-[710px] w-full">
           <input
             className="searchinput max-w-[710px] w-full caret-white/50 placeholder:text-white/50 font-medium text-white"
             placeholder="Search"
