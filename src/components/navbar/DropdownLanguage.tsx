@@ -47,7 +47,6 @@ function useMenuAnimation(isOpen: boolean) {
 const userInfoVariants = {
   hidden: {
     opacity: 0,
-    // scale: 0.3,
     filter: "blur(20px)",
   },
   visible: {
@@ -67,7 +66,7 @@ type DropdownMenuProps = {
   items: {icon: React.ReactNode; name: string}[];
 };
 
-export default function DropdownMenu({items}: DropdownMenuProps) {
+export default function DropdownLanguage({items}: DropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const scope = useMenuAnimation(isOpen);
 
@@ -78,54 +77,32 @@ export default function DropdownMenu({items}: DropdownMenuProps) {
         className="flex gap-3 items-center"
         onClick={() => setIsOpen((prevState) => !prevState)}>
         <Image
-          className="cursor-pointer"
-          src="/navbar/avatar.png"
-          alt="Arrow Down"
-          width={30}
-          height={30}
+          className="cursor-pointer rounded-full"
+          src="/flags/england.png"
+          alt="Flag"
+          width={25}
+          height={25}
         />
-        <div className="flex gap-[8px] items-center">
-          <span className="text-[#C4C4C4] font-medium">tarasovcad</span>
-          <div style={{transformOrigin: "50% 55%"}}>
-            <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
-          </div>
+        <div style={{transformOrigin: "50% 55%"}}>
+          <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
         </div>
       </motion.button>
       <ul
         className={cn(
-          "absolute z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
+          "-ml-[25px] absolute z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
           isOpen ? "pointer-events-auto" : "pointer-events-none",
         )}
         style={{
           clipPath: "inset(10% 50% 90% 50% round 12px)",
         }}>
-        <motion.div
-          className="flex items-center gap-[10px]"
-          initial="hidden"
-          animate={isOpen ? "visible" : "hidden"}
-          variants={userInfoVariants}>
-          <Image
-            className="cursor-pointer"
-            src="/navbar/avatar.png"
-            alt="Arrow Down"
-            width={40}
-            height={40}
-          />
-          <div className="flex flex-col max-w-full pr-10">
-            <span className="text-[#C4C4C4] font-semibold">tarasovcad</span>
-            <span className="font-normal text-[#9b9b9b] text-sm">
-              tarasovcad@gmail.com
-            </span>
-          </div>
-        </motion.div>
         {items.map(({icon, name}) => (
           <li key={name}>
             <Link
-              href=""
+              href="#"
               className={cn(
                 "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
               )}>
-              <span>{icon}</span>
+              {icon}
               <span className="flex items-center gap-1 text-sm font-medium">
                 {name}
                 <ChevronRightIcon
