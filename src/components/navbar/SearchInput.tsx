@@ -6,11 +6,11 @@ import React, {useState} from "react";
 const SearchInput = () => {
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <div>
+    <div className="flex-grow mr-4">
       <form>
-        <div className="relative max-w-[710px] w-full">
+        <div className="relative">
           <input
-            className="searchinput max-w-[710px] w-full caret-white/50 placeholder:text-white/50 font-medium ml-[1px] text-white"
+            className="searchinput max-w-[710px] w-full caret-white/50 placeholder:text-white/50 font-medium text-white"
             placeholder="Search"
             type="text"
             onFocus={() => setIsFocused(true)}
