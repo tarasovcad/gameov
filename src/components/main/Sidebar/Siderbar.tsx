@@ -16,7 +16,7 @@ const Siderbar = () => {
       //   setIsHovered(true);
       // }}
       // onMouseLeave={() => setIsHovered(false)}
-      className="h-ful fixed z-10 top-0 left-0 overflow-x-hidden p-4 bg-[#1E1E1E] h-svh text-white/50"
+      className="h-ful z-50 top-0 left-0 p-4 bg-[#1E1E1E] h-svh text-white/50 float-left sticky"
       style={divStyle}>
       <div className="container">
         <Image

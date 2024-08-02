@@ -3,7 +3,7 @@ import React from "react";
 const Home = () => {
   return (
     <div className="text-slate-950">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste deserunt
+      {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste deserunt
       quaerat blanditiis praesentium asperiores deleniti recusandae incidunt
       vero veniam beatae? Tempora modi accusamus qui asperiores numquam
       accusantium animi nemo recusandae aspernatur cum distinctio sit,
@@ -109,7 +109,7 @@ const Home = () => {
       asperiores nam voluptatem excepturi ducimus reiciendis recusandae aut
       blanditiis, facere similique quia exercitationem. Facere ea fuga nemo
       blanditiis, maxime ipsum! Dolore voluptate molestiae, quo iste aliquam
-      ratione deserunt?
+      ratione deserunt? */}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import Siderbar from "@/components/main/Sidebar/Siderbar";
 import "./../styles/main.css";
+import Navbar from "@/components/navbar/Navbar";
 const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
@@ -18,8 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <Siderbar />
-        <main>{children}</main>
+        <div className="bodywrapper relative flex">
+          <Siderbar />
+          <div className="flex-1 flex flex-col">
+            <Navbar />
+            <main>{children}</main>
+          </div>
+        </div>
       </body>
     </html>
   );
