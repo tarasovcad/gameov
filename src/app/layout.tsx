@@ -4,7 +4,7 @@ import "./globals.css";
 import Siderbar from "@/components/main/Sidebar/Siderbar";
 import "./../styles/main.css";
 import Navbar from "@/components/navbar/Navbar";
-const inter = Inter({subsets: ["latin"]});
+const inter = Inter({subsets: ["latin"], display: "swap"});
 
 export const metadata: Metadata = {
   title: "Create Next App",

@@ -158,3 +158,10 @@ input {
   background-image: url("https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg");
   background-size: cover;
 }
+
+.hero-blur {
+  border-radius: 59px 0 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: url("/hero-slider/blur.png");
+  backdrop-filter: blur(50px);
+}
