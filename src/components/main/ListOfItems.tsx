@@ -30,7 +30,7 @@ const item = [
 
 const ListOfItems = () => {
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid grid-cols-3 gap-8 max-[1100px]:grid-cols-2">
       {item.map((game, index) => (
         <GameCartMainMenu key={index} name={game.name} year={game.year} />
       ))}
