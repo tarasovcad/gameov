@@ -23,7 +23,7 @@ const BorderGlowButton = () => {
   return (
     <motion.button
       whileTap={{scale: -0.85}}
-      className="relative overflow-hidden rounded-[5px] bg-[#8e8e8e] transform transition-transform ease-in-out"
+      className="relative overflow-hidden rounded-[5px] bg-[#8e8e8e] transform transition-transform ease-in-out mr-[1px]"
       ref={ref}>
       <span
         className={`absolute z-0 h-28 w-28 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(#fff_0%,transparent_70%)] `}

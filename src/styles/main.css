@@ -23,13 +23,7 @@ input {
   padding-left: 16px;
   padding-right: 16px;
 }
-/* .stroke {
-  background: linear-gradient(90deg, #202020 0%, #2e2e2e 50.5%, #202020 100%);
-  width: 100%;
-  height: 1px;
-  border-top: 1px solid #fff;
-   */
-/* } */
+
 .stroke {
   position: relative;
 }
@@ -127,6 +121,8 @@ input {
   color: #888;
 }
 
+/* SEARCH INPUT */
+
 .searchinput {
   border: 1px solid #3c3c3c;
   border-radius: 8px;
@@ -150,6 +146,8 @@ input {
   stroke: #fff;
 }
 
+/* HEADER */
+
 .flag {
   width: 24px;
   height: 24px;
@@ -159,9 +157,25 @@ input {
   background-size: cover;
 }
 
+/* HERO */
+
 .hero-blur {
   border-radius: 59px 0 0 0;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: url("/hero-slider/blur.png");
   backdrop-filter: blur(50px);
+}
+
+/* MAIN  */
+
+.mainitem:hover .scaleitem {
+  transform: scale(1);
+  opacity: 50%;
+}
+.arrowupright {
+  transform: rotate(45deg);
+}
+.mainitem:hover .arrowupright {
+  transform: rotate(0);
+  transition: all 0.3s ease-in-out;
 }
