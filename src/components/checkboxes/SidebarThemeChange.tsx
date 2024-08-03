@@ -3,7 +3,7 @@ import Image from "next/image";
 import {Moon, Sun} from "lucide-react";
 const SidebarThemeChange = () => {
   return (
-    <div className="theme-toggle flex align-middle justify-center mt-12">
+    <div className="theme-toggle flex align-middle justify-center mt-12 max-md:hidden">
       <input
         type="checkbox"
         id="theme-switch"

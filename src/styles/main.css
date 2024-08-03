@@ -23,6 +23,12 @@ input {
   padding-left: 16px;
   padding-right: 16px;
 }
+@media not all and (min-width: 768px) {
+  .wrapper {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
 
 .stroke {
   position: relative;

@@ -1,94 +1,61 @@
 "use client";
-import React, {useState} from "react";
+import React from "react";
 import Image from "next/image";
 import SidebarItem from "./SidebarItem";
 import SidebarThemeChange from "@/components/checkboxes/SidebarThemeChange";
+import {SidebarGeneralLinks} from "@/data/SidebarLinks";
+import {SidebarOtherLinks} from "@/data/SidebarLinks";
 const Siderbar = () => {
-  const [isHovered, setIsHovered] = useState(true);
-
-  const divStyle = {
-    width: isHovered ? "287px" : "76px",
-    transition: "width 0.3s ease-in-out",
-  };
   return (
-    <aside
-      // onMouseEnter={() => {
-      //   setIsHovered(true);
-      // }}
-      // onMouseLeave={() => setIsHovered(false)}
-      className="h-ful z-50 top-0 left-0 p-4 bg-[#1E1E1E] h-svh text-white/50 float-left sticky"
-      style={divStyle}>
-      <div className="container">
+    <aside className=" w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 bg-[#1E1E1E] h-svh text-white/50 float-left sticky ">
+      <div className="container ">
         <Image
           src="/logo.svg"
           alt="logo"
           width={130}
           height={23}
-          className="ml-[9px] mt-[5px]"
+          className="ml-[9px] mt-[5px] max-md:hidden"
         />
+        <div className="w-12 h-12 bg-[#262626] rounded-full flex items-center justify-center p-1 md:hidden">
+          <Image src="/mdLogo.svg" alt="avatar" width={50} height={50} />
+        </div>
         <div className="stroke mt-5"></div>
-        <div className="flex flex-col mt-[30px]">
-          <span className="nav-subtitle">General</span>
+        <div className="flex md:flex-col justify-center md:mt-[30px]">
+          <span className="nav-subtitle max-md:hidden">General</span>
           <div className="flex flex-col gap-2 mt-3 cursor-pointer">
-            <SidebarItem
-              title={"Home"}
-              src={"/sidemenu/home.svg"}
-              hasArrow={false}
-              link={"/"}
-            />
-            <SidebarItem
-              title={"PC Games"}
-              src={"/sidemenu/swords.svg"}
-              hasArrow={true}
-              link={"/"}
-            />
-            <SidebarItem
-              title={"Software"}
-              src={"/sidemenu/software.svg"}
-              hasArrow={true}
-              link={"/"}
-            />
-            <SidebarItem
-              title={"Desktop"}
-              src={"/sidemenu/monitor-down.svg"}
-              hasArrow={true}
-              link={"/"}
-            />
-            <SidebarItem
-              title={"Games for Mac OS"}
-              src={"/sidemenu/mac.svg"}
-              hasArrow={true}
-              link={"/"}
-            />
-            <SidebarItem
-              title={"Apps for Mac OS"}
-              src={"/sidemenu/mac-apps.svg"}
-              hasArrow={true}
-              link={"/"}
-            />
+            {SidebarGeneralLinks.map((link, index) => {
+              return (
+                <SidebarItem
+                  key={index}
+                  title={link.title}
+                  src={link.src}
+                  hasArrow={link.hasArrow}
+                  link={link.link}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="stroke mt-3"></div>
-        <div className="flex flex-col mt-[30px]">
-          <span className="nav-subtitle">Other</span>
+        <div className="flex md:flex-col justify-center md:mt-[30px]">
+          <span className="nav-subtitle max-md:hidden">Other</span>
           <div className="flex flex-col gap-2 mt-3 cursor-pointer">
-            <SidebarItem
-              title={"Settings"}
-              src={"/sidemenu/settings.svg"}
-              hasArrow={false}
-              link={"/"}
-            />
-            <SidebarItem
-              title={"Help"}
-              src={"/sidemenu/help.svg"}
-              hasArrow={false}
-              link={"/"}
-            />
+            {SidebarOtherLinks.map((link, index) => {
+              return (
+                <SidebarItem
+                  key={index}
+                  title={link.title}
+                  src={link.src}
+                  hasArrow={link.hasArrow}
+                  link={link.link}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="stroke mt-3"></div>
         <SidebarThemeChange />
-        <div className="absolute bottom-7">
+        <div className="absolute bottom-7 max-md:hidden">
           <p className="text-xs text-[#8e8e8e] font-normal leading-5 pr-5">
             Order an advertisement, About us, Copyright (DMCA), Privacy,
             Reviews, Contacts
