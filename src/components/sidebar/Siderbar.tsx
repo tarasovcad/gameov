@@ -5,10 +5,11 @@ import SidebarItem from "./SidebarItem";
 import SidebarThemeChange from "@/components/checkboxes/SidebarThemeChange";
 import {SidebarGeneralLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
+
 const Siderbar = () => {
   return (
-    <aside className=" w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 bg-[#1E1E1E] h-svh text-white/50 float-left sticky ">
-      <div className="container ">
+    <aside className=" w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 bg-[#1E1E1E] h-svh text-white/50 float-left sticky">
+      <div className="mx-8 max-md:mx-3">
         <Image
           src="/logo.svg"
           alt="logo"
