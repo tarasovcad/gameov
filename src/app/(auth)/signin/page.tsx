@@ -4,7 +4,6 @@ import AuthSeparator from "@/components/auth/AuthSeparator";
 import {InputFocusBlur} from "@/components/ui/InputFoculesBlur";
 import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
-import {Apple, ChromeIcon} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -32,8 +31,8 @@ const SignIn = () => {
         </form>
         <AuthSeparator />
         <div className="flex flex-col gap-4">
-          <ProviderButton google />
-          <ProviderButton apple />
+          <ProviderButton google signin />
+          <ProviderButton signin />
         </div>
         <h3 className="text-white/50 text-sm font-medium text-center">
           Don&apos;t have an account?{" "}
