@@ -71,7 +71,9 @@ export default function DropdownMenu({items}: DropdownMenuProps) {
   const scope = useMenuAnimation(isOpen);
 
   return (
-    <nav className={cn("max-w-fit w-fit mx-auto space-y-2")} ref={scope}>
+    <nav
+      className={cn("max-w-fit w-fit mx-auto space-y-2 max-lg:hidden")}
+      ref={scope}>
       <motion.button
         whileTap={{scale: 0.97}}
         className="flex gap-3 items-center"

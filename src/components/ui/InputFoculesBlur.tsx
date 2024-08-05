@@ -17,7 +17,7 @@ const STANDARD_DURATION = 0.3;
 
 const inputFocusBlurStyles = tv({
   slots: {
-    baseStyle: `w-full h-[42px] px-3 flex items-center rounded-xl border border-neutral-800 focus-within:border-neutral-200 
+    baseStyle: `w-full h-[42px] px-3 flex items-center rounded-md border border-neutral-800 focus-within:border-neutral-200 
     bg-neutral-900 transition-all duration-200 relative data-[filled=true]:border-neutral-200`,
     inputStyle: `flex-1 h-full py-2 outline-none text-sm text-neutral-300 bg-transparent relative z-[9999] placeholder:sr-only 
     disabled:cursor-not-allowed`,
@@ -70,7 +70,7 @@ export const InputFocusBlur = forwardRef<HTMLInputElement, InputFocusBlurProps>(
         };
 
     return (
-      <div className="w-full max-w-[300px]">
+      <div className="w-full">
         <div
           className={baseStyle({error: isError, disabled})}
           data-filled={isFilled}>
