@@ -25,7 +25,7 @@ const Tab = ({label, selected, setSelected, component}: TabProps) => {
         {selected && (
           <motion.span
             layoutId="tab"
-            transition={{type: "spring", duration: 0.4}}
+            transition={{type: "spring", duration: 0.6}}
             className="absolute inset-0 z-1 rounded-full bg-[#262626]"></motion.span>
         )}
       </button>

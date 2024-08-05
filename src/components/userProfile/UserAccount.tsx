@@ -6,7 +6,7 @@ import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
 const UserAccount = () => {
   return (
-    <div className="w-full  bg-[#262626] rounded-2xl">
+    <div className="w-full bg-[#262626] rounded-2xl">
       <div className="p-[20px]">
         <div className="relative h-[228px] w-full rounded-2xl">
           <div className="absolute rounded-2xl inset-0  h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
