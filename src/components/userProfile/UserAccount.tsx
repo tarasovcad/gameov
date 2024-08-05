@@ -4,7 +4,7 @@ import {InputFocusBlur} from "../ui/InputFoculesBlur";
 import {AtSign, Mail} from "lucide-react";
 import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
-const UserMainProfile = () => {
+const UserAccount = () => {
   return (
     <div className="w-full  bg-[#262626] rounded-2xl">
       <div className="p-[20px]">
@@ -108,6 +108,6 @@ const UserMainProfile = () => {
   );
 };
 
-export default UserMainProfile;
+export default UserAccount;
 
 //

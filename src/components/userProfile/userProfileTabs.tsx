@@ -1,6 +1,6 @@
 "use client";
 import {motion} from "framer-motion";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import {userTabs} from "@/data/UserProfileTabs";
 
@@ -32,8 +32,13 @@ const Tab = ({label, selected, setSelected, component}: TabProps) => {
   );
 };
 
-const UserProfileTabs = () => {
+const UserProfileTabs = ({setTabs}: {setTabs: (text: string) => void}) => {
   const [selected, setSelected] = useState<string>(userTabs[0].label);
+  useEffect(() => {
+    console.log(selected);
+    setTabs(selected);
+  }, [selected, setTabs]);
+
   return (
     <div className="mb-8 flex flex-wrap items-center gap-1">
       {userTabs.map((tab, index) => (
