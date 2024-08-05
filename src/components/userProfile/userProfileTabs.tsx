@@ -3,6 +3,7 @@ import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
 
 import {userTabs} from "@/data/UserProfileTabs";
+import {useSearchParams} from "next/navigation";
 
 interface TabProps {
   label: string;
@@ -33,20 +34,16 @@ const Tab = ({label, selected, setSelected, component}: TabProps) => {
 };
 
 const UserProfileTabs = ({setTabs}: {setTabs: (text: string) => void}) => {
-  const [selected, setSelected] = useState<string>(userTabs[0].label);
-  useEffect(() => {
-    console.log(selected);
-    setTabs(selected);
-  }, [selected, setTabs]);
-
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get("tab") || "profile";
   return (
     <div className="mb-8 flex flex-wrap items-center gap-1">
       {userTabs.map((tab, index) => (
         <Tab
           label={tab.label}
           component={tab.component}
-          selected={selected === tab.label}
-          setSelected={setSelected}
+          selected={currentTab === tab.label.toLocaleLowerCase()}
+          setSelected={setTabs}
           key={index}
         />
       ))}
