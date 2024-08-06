@@ -1,3 +1,4 @@
+"use client";
 import AgreementCheckbox from "@/components/auth/AgreementCheckbox";
 import AuthHeading from "@/components/auth/AuthHeading";
 import AuthMainButton from "@/components/auth/AuthMainButton";
@@ -7,8 +8,30 @@ import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
 import Link from "next/link";
 import React from "react";
+import {useRouter} from "next/navigation";
 
 const SignUp = () => {
+  const router = useRouter();
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const {username, email, password} = event.target.elements;
+    const response = await fetch("/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      }),
+    });
+    if (response.ok) {
+      router.push("/signin");
+    } else {
+      console.error("Registration failed");
+    }
+  };
   return (
     <div className="p-[40px] flex flex-col items-center">
       <div className="flex flex-col gap-5 max-w-[448px] w-full">
@@ -16,22 +39,34 @@ const SignUp = () => {
           title="Create an account"
           subtitle="New here? Sign up and begin your journey"
         />
-        <form className="flex flex-col">
+        <form className="flex flex-col" onSubmit={onSubmit}>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Username" />
-            <InputFocusBlur placeholder="Enter your username" />
+            <InputFocusBlur placeholder="Enter your username" id="username" />
           </div>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Email" />
-            <InputFocusBlur placeholder="Enter your mail address" />
+            <InputFocusBlur
+              placeholder="Enter your mail address"
+              id="email"
+              type="email"
+            />
           </div>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Password" />
-            <InputFocusBlur placeholder="Enter your password" />
+            <InputFocusBlur
+              placeholder="Enter your password"
+              id="password"
+              type="password"
+            />
           </div>
           <div className="flex flex-col w-full gap-2 mb-3">
             <InputLabel label="Confirm Password" />
-            <InputFocusBlur placeholder="Confirm your password" />
+            <InputFocusBlur
+              placeholder="Confirm your password"
+              id="confirm-password"
+              type="password"
+            />
           </div>
           <AgreementCheckbox />
           <AuthMainButton buttonTitle="Sign Up" />
