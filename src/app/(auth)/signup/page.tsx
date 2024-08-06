@@ -10,11 +10,18 @@ import Link from "next/link";
 import React from "react";
 import {useRouter} from "next/navigation";
 
+interface FormElements {
+  username: HTMLInputElement;
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
 const SignUp = () => {
   const router = useRouter();
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const {username, email, password} = event.target.elements;
+    const form = event.target as HTMLFormElement;
+    const {username, email, password} =
+      form.elements as unknown as FormElements;
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
