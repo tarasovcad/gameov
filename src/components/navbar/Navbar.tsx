@@ -22,7 +22,12 @@ const Navbar = async () => {
           <DropdownLanguage items={NavbarLanuages} />
           <span className="text-[#2E2E2E]">|</span>
           {session && session?.user?.email ? (
-            <DropdownMenu items={NavbarProfileItems} />
+            <DropdownMenu
+              items={NavbarProfileItems}
+              username={username}
+              image={image}
+              email={email}
+            />
           ) : (
             <Link
               href={"/signin"}

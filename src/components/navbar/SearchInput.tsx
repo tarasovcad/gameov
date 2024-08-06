@@ -6,7 +6,7 @@ import React, {useState} from "react";
 const SearchInput = () => {
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <div className="flex-grow mr-4">
+    <div className="flex-grow mr-4 max-lg:hidden">
       <form>
         <div className="relative max-w-[710px] w-full">
           <input

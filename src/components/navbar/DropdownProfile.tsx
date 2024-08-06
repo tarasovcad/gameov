@@ -6,6 +6,7 @@ import {useAnimate, stagger, motion} from "framer-motion";
 import {ChevronDown, ChevronRightIcon} from "lucide-react";
 import {cn} from "@/lib/utils";
 import Image from "next/image";
+import {signOut} from "next-auth/react";
 
 function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
@@ -64,29 +65,48 @@ const userInfoVariants = {
 
 type DropdownMenuProps = {
   items: {icon: React.ReactNode; name: string}[];
+  username: string | null | undefined;
+  image?: string | null | undefined;
+  email: string | null | undefined;
 };
 
-export default function DropdownMenu({items}: DropdownMenuProps) {
+export default function DropdownMenu({
+  items,
+  username,
+  image,
+  email,
+}: DropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const scope = useMenuAnimation(isOpen);
-
+  const handleSignOut = () => {
+    signOut({callbackUrl: "/"});
+  };
   return (
-    <nav
-      className={cn("max-w-fit w-fit mx-auto space-y-2 max-lg:hidden")}
-      ref={scope}>
+    <nav className={cn("max-w-fit w-fit mx-auto space-y-2")} ref={scope}>
       <motion.button
         whileTap={{scale: 0.97}}
         className="flex gap-3 items-center"
         onClick={() => setIsOpen((prevState) => !prevState)}>
-        <Image
-          className="cursor-pointer"
-          src="/navbar/avatar.png"
-          alt="Arrow Down"
-          width={30}
-          height={30}
-        />
+        {image ? (
+          <Image
+            className="cursor-pointer rounded-full"
+            src={image}
+            alt="Arrow Down"
+            width={30}
+            height={30}
+          />
+        ) : (
+          <Image
+            className="cursor-pointer rounded-full"
+            src="/navbar/avatar.png"
+            alt="Arrow Down"
+            width={30}
+            height={30}
+          />
+        )}
+
         <div className="flex gap-[8px] items-center">
-          <span className="text-[#C4C4C4] font-medium">tarasovcad</span>
+          <span className="text-[#C4C4C4] font-medium">{username}</span>
           <div style={{transformOrigin: "50% 55%"}}>
             <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
           </div>
@@ -95,7 +115,7 @@ export default function DropdownMenu({items}: DropdownMenuProps) {
       <ul
         // to move the dropdown menu set "-ml-20"
         className={cn(
-          "absolute z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
+          "absolute -ml-[107px] z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
           isOpen ? "pointer-events-auto" : "pointer-events-none",
         )}
         style={{
@@ -106,36 +126,61 @@ export default function DropdownMenu({items}: DropdownMenuProps) {
           initial="hidden"
           animate={isOpen ? "visible" : "hidden"}
           variants={userInfoVariants}>
-          <Image
-            className="cursor-pointer"
-            src="/navbar/avatar.png"
-            alt="Arrow Down"
-            width={40}
-            height={40}
-          />
+          {image ? (
+            <Image
+              className="cursor-pointer rounded-full"
+              src={image}
+              alt="Arrow Down"
+              width={35}
+              height={35}
+            />
+          ) : (
+            <Image
+              className="cursor-pointer rounded-full"
+              src="/navbar/avatar.png"
+              alt="Arrow Down"
+              width={40}
+              height={40}
+            />
+          )}
           <div className="flex flex-col max-w-full pr-10">
-            <span className="text-[#C4C4C4] font-semibold">tarasovcad</span>
-            <span className="font-normal text-[#9b9b9b] text-sm">
-              tarasovcad@gmail.com
-            </span>
+            <span className="text-[#C4C4C4] font-semibold">{username}</span>
+            <span className="font-normal text-[#9b9b9b] text-sm">{email}</span>
           </div>
         </motion.div>
         {items.map(({icon, name}) => (
           <li key={name}>
-            <Link
-              href=""
-              className={cn(
-                "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
-              )}>
-              <span>{icon}</span>
-              <span className="flex items-center gap-1 text-sm font-medium">
-                {name}
-                <ChevronRightIcon
-                  size={12}
-                  className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
-                />
-              </span>
-            </Link>
+            {name === "Sign out" ? (
+              <button
+                onClick={handleSignOut}
+                className={cn(
+                  "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                )}>
+                <span>{icon}</span>
+                <span className="flex items-center gap-1 text-sm font-medium">
+                  {name}
+                  <ChevronRightIcon
+                    size={12}
+                    className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
+                  />
+                </span>
+              </button>
+            ) : (
+              <Link
+                href="/profile"
+                className={cn(
+                  "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                )}>
+                <span>{icon}</span>
+                <span className="flex items-center gap-1 text-sm font-medium">
+                  {name}
+                  <ChevronRightIcon
+                    size={12}
+                    className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
+                  />
+                </span>
+              </Link>
+            )}
           </li>
         ))}
       </ul>
