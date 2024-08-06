@@ -1,13 +1,19 @@
+"use client";
 import AuthHeading from "@/components/auth/AuthHeading";
 import AuthMainButton from "@/components/auth/AuthMainButton";
 import AuthSeparator from "@/components/auth/AuthSeparator";
 import {InputFocusBlur} from "@/components/ui/InputFoculesBlur";
 import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
+import {signIn} from "next-auth/react";
 import Link from "next/link";
+import {useSearchParams} from "next/navigation";
 import React from "react";
 
 const SignIn = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   return (
     <div className="p-[40px] flex flex-col items-center">
       <div className="flex flex-col gap-5 max-w-[448px] w-full">
@@ -31,7 +37,11 @@ const SignIn = () => {
         </form>
         <AuthSeparator />
         <div className="flex flex-col gap-4">
-          <ProviderButton google signin />
+          <ProviderButton
+            google
+            signin
+            onClick={() => signIn("google", {callbackUrl})}
+          />
           <ProviderButton signin />
         </div>
         <h3 className="text-white/50 text-sm font-medium text-center">
