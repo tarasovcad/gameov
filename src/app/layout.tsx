@@ -4,6 +4,7 @@ import "./globals.css";
 import Siderbar from "@/components/sidebar/Siderbar";
 import "./../styles/main.css";
 import Navbar from "@/components/navbar/Navbar";
+import AuthProvider from "@/lib/AuthProvider";
 const inter = Inter({subsets: ["latin"], display: "swap"});
 
 export const metadata: Metadata = {
@@ -19,13 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <div className="bodywrapper relative flex">
-          <Siderbar />
-          <div className="flex-1 flex flex-col">
-            <Navbar />
-            <main>{children}</main>
+        <AuthProvider>
+          <div className="bodywrapper relative flex">
+            <Siderbar />
+            <div className="flex-1 flex flex-col">
+              <Navbar />
+              <main>{children}</main>
+            </div>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

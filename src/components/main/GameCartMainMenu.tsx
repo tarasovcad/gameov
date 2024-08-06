@@ -11,7 +11,6 @@ const montserrat = Montserrat({
 });
 
 const GameCartMainMenu = ({name, year}: {name: string; year: number}) => {
-  console.log(name, year);
   return (
     <Link href={""}>
       <div className="mainitem relative min-h-[210px] text-white rounded-xl flex overflow-hidden ">
