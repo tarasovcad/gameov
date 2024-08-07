@@ -13,11 +13,6 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type SignUpFormData, signUpSchema} from "@/validation/signUpValidation";
 
-interface FormElements {
-  username: HTMLInputElement;
-  email: HTMLInputElement;
-  password: HTMLInputElement;
-}
 const SignUp = () => {
   const router = useRouter();
   const {
@@ -98,7 +93,7 @@ const SignUp = () => {
               <p className="text-red-500">{errors.confirmPassword.message}</p>
             )}
           </div>
-          <AgreementCheckbox {...register("agreement")} />
+          <AgreementCheckbox register={register} />
           {errors.agreement && (
             <p className="text-red-500">{errors.agreement.message}</p>
           )}

@@ -18,12 +18,9 @@ export const signUpSchema = z
       .regex(/^[a-zA-Z0-9_]+$/, "Username must contain only English letters")
       .max(50, "Password is too long"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
-    agreement: z.preprocess(
-      (val) => val === "on",
-      z.boolean().refine((val) => val === true, {
-        message: "You must agree to the terms and conditions",
-      }),
-    ),
+    agreement: z.boolean().refine((value) => value === true, {
+      message: "You must agree to the terms and conditions",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
