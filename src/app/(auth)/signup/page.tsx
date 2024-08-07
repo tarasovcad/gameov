@@ -12,6 +12,7 @@ import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type SignUpFormData, signUpSchema} from "@/validation/signUpValidation";
+import AuthSignInFooter from "@/components/auth/AuthSignInFooter";
 
 const SignUp = () => {
   const router = useRouter();
@@ -39,7 +40,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="p-[40px] flex flex-col items-center">
+    <div className="p-[100px] flex flex-col items-center">
       <div className="flex flex-col gap-5 max-w-[448px] w-full">
         <AuthHeading
           title="Create an account"
@@ -111,6 +112,7 @@ const SignUp = () => {
           </Link>
         </h3>
       </div>
+      <AuthSignInFooter />
     </div>
   );
 };

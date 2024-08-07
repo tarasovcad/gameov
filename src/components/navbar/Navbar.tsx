@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import SearchInput from "./SearchInput";
 import LanguageChoice from "./LanguageChoice";
@@ -9,8 +10,12 @@ import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {userSession} from "@/types/userSession";
-const Navbar = async () => {
-  const session = await getServerSession(authOptions);
+import {useSession} from "next-auth/react";
+const Navbar = () => {
+  // const session = await getServerSession(authOptions);
+  // console.log(session);
+  // const {name, email, image, role, username}: userSession = session?.user || {};
+  const {data: session, status} = useSession();
   console.log(session);
   const {name, email, image, role, username}: userSession = session?.user || {};
   return (

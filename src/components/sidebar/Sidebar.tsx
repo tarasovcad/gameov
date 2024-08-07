@@ -1,22 +1,16 @@
-"use client";
 import React from "react";
 import Image from "next/image";
 import SidebarItem from "./SidebarItem";
 import SidebarThemeChange from "@/components/checkboxes/SidebarThemeChange";
 import {SidebarGeneralLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
+import Logo from "../logo/Logo";
 
-const Siderbar = () => {
+const Sidebar = () => {
   return (
     <aside className=" w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 bg-[#1E1E1E] h-svh text-white/50 float-left sticky">
       <div className="mx-8 max-md:mx-3">
-        <Image
-          src="/logo.svg"
-          alt="logo"
-          width={130}
-          height={23}
-          className="ml-[9px] mt-[5px] max-md:hidden"
-        />
+        <Logo />
         <div className="w-12 h-12 bg-[#262626] rounded-full flex items-center justify-center p-1 md:hidden">
           <Image src="/mdLogo.svg" alt="avatar" width={50} height={50} />
         </div>
@@ -67,4 +61,4 @@ const Siderbar = () => {
   );
 };
 
-export default Siderbar;
+export default Sidebar;

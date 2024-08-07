@@ -1,10 +1,10 @@
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./globals.css";
-import Siderbar from "@/components/sidebar/Siderbar";
 import "./../styles/main.css";
-import Navbar from "@/components/navbar/Navbar";
 import AuthProvider from "@/lib/AuthProvider";
+import SidebarWrapper from "@/components/layout/SidebarWrapper";
+import NavbarWrapper from "@/components/layout/NavbarWrapper";
 const inter = Inter({subsets: ["latin"], display: "swap"});
 
 export const metadata: Metadata = {
@@ -22,9 +22,9 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <div className="bodywrapper relative flex">
-            <Siderbar />
+            <SidebarWrapper />
             <div className="flex-1 flex flex-col">
-              <Navbar />
+              <NavbarWrapper />
               <main>{children}</main>
             </div>
           </div>
