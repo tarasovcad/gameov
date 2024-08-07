@@ -4,8 +4,12 @@ import type {NextAuthOptions} from "next-auth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import {db} from "./db";
 import {compare} from "bcrypt";
+import {PrismaClient} from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID!,
@@ -18,6 +22,7 @@ export const authOptions: NextAuthOptions = {
         password: {label: "Password", type: "password"},
       },
       async authorize(credentials) {
+        // credentials - input values from SignIn component
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
