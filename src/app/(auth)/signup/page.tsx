@@ -9,6 +9,9 @@ import ProviderButton from "@/components/ui/ProviderButton";
 import Link from "next/link";
 import React from "react";
 import {useRouter} from "next/navigation";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {type SignUpFormData, signUpSchema} from "@/validation/signUpValidation";
 
 interface FormElements {
   username: HTMLInputElement;
@@ -17,21 +20,22 @@ interface FormElements {
 }
 const SignUp = () => {
   const router = useRouter();
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const {username, email, password} =
-      form.elements as unknown as FormElements;
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = async (data: SignUpFormData) => {
+    const {confirmPassword, ...apiData} = data;
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      }),
+      body: JSON.stringify(apiData),
     });
     if (response.ok) {
       router.push("/signin");
@@ -46,10 +50,17 @@ const SignUp = () => {
           title="Create an account"
           subtitle="New here? Sign up and begin your journey"
         />
-        <form className="flex flex-col" onSubmit={onSubmit}>
+        <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Username" />
-            <InputFocusBlur placeholder="Enter your username" id="username" />
+            <InputFocusBlur
+              placeholder="Enter your username"
+              id="username"
+              {...register("username")}
+            />
+            {errors.username && (
+              <p className="text-red-500">{errors.username.message}</p>
+            )}
           </div>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Email" />
@@ -57,7 +68,11 @@ const SignUp = () => {
               placeholder="Enter your mail address"
               id="email"
               type="email"
+              {...register("email")}
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
           </div>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Password" />
@@ -65,7 +80,11 @@ const SignUp = () => {
               placeholder="Enter your password"
               id="password"
               type="password"
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
           </div>
           <div className="flex flex-col w-full gap-2 mb-3">
             <InputLabel label="Confirm Password" />
@@ -73,9 +92,16 @@ const SignUp = () => {
               placeholder="Confirm your password"
               id="confirm-password"
               type="password"
+              {...register("confirmPassword")}
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500">{errors.confirmPassword.message}</p>
+            )}
           </div>
-          <AgreementCheckbox />
+          <AgreementCheckbox {...register("agreement")} />
+          {errors.agreement && (
+            <p className="text-red-500">{errors.agreement.message}</p>
+          )}
           <AuthMainButton buttonTitle="Sign Up" />
         </form>
         <AuthSeparator />

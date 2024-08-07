@@ -7,37 +7,43 @@ import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
 import {signIn} from "next-auth/react";
 import Link from "next/link";
-import React, {FormEvent} from "react";
+import React from "react";
 import {useRouter, useSearchParams} from "next/navigation";
-import {useState} from "react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {SignInFormData, signInSchema} from "@/validation/signInValidation";
 
 const SignIn = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: {errors},
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+  });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const router = useRouter();
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+
+  const onSubmit = async (data: SignInFormData) => {
     try {
       const result = await signIn("credentials", {
         redirect: false,
-        email,
-        password,
+        email: data.email,
+        password: data.password,
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError("root", {message: "Invalid email or password"});
         console.log(result?.error);
       } else {
         router.push("/");
       }
     } catch (error) {
       console.error("Sign in error:", error);
-      setError("An error occurred during sign in");
+      setError("root", {message: "An error occurred during sign in"});
     }
   };
   return (
@@ -47,15 +53,17 @@ const SignIn = () => {
           title=" Welcome back!"
           subtitle=" We are happy to see you again! Sign in to your account to continue"
         />
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Email" />
             <InputFocusBlur
               placeholder="Enter your mail address"
               id="email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email")}
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
           </div>
           <div className="flex flex-col w-full gap-2 mb-2">
             <InputLabel label="Password" />
@@ -63,10 +71,13 @@ const SignIn = () => {
               placeholder="Enter your password"
               id="password"
               type="password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
           </div>
+          {errors.root && <p className="text-red-500">{errors.root.message}</p>}
           <Link href={"/"} className="text-white text-xs text-right mb-6">
             Forgot your password?
           </Link>
