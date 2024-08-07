@@ -1,6 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import type {NextAuthOptions} from "next-auth";
+import type {NextAuthOptions, User} from "next-auth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import {db} from "./db";
 import {compare} from "bcrypt";
@@ -28,23 +28,27 @@ export const authOptions: NextAuthOptions = {
         }
         // take user from database
         const existingUser = await db.user.findUnique({
-          where: {email: credentials?.email},
+          where: {email: credentials.email},
         });
         if (!existingUser) {
           return null;
         }
         const passwordMatch = await compare(
           credentials.password,
-          existingUser.password,
+          existingUser.password as string,
         );
         if (!passwordMatch) {
           return null;
         }
         return {
-          id: existingUser.id as string,
-          username: existingUser.username,
+          id: existingUser.id,
+          name: existingUser.name,
           email: existingUser.email,
-        };
+          image: existingUser.image,
+          role: existingUser.role,
+          username: existingUser.username,
+          provider: "credentials",
+        } as User;
       },
     }),
   ],
