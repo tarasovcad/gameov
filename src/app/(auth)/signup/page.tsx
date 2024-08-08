@@ -12,7 +12,10 @@ import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type SignUpFormData, signUpSchema} from "@/validation/signUpValidation";
-import AuthSignInFooter from "@/components/auth/AuthSignInFooter";
+import AuthSignUpFooter from "@/components/auth/AuthSignUpFooter";
+import Logo from "@/components/logo/Logo";
+import {InputFocusBlure} from "@/components/ui/InputFoculesBlure";
+import {StarsBackground} from "@/components/ui/stars-background";
 
 const SignUp = () => {
   const router = useRouter();
@@ -40,8 +43,9 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="p-[100px] flex flex-col items-center">
-      <div className="flex flex-col gap-5 max-w-[448px] w-full">
+    <div className="p-[30px] flex flex-col items-center h-[100svh]">
+      <Logo />
+      <div className="flex flex-col gap-5 max-w-[448px] w-full mt-[70px] z-50">
         <AuthHeading
           title="Create an account"
           subtitle="New here? Sign up and begin your journey"
@@ -60,11 +64,9 @@ const SignUp = () => {
           </div>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Email" />
-            <InputFocusBlur
+            <InputFocusBlure
               placeholder="Enter your mail address"
-              id="email"
-              type="email"
-              {...register("email")}
+              register={register}
             />
             {errors.email && (
               <p className="text-red-500">{errors.email.message}</p>
@@ -112,7 +114,8 @@ const SignUp = () => {
           </Link>
         </h3>
       </div>
-      <AuthSignInFooter />
+      <AuthSignUpFooter />
+      <StarsBackground />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {SignInFormData, signInSchema} from "@/validation/signInValidation";
 import Logo from "@/components/logo/Logo";
+import {StarsBackground} from "@/components/ui/stars-background";
 
 const SignIn = () => {
   const searchParams = useSearchParams();
@@ -48,9 +49,9 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="p-[30px] flex flex-col items-center">
+    <div className="p-[30px] flex flex-col items-center h-[100svh]">
       <Logo />
-      <div className="flex flex-col gap-5 max-w-[448px] w-full mt-[70px]">
+      <div className="flex flex-col gap-5 max-w-[448px] w-full mt-[70px] z-50">
         <AuthHeading
           title=" Welcome back!"
           subtitle=" We are happy to see you again! Sign in to your account to continue"
@@ -101,6 +102,7 @@ const SignIn = () => {
           </Link>
         </h3>
       </div>
+      <StarsBackground />
     </div>
   );
 };

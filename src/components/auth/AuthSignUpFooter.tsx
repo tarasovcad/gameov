@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const AuthSignInFooter = () => {
+const AuthSignUpFooter = () => {
   return (
     <div className="text-white/50 flex mt-[50px] text-sm gap-16">
       <span>© 2024 gameov, Inc.</span>
@@ -22,4 +22,4 @@ const AuthSignInFooter = () => {
   );
 };
 
-export default AuthSignInFooter;
+export default AuthSignUpFooter;
