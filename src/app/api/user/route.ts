@@ -1,6 +1,5 @@
 import {NextResponse} from "next/server";
 import {db} from "@/lib/db";
-import {hash} from "bcrypt";
 import {Resend} from "resend";
 import crypto from "crypto";
 
@@ -38,6 +37,19 @@ export async function POST(req: Request) {
       );
     }
 
+    const tempUser = await db.tempUser.findUnique({
+      where: {email},
+    });
+    if (tempUser) {
+      // cannot create the tempUser if its already exists
+      return NextResponse.json(
+        {user: null, message: "TempUser with this email already exists"},
+        {
+          status: 409,
+        },
+      );
+    }
+
     await db.tempUser.create({
       data: {
         email,
@@ -57,6 +69,7 @@ export async function POST(req: Request) {
       },
     });
     const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/callback/email?token=${token}`;
+
     await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,

@@ -27,7 +27,7 @@ export async function GET(req: Request) {
 
     const {identifier: email} = tokenRecord;
 
-    // Retrieve user data from TempUsercure location
+    // Receive user data from TempUsercure location
     const tempUserData = await db.tempUser.findUnique({
       where: {
         email: email ?? undefined,
@@ -41,7 +41,7 @@ export async function GET(req: Request) {
     const hashedPassword = await hash(tempUserData.password, 10);
 
     // Create new user
-    const newUser = await db.user.create({
+    await db.user.create({
       data: {
         username: tempUserData.username,
         email: tempUserData.email,

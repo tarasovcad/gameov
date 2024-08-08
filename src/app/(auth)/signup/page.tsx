@@ -37,7 +37,9 @@ const SignUp = () => {
       },
       body: JSON.stringify(apiData),
     });
+    console.log(apiData);
     if (response.ok) {
+      localStorage.setItem("userEmail", apiData.email);
       router.push("/verify-request");
     } else {
       const errorData = await response.json();

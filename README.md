@@ -11,3 +11,11 @@ TODO:
 4) fix eslint and husky
 5) change navbar and sidebar to server components
 6) add eye to input password, add required at top of label
+
+7) what if no email at localstorage   useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+    console.log(storedEmail);
+  }, []);
