@@ -15,7 +15,7 @@ type AgreementCheckboxProps = {
 };
 const AgreementCheckbox: React.FC<AgreementCheckboxProps> = ({register}) => {
   return (
-    <div className="flex items-center space-x-2 mb-6">
+    <div className="flex items-center space-x-2 mb-2">
       <input
         type="checkbox"
         id="agreement"

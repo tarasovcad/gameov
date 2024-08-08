@@ -14,6 +14,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {SignInFormData, signInSchema} from "@/validation/signInValidation";
 import Logo from "@/components/logo/Logo";
 import {StarsBackground} from "@/components/ui/stars-background";
+import InputSpotlight from "@/components/ui/InputSpotlight";
 
 const SignIn = () => {
   const searchParams = useSearchParams();
@@ -59,10 +60,11 @@ const SignIn = () => {
         <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col w-full gap-2 mb-4">
             <InputLabel label="Email" />
-            <InputFocusBlur
+            <InputSpotlight
               placeholder="Enter your mail address"
               id="email"
-              {...register("email")}
+              type="email"
+              register={register("email")}
             />
             {errors.email && (
               <p className="text-red-500">{errors.email.message}</p>
@@ -70,18 +72,21 @@ const SignIn = () => {
           </div>
           <div className="flex flex-col w-full gap-2 mb-2">
             <InputLabel label="Password" />
-            <InputFocusBlur
+
+            <InputSpotlight
               placeholder="Enter your password"
               id="password"
               type="password"
-              {...register("password")}
+              register={register("password")}
             />
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
           </div>
           {errors.root && <p className="text-red-500">{errors.root.message}</p>}
-          <Link href={"/"} className="text-white text-xs text-right mb-6">
+          <Link
+            href={"/"}
+            className="text-white text-xs text-right mb-6 hover:underline">
             Forgot your password?
           </Link>
           <AuthMainButton buttonTitle="Sign In" />
