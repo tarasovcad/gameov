@@ -1,4 +1,3 @@
-// verification.ts
 import {NextResponse} from "next/server";
 import {db} from "@/lib/db";
 import {hash} from "bcrypt";
@@ -58,7 +57,7 @@ export async function GET(req: Request) {
     });
     await db.verificationToken.delete({where: {token}});
 
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/signin", req.url));
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Error in POST /api/user:", error);

@@ -2,11 +2,11 @@
 
 import {usePathname} from "next/navigation";
 import Navbar from "../navbar/Navbar";
+import {noRoutes} from "@/data/WrapperRoutes";
 
 export default function NavbarWrapper() {
   const pathname = usePathname();
-  const noNavbarRoutes = ["/signin", "/signup", "/dashboard"];
-  const shouldShowNavbar = !noNavbarRoutes.includes(pathname);
+  const shouldShowNavbar = !noRoutes.includes(pathname);
 
   return shouldShowNavbar ? <Navbar /> : null;
 }
