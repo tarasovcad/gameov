@@ -2,7 +2,6 @@
 import AuthHeading from "@/components/auth/AuthHeading";
 import AuthMainButton from "@/components/auth/AuthMainButton";
 import AuthSeparator from "@/components/auth/AuthSeparator";
-import {InputFocusBlur} from "@/components/ui/InputFoculesBlur";
 import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
 import {signIn} from "next-auth/react";
@@ -15,6 +14,7 @@ import {SignInFormData, signInSchema} from "@/validation/signInValidation";
 import Logo from "@/components/logo/Logo";
 import {StarsBackground} from "@/components/ui/stars-background";
 import InputSpotlight from "@/components/ui/InputSpotlight";
+import UnderlineLink from "@/components/ui/UnderlineLink";
 
 const SignIn = () => {
   const searchParams = useSearchParams();
@@ -84,11 +84,11 @@ const SignIn = () => {
             )}
           </div>
           {errors.root && <p className="text-red-500">{errors.root.message}</p>}
-          <Link
-            href={"/"}
-            className="text-white text-xs text-right mb-6 hover:underline">
-            Forgot your password?
-          </Link>
+          <UnderlineLink
+            className="text-white text-xs text-right mb-6 w-fit self-end"
+            link={"/"}
+            title="Forgot your password?"
+          />
           <AuthMainButton buttonTitle="Sign In" />
         </form>
         <AuthSeparator />
@@ -102,9 +102,7 @@ const SignIn = () => {
         </div>
         <h3 className="text-white/50 text-sm font-medium text-center">
           Don&apos;t have an account?{" "}
-          <Link href={"/signup"} className="underline">
-            Sign up
-          </Link>
+          <UnderlineLink link={"/signup"} title="Sign up" />
         </h3>
       </div>
       <StarsBackground />

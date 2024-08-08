@@ -16,6 +16,7 @@ import AuthSignUpFooter from "@/components/auth/AuthSignUpFooter";
 import Logo from "@/components/logo/Logo";
 import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
+import {StarsBackground} from "@/components/ui/stars-background";
 
 const SignUp = () => {
   const router = useRouter();
@@ -37,15 +38,16 @@ const SignUp = () => {
       body: JSON.stringify(apiData),
     });
     if (response.ok) {
-      router.push("/signin");
+      router.push("/verify-request");
     } else {
-      console.error("Registration failed");
+      const errorData = await response.json();
+      console.error("Registration failed:", errorData.message);
     }
   };
   return (
-    <div className="p-[30px] flex flex-col items-center">
+    <div className="p-[30px] flex flex-col items-center h-[100svh]">
       <Logo />
-      <div className="flex flex-col gap-5 max-w-[448px] w-full mt-[70px]">
+      <div className="flex flex-col gap-5 max-w-[448px] w-full mt-[70px] z-50">
         <AuthHeading
           title="Create an account"
           subtitle="New here? Sign up and begin your journey"
@@ -120,6 +122,7 @@ const SignUp = () => {
         </h3>
       </div>
       <AuthSignUpFooter />
+      <StarsBackground />
     </div>
   );
 };
