@@ -7,7 +7,7 @@ import AuthSeparator from "@/components/auth/AuthSeparator";
 import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
 import Link from "next/link";
-import React from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -17,6 +17,7 @@ import Logo from "@/components/logo/Logo";
 import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
 import {StarsBackground} from "@/components/ui/stars-background";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const router = useRouter();
@@ -27,23 +28,35 @@ const SignUp = () => {
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data: SignUpFormData) => {
+    setIsLoading(true);
     const {confirmPassword, ...apiData} = data;
-    const response = await fetch("/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiData),
-    });
-    console.log(apiData);
-    if (response.ok) {
-      localStorage.setItem("userEmail", apiData.email);
-      router.push("/verify-request");
-    } else {
-      const errorData = await response.json();
-      console.error("Registration failed:", errorData.message);
+    try {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(apiData),
+      });
+      if (response.ok) {
+        toast.success(
+          "Account created successfully. Please verify your email.",
+        );
+        localStorage.setItem("userEmail", apiData.email);
+        router.push("/verify-request");
+      } else {
+        const errorData = await response.json();
+        console.error("Registration failed:", errorData.message);
+        toast.error(errorData.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("An error occurred during registration");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -111,7 +124,11 @@ const SignUp = () => {
             <p className="text-red-500 text-sm">{errors.agreement.message}</p>
           )}
 
-          <AuthMainButton buttonTitle="Sign Up" className="mt-6" />
+          <AuthMainButton
+            buttonTitle="Sign Up"
+            className="mt-6"
+            isLoading={isLoading}
+          />
         </form>
         <AuthSeparator />
         <div className="flex flex-col gap-4">

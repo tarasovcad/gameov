@@ -55,9 +55,18 @@ export async function GET(req: Request) {
         email: email ?? undefined,
       },
     });
+
     await db.verificationToken.delete({where: {token}});
 
     return NextResponse.redirect(new URL("/signin", req.url));
+    // return NextResponse.json(
+    //   {
+    //     message: "User created successfully",
+    //     redirect: true, // Add a flag for redirect
+    //     redirectUrl: "/signin",
+    //   },
+    //   {status: 200},
+    // );
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Error in POST /api/user:", error);
