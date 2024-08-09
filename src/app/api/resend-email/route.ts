@@ -6,6 +6,8 @@ import {Resend} from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const MAXIMUM_RESEND_ATTEMPTS = 5;
+
 export async function POST(req: Request) {
   if (req.method !== "POST") {
     return NextResponse.json({message: "Method not al123123lowed"});
@@ -19,6 +21,18 @@ export async function POST(req: Request) {
     if (!tempUser) {
       return NextResponse.json({message: "User not found"}, {status: 400});
     }
+
+    if (tempUser.resendCount >= MAXIMUM_RESEND_ATTEMPTS) {
+      return NextResponse.json(
+        {message: "Maximum resend attempts reached"},
+        {status: 429},
+      );
+    }
+
+    await db.tempUser.update({
+      where: {email},
+      data: {resendCount: tempUser.resendCount + 1},
+    });
 
     // Check if a token already exists for the email
     let tokenRecord = await db.verificationToken.findFirst({
