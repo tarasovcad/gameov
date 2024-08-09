@@ -49,12 +49,15 @@ export async function POST(req: Request) {
         },
       );
     }
+    // 10 - for 10 minutes
+    const expirationTime = new Date(Date.now() + 30 * 1000);
 
     await db.tempUser.create({
       data: {
         email,
         username,
         password,
+        expires: new Date(Date.now() + 30 * 1000),
       },
     });
     // Generate verification token

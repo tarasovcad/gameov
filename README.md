@@ -19,3 +19,5 @@ TODO:
     }
     console.log(storedEmail);
   }, []);
+
+  8) fix cleanup function - so it will delete all expired models
