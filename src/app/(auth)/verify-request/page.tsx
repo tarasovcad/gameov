@@ -3,11 +3,10 @@ import {Mail, MoveLeft} from "lucide-react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
+import toast from "react-hot-toast";
 
 export default function VerifyRequest() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
   useEffect(() => {
     const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
@@ -25,13 +24,13 @@ export default function VerifyRequest() {
         body: JSON.stringify({email}),
       });
       if (response.ok) {
-        setMessage("Email sent successfully. Please check your inbox.");
+        toast.success("Email sent successfully. Please check your inbox.");
         return;
+      } else {
+        toast.error("Failed to resend email. Maximum resend attempts reached.");
       }
-      const data = await response.json();
-      setMessage(data.message);
     } catch (error) {
-      setMessage("Failed to resend email. Please try again later.");
+      toast.error("Failed to resend email. Please try again later.");
     }
   };
   return (
@@ -48,7 +47,6 @@ export default function VerifyRequest() {
             click here to send it again.
           </button>
         </p>
-        {message && <p className="text-red-500">{message}</p>}
         <Link href="/signin">
           <div className="flex gap-2 mt-3">
             <MoveLeft />

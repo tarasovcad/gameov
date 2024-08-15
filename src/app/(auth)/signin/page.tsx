@@ -6,7 +6,7 @@ import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
 import {signIn} from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import React, {useEffect} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -15,7 +15,6 @@ import Logo from "@/components/logo/Logo";
 import {StarsBackground} from "@/components/ui/stars-background";
 import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
-
 const SignIn = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -29,7 +28,6 @@ const SignIn = () => {
   });
 
   const router = useRouter();
-
   const onSubmit = async (data: SignInFormData) => {
     try {
       const result = await signIn("credentials", {
@@ -49,6 +47,7 @@ const SignIn = () => {
       setError("root", {message: "An error occurred during sign in"});
     }
   };
+
   return (
     <div className="p-[30px] flex flex-col items-center h-[100svh]">
       <Logo />

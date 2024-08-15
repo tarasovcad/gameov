@@ -1,6 +1,7 @@
 import {NextResponse} from "next/server";
 import {db} from "@/lib/db";
 import {hash} from "bcrypt";
+import {cookies} from "next/headers";
 
 export async function GET(req: Request) {
   try {
@@ -57,8 +58,20 @@ export async function GET(req: Request) {
     });
 
     await db.verificationToken.delete({where: {token}});
-
-    return NextResponse.redirect(new URL("/signin", req.url));
+    const response = NextResponse.redirect(new URL("/signin", req.url));
+    // const response = NextResponse.redirect(new URL("/signin", req.url));
+    // response.headers.set(
+    //   "Set-Cookie",
+    //   `accountCreated=true; Path=/; HttpOnly`
+    // );
+    cookies().set({
+      name: "accountCreated",
+      value: "true",
+      httpOnly: true,
+      path: "/",
+    });
+    return response;
+    // return NextResponse.redirect(new URL("/signin?success=account_created", req.url));
     // return NextResponse.json(
     //   {
     //     message: "User created successfully",

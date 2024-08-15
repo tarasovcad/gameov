@@ -1,5 +1,6 @@
 "use client";
-import React, {useRef, useState} from "react";
+import {Eye, EyeOff} from "lucide-react";
+import React, {useCallback, useRef, useState} from "react";
 
 interface InputSpotlightProps {
   placeholder: string;
@@ -20,6 +21,8 @@ const InputSpotlight = ({
   const [isFocused, setIsFocused] = useState(false);
   const [position, setPosition] = useState({x: 0, y: 0});
   const [opacity, setOpacity] = useState(0);
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
     if (!divRef.current || isFocused) return;
@@ -48,7 +51,12 @@ const InputSpotlight = ({
   const handleMouseLeave = () => {
     setOpacity(0);
   };
+  const togglePasswordVisibility = useCallback(() => {
+    setIsPasswordVisible((prev) => !prev);
+  }, []);
 
+  const inputType =
+    type === "password" ? (isPasswordVisible ? "text" : "password") : type;
   return (
     <>
       <div className="relative w-full">
@@ -62,10 +70,19 @@ const InputSpotlight = ({
           placeholder={placeholder}
           id={id}
           name={name}
-          type={type}
+          type={inputType}
           {...register}
           className="h-12 w-full cursor-default rounded-md border border-white/10 bg-[#1A1A1A] p-3.5 text-gray-100 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none  focus:border-[#A0C111] focus:outline-none text-[15px] font-normal"
         />
+        {type === "password" && (
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-white focus:outline-none"
+            aria-label={isPasswordVisible ? "Hide password" : "Show password"}>
+            {isPasswordVisible ? <EyeOff size={23} /> : <Eye size={23} />}
+          </button>
+        )}
         <input
           ref={divRef}
           disabled

@@ -18,6 +18,7 @@ import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
 import {StarsBackground} from "@/components/ui/stars-background";
 import toast from "react-hot-toast";
+import {ShowToast} from "@/components/ui/CustomToast";
 
 const SignUp = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const SignUp = () => {
       });
       if (response.ok) {
         toast.success(
-          "Account created successfully. Please verify your email.",
+          "Temperaly account created successfully. Please verify your email.",
         );
         localStorage.setItem("userEmail", apiData.email);
         router.push("/verify-request");
