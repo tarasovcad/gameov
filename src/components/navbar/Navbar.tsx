@@ -13,7 +13,7 @@ import {userSession} from "@/types/userSession";
 import {useSession} from "next-auth/react";
 const Navbar = () => {
   const {data: session, status} = useSession();
-  console.log(session, "at navbar");
+
   const {name, email, image, role, username}: userSession = session?.user || {};
   return (
     <div className="z-20 w-full h-[65px] ">

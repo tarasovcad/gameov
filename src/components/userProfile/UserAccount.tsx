@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import {AtSign, Mail} from "lucide-react";
+import {AtSign, FileUp, Mail} from "lucide-react";
 import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
 import {userSession} from "@/types/userSession";
@@ -9,6 +9,7 @@ import {roleBadgeConfig} from "@/data/roleBadge";
 import {redirect} from "next/navigation";
 import InputSpotlight from "../ui/InputSpotlight";
 import {InputLabel} from "../ui/InputLabel";
+import {CloudAdd} from "iconsax-react";
 
 const UserAccount = ({data}: {data: Session | null}) => {
   const {name, email, image, role, username}: userSession = data?.user || {};
@@ -87,24 +88,10 @@ const UserAccount = ({data}: {data: Session | null}) => {
               <InputLabel label="About me" className="!text-lg" />
               <textarea
                 placeholder="Write your bio..."
-                className=" w-fullborder-[#3C3C3C]placeholder:text-white/70 rounded-[8px] font-normal  min-h-[100px] border border-white/10 bg-[#1A1A1A] text-white/70 p-3 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none focus:text-gray-100"
+                className="border-2 w-fullborder-[#3C3C3C]placeholder:text-white/70 rounded-[8px] font-normal  min-h-[100px] border-white/10 bg-[#1A1A1A] text-white/70 p-3 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none focus:text-gray-100"
               />
             </div>
-            <div className="flex flex-col gap-[10px] mt-5">
-              <label className="text-white/70 text-lg">Change Avatar</label>
-              <div className="flex gap-8">
-                <Image
-                  src={"/profile/avatar.jpg"}
-                  height={64}
-                  width={64}
-                  className="rounded-full z-10 object-cover"
-                  unoptimized
-                  alt="Profile Image"
-                  style={{height: "64px", width: "64px"}}
-                />
-                <DropZone />
-              </div>
-            </div>
+            <DropZone />
           </form>
 
           <div className="flex mt-5 justify-self-end gap-2 self-end">
@@ -118,5 +105,3 @@ const UserAccount = ({data}: {data: Session | null}) => {
 };
 
 export default UserAccount;
-
-//
