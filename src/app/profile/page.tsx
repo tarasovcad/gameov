@@ -1,25 +1,25 @@
-"use client";
 import UserAccount from "@/components/userProfile/UserAccount";
 import UserProfile from "@/components/userProfile/UserProfile";
 import UserProfileTabs from "@/components/userProfile/UserProfileTabs";
 import UserSecurity from "@/components/userProfile/UserSecurity";
-import {useRouter, useSearchParams} from "next/navigation";
+import {authOptions} from "@/lib/auth";
+import {getServerSession} from "next-auth";
+import {redirect} from "next/navigation";
 
 import React from "react";
 
-const Profile = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const tab = searchParams.get("tab") || "profile";
-  const setTab = (newTab: string) => {
-    router.push(`/profile?tab=${newTab.toLowerCase()}`);
+const Profile = async ({searchParams}: {searchParams: {tab?: string}}) => {
+  const tab = searchParams.tab || "profile";
+  const setTab = async (newTab: string) => {
+    "use server";
+    redirect(`/profile?tab=${newTab.toLowerCase()}`);
   };
-
+  const data = await getServerSession(authOptions);
   return (
     <div className="pt-9 flex flex-col items-center">
       <UserProfileTabs setTabs={setTab} />
       {tab === "profile" && <UserProfile />}
-      {tab === "account" && <UserAccount />}
+      {tab === "account" && <UserAccount data={data} />}
       {tab === "security" && <UserSecurity />}
     </div>
   );

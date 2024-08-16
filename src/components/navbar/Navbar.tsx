@@ -12,11 +12,8 @@ import {authOptions} from "@/lib/auth";
 import {userSession} from "@/types/userSession";
 import {useSession} from "next-auth/react";
 const Navbar = () => {
-  // const session = await getServerSession(authOptions);
-  // console.log(session);
-  // const {name, email, image, role, username}: userSession = session?.user || {};
   const {data: session, status} = useSession();
-  console.log(session);
+  console.log(session, "at navbar");
   const {name, email, image, role, username}: userSession = session?.user || {};
   return (
     <div className="z-20 w-full h-[65px] ">

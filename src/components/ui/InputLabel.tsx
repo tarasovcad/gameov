@@ -1,8 +1,14 @@
 import React from "react";
 
-export const InputLabel = ({label}: {label: string}) => {
+interface InputLabelProps {
+  label: string;
+  className?: string;
+}
+
+export const InputLabel = ({label, ...props}: InputLabelProps) => {
   return (
-    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white">
+    <label
+      className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white ${props.className || ""}`}>
       {label}
     </label>
   );

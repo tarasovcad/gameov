@@ -2,7 +2,8 @@
 import {Eye, EyeOff} from "lucide-react";
 import React, {useCallback, useRef, useState} from "react";
 
-interface InputSpotlightProps {
+interface InputSpotlightProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   name?: string;
   type: string;
@@ -16,6 +17,7 @@ const InputSpotlight = ({
   type,
   id,
   register,
+  ...props
 }: InputSpotlightProps) => {
   const divRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -72,7 +74,8 @@ const InputSpotlight = ({
           name={name}
           type={inputType}
           {...register}
-          className="h-12 w-full cursor-default rounded-md border border-white/10 bg-[#1A1A1A] p-3.5 text-gray-100 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none  focus:border-[#A0C111] focus:outline-none text-[15px] font-normal"
+          {...props}
+          className={`h-12 w-full cursor-default rounded-md border border-white/10 bg-[#1A1A1A] p-3.5 text-gray-100 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none  focus:border-[#A0C111] focus:outline-none text-[15px] font-normal ${props.className || ""}`}
         />
         {type === "password" && (
           <button
