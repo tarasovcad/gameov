@@ -10,6 +10,7 @@ import {redirect} from "next/navigation";
 import InputSpotlight from "../ui/InputSpotlight";
 import {InputLabel} from "../ui/InputLabel";
 import {CloudAdd} from "iconsax-react";
+import UserAccountFormSubmit from "./UserAccountFormSubmit";
 
 const UserAccount = ({data}: {data: Session | null}) => {
   const {name, email, image, role, username}: userSession = data?.user || {};
@@ -57,47 +58,33 @@ const UserAccount = ({data}: {data: Session | null}) => {
               <ProfileButton viewProfile />
             </div>
           </div>
-          <form action="">
-            <div className="flex flex-col gap-[10px] mt-9">
-              <InputLabel label="Email Address" className="!text-lg" />
-              <div className="relative border border-[#3C3C3C] rounded-[8px]">
-                <InputSpotlight
-                  type="text"
-                  placeholder={email || ""}
-                  disabled
-                  id="email"
-                  className="pl-10"
-                />
-                <Mail className="absolute top-1/2 left-[14px] transform -translate-y-1/2 w-[20px] h-[20px] text-white/70" />
-              </div>
-            </div>
-            <div className="flex flex-col gap-[10px] mt-5">
-              <InputLabel label="Username" className="!text-lg" />
-              <div className="relative border border-[#3C3C3C] rounded-[8px]">
-                <InputSpotlight
-                  type="text"
-                  placeholder={username || ""}
-                  disabled
-                  id="email"
-                  className="pl-10"
-                />
-                <AtSign className="absolute top-1/2 left-[14px] transform -translate-y-1/2 w-[20px] h-[20px] text-white/70" />
-              </div>
-            </div>
-            <div className="flex flex-col gap-[10px] mt-5">
-              <InputLabel label="About me" className="!text-lg" />
-              <textarea
-                placeholder="Write your bio..."
-                className="border-2 w-fullborder-[#3C3C3C]placeholder:text-white/70 rounded-[8px] font-normal  min-h-[100px] border-white/10 bg-[#1A1A1A] text-white/70 p-3 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none focus:text-gray-100"
+          <div className="flex flex-col gap-[10px] mt-9">
+            <InputLabel label="Email Address" className="!text-lg" />
+            <div className="relative border border-[#3C3C3C] rounded-[8px]">
+              <InputSpotlight
+                type="text"
+                placeholder={email || ""}
+                disabled
+                id="email"
+                className="pl-10"
               />
+              <Mail className="absolute top-1/2 left-[14px] transform -translate-y-1/2 w-[20px] h-[20px] text-white/70" />
             </div>
-            <DropZone />
-          </form>
-
-          <div className="flex mt-5 justify-self-end gap-2 self-end">
-            <ProfileButton cancel />
-            <ProfileButton save />
           </div>
+          <div className="flex flex-col gap-[10px] mt-5">
+            <InputLabel label="Username" className="!text-lg" />
+            <div className="relative border border-[#3C3C3C] rounded-[8px]">
+              <InputSpotlight
+                type="text"
+                placeholder={username || ""}
+                disabled
+                id="email"
+                className="pl-10"
+              />
+              <AtSign className="absolute top-1/2 left-[14px] transform -translate-y-1/2 w-[20px] h-[20px] text-white/70" />
+            </div>
+          </div>
+          <UserAccountFormSubmit />
         </div>
       </div>
     </div>

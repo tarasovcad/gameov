@@ -1,4 +1,3 @@
-"use client";
 import {
   ALLOWED_FILE_EXTENSIONS,
   ALLOWED_FILE_TYPES,
@@ -8,16 +7,27 @@ import {
 import {formatFileSize} from "@/functions/formatFileSize";
 import {CloudAdd, TickCircle} from "iconsax-react";
 import {CircleCheck, FileUp, Trash2, File, Loader2} from "lucide-react";
-import React, {useCallback, useRef, useState} from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 
-const DropZone = () => {
+const DropZone = ({
+  setFile,
+  file,
+}: {
+  setFile: Dispatch<SetStateAction<File | null>>;
+  file: File | null;
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [file, setFile] = useState<File | null>(null);
 
   const handleDrag = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -80,7 +90,6 @@ const DropZone = () => {
       );
       return;
     }
-
     setFile(selectedFile);
     setIsLoading(true);
 
