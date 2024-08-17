@@ -8,7 +8,7 @@ import Logo from "../logo/Logo";
 
 const Sidebar = () => {
   return (
-    <aside className="w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 h-svh text-white/50 float-left sticky">
+    <aside className="w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 h-svh text-[#969696] float-left sticky">
       <div className="mx-8 max-md:mx-3">
         <Logo />
         <div className="w-12 h-12 bg-[#262626] dark:bg-white rounded-full flex items-center justify-center p-1 md:hidden">

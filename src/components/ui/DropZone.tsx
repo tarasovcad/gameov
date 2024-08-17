@@ -1,12 +1,23 @@
 "use client";
-import {CloudAdd} from "iconsax-react";
-import {CircleCheck, FileUp, Trash2, File} from "lucide-react";
+import {
+  ALLOWED_FILE_EXTENSIONS,
+  ALLOWED_FILE_TYPES,
+  MAX_FILE_SIZE,
+  MAX_NAME_LENGTH,
+} from "@/data/DropZoneLimits";
+import {formatFileSize} from "@/functions/formatFileSize";
+import {CloudAdd, TickCircle} from "iconsax-react";
+import {CircleCheck, FileUp, Trash2, File, Loader2} from "lucide-react";
 import React, {useCallback, useRef, useState} from "react";
+import toast from "react-hot-toast";
 
 const DropZone = () => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [file, setFile] = useState<File | null>(null);
 
   const handleDrag = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -43,8 +54,39 @@ const DropZone = () => {
   }, []);
 
   const handleFiles = (files: FileList) => {
-    console.log(files);
-    //  TODO ADD LOGIC HERE
+    const selectedFile = files[0];
+    console.log(selectedFile);
+    const fileType = selectedFile.type;
+    const fileExtension =
+      "." + selectedFile.name.split(".").pop()?.toLowerCase();
+
+    const numberOfSymbols = selectedFile.name.split(".")[0].length;
+
+    if (
+      !ALLOWED_FILE_TYPES.includes(fileType) &&
+      !ALLOWED_FILE_EXTENSIONS.includes(fileExtension)
+    ) {
+      toast.error("You cannot upload this file. File type is not supported");
+      return;
+    }
+
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      toast.error("You cannot upload this file. File size exceeds 5MB limit");
+      return;
+    }
+    if (numberOfSymbols > MAX_NAME_LENGTH) {
+      toast.error(
+        "You cannot upload this file. File name exceeds 30 characters",
+      );
+      return;
+    }
+
+    setFile(selectedFile);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
 
   const handleBrowseFiles = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,11 +101,14 @@ const DropZone = () => {
     }
   };
 
+  const handleDeleteFile = () => {
+    setFile(null);
+  };
+
   return (
-    // max-w-[525px] w-full
     <div className="flex flex-col gap-[10px] mt-5 ">
       <div className="flex gap-2 mb-3">
-        <div className="w-[50px] h-[50px] flex justify-center items-center rounded-full border ">
+        <div className="w-[50px] h-[50px] flex justify-center items-center rounded-full border border-white/50">
           <CloudAdd size="25" color="#fff" />
         </div>
         <div>
@@ -105,28 +150,47 @@ const DropZone = () => {
           </button>
         </div>
       </div>
-      <div className="p-8 bg-[#1A1A1A] rounded-[32px] text-white">
-        <div className="flex justify-between items-start">
+      {file && (
+        <div className="p-8 bg-[#131313] rounded-[20px] text-white mt-3 relative">
           <div className="flex items-center gap-2">
-            <div>
-              <File size={40} />
+            <div className="relative">
+              <File size={35} />
             </div>
             <div>
-              <h2>Google-certificate.pdf</h2>
-              <div className="flex">
-                <p>94 KB of 94 KB •</p>
-                <div className="flex items-center">
-                  <CircleCheck fill="#3EBF8F" className="border-0" size={18} />
-                  <span>Completed</span>
+              <h2 className="font-medium">{file.name}</h2>
+              <div className="flex gap-3">
+                <p className="text-[#A9ACB4]">
+                  {formatFileSize(file.size)} out of 5 MB
+                </p>
+                <span className="text-[#A9ACB4]">•</span>
+                <div className="flex items-center gap-2">
+                  {isLoading ? (
+                    <>
+                      <Loader2
+                        className="animate-spin"
+                        size={18}
+                        color="#375EF9"
+                      />
+                      <span>Uploading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <TickCircle size="18" color="#3EBF8F" variant="Bold" />
+                      <span>Completed</span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-          <button className="cursor-pointer">
-            <Trash2 size={15} />
+
+          <button
+            className="cursor-pointer transition-colors duration-300 ease-in-out p-2 rounded-full hover:bg-[#1A1A1A] absolute top-6 right-6"
+            onClick={handleDeleteFile}>
+            <Trash2 size={20} />
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

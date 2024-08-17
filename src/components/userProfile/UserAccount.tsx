@@ -20,7 +20,7 @@ const UserAccount = ({data}: {data: Session | null}) => {
   const [bg, border, text] =
     roleBadgeConfig[(role as keyof typeof roleBadgeConfig) ?? "User"];
   return (
-    <div className="w-full bg-[#262626] rounded-2xl">
+    <div className="w-full  rounded-2xl">
       <div className="p-[20px]">
         <div className="relative h-[228px] w-full rounded-2xl">
           <div className="absolute rounded-2xl inset-0  h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
@@ -52,7 +52,7 @@ const UserAccount = ({data}: {data: Session | null}) => {
               </div>
               <p className="text-white/50 font-normal text-lg">{email}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-end max-[930px]:flex-col-reverse">
               <ProfileButton share />
               <ProfileButton viewProfile />
             </div>

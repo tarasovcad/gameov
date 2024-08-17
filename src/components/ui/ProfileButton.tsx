@@ -17,7 +17,7 @@ const ProfileButton = ({
   if (share) {
     return (
       <div>
-        <button className="bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0]">
+        <button className="bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0] text-black">
           Share
           <Share2 className="w-[20px] h-[20px]" />
         </button>
@@ -47,7 +47,7 @@ const ProfileButton = ({
   if (cancel) {
     return (
       <div>
-        <button className="bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0]">
+        <button className="bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0] text-black">
           Cancel
           <X className="w-[20px] h-[20px]" />
         </button>
