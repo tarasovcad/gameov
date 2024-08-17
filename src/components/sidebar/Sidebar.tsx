@@ -8,10 +8,10 @@ import Logo from "../logo/Logo";
 
 const Sidebar = () => {
   return (
-    <aside className=" w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 bg-[#1E1E1E] h-svh text-white/50 float-left sticky">
+    <aside className="w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 h-svh text-white/50 float-left sticky">
       <div className="mx-8 max-md:mx-3">
         <Logo />
-        <div className="w-12 h-12 bg-[#262626] rounded-full flex items-center justify-center p-1 md:hidden">
+        <div className="w-12 h-12 bg-[#262626] dark:bg-white rounded-full flex items-center justify-center p-1 md:hidden">
           <Image src="/mdLogo.svg" alt="avatar" width={50} height={50} />
         </div>
         <div className="stroke mt-5"></div>

@@ -1,6 +1,5 @@
-body {
-  background-color: #1e1e1e;
-}
+/* class="bg-root relative font-sans text-slate-12 antialiased selection:bg-[#00cc9937] selection:text-[#007763fd] dark:selection:bg-[#00fff61d] dark:selection:text-[#67ffded2]" */
+
 input {
   font-family: inherit;
   font-size: inherit;
@@ -11,7 +10,6 @@ input {
 .bodywrapper {
   max-width: 1440px;
   margin: 0 auto;
-  background-color: #1e1e1e;
   font-weight: 500;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
