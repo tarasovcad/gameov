@@ -6,6 +6,7 @@ import ProfileButton from "../ui/ProfileButton";
 import toast from "react-hot-toast";
 import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
 import {updateUserImage} from "@/app/actions/updateUserImage";
+import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
 
 export default function UserAccountFormSubmit() {
   const [inputValue, setInputValue] = useState("");
@@ -19,26 +20,23 @@ export default function UserAccountFormSubmit() {
     }
   }
 
-  function onSaveButton() {
+  async function onSaveButton() {
     if (!file) return;
     try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        if (typeof reader.result === "string") {
-          const base64Data = reader?.result?.split(",")[1];
-          const s3Url = await uploadFileToS3(file.name, file.type, base64Data);
-          console.log("S3 URL:", s3Url);
-          try {
-            const updatedUser = await updateUserImage("AddEmailHere", data);
-            console.log("User image updated:", updatedUser);
-          } catch (error) {
-            console.error("Failed to update image:", error);
-          }
-        } else {
-          toast.error("Something went wrong. Please try again.");
+      const result = await readFileAsDataURL(file);
+      if (typeof result === "string") {
+        const base64Data = result?.split(",")[1];
+        const s3Url = await uploadFileToS3(file.name, file.type, base64Data);
+
+        try {
+          await updateUserImage("tarasovcad@gmail.com", s3Url);
+          toast.success("User image updated:");
+        } catch (error) {
+          console.error("Failed to update image:", error);
         }
-      };
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     } catch (err) {
       console.error("Error in onSaveButton:", err);
       toast.error("Something went wrong. Please try again.");

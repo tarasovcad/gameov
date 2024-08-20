@@ -2,7 +2,7 @@ export default async function uploadFileToS3(
   fileName: string,
   fileType: string,
   fileData: string,
-): Promise<void> {
+) {
   try {
     const response = await fetch("/api/upload", {
       method: "POST",

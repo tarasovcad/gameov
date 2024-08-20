@@ -4,7 +4,7 @@ import {PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function updateUserImage(userEmail, imageUrl) {
+export async function updateUserImage(userEmail: string, imageUrl: string) {
   try {
     const updatedUser = await prisma.user.update({
       where: {email: userEmail},
