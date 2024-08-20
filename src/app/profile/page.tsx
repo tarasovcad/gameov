@@ -15,6 +15,7 @@ const Profile = async ({searchParams}: {searchParams: {tab?: string}}) => {
     redirect(`/profile?tab=${newTab.toLowerCase()}`);
   };
   const data = await getServerSession(authOptions);
+
   return (
     <div className="pt-9 flex flex-col items-center">
       <UserProfileTabs setTabs={setTab} />

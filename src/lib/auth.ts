@@ -113,9 +113,19 @@ export const authOptions: NextAuthOptions = {
 
     async session({session, token}) {
       if (session?.user) {
-        session.user.role = token.role;
-        session.user.username = token.username;
-        session.user.provider = token.provider;
+        const user = await db.user.findUnique({
+          where: {email: session.user.email || undefined},
+        });
+        if (user) {
+          session.user = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            role: user.role,
+            username: user.username,
+          };
+        }
       }
       return session;
     },

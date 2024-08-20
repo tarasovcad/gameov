@@ -17,6 +17,7 @@ const UserAccount = ({data}: {data: Session | null}) => {
   if (!data) {
     redirect("/signin");
   }
+  console.log(data, "data");
 
   const [bg, border, text] =
     roleBadgeConfig[(role as keyof typeof roleBadgeConfig) ?? "User"];
@@ -84,7 +85,7 @@ const UserAccount = ({data}: {data: Session | null}) => {
               <AtSign className="absolute top-1/2 left-[14px] transform -translate-y-1/2 w-[20px] h-[20px] text-white/70" />
             </div>
           </div>
-          <UserAccountFormSubmit />
+          <UserAccountFormSubmit email={email} />
         </div>
       </div>
     </div>
