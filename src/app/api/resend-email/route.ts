@@ -10,7 +10,7 @@ const MAXIMUM_RESEND_ATTEMPTS = 5;
 
 export async function POST(req: Request) {
   if (req.method !== "POST") {
-    return NextResponse.json({message: "Method not al123123lowed"});
+    return NextResponse.json({message: "Method not allowed"});
   }
   try {
     const {email} = await req.json();

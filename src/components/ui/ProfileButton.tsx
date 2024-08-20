@@ -7,6 +7,7 @@ interface ProfileButtonProps {
   cancel?: boolean;
   save?: boolean;
   clearData?: () => void;
+  onSaveButton?: () => void;
 }
 
 const ProfileButton = ({
@@ -15,6 +16,7 @@ const ProfileButton = ({
   cancel,
   save,
   clearData,
+  onSaveButton,
   ...props
 }: ProfileButtonProps) => {
   if (share) {
@@ -40,7 +42,9 @@ const ProfileButton = ({
   if (save) {
     return (
       <div>
-        <button className="bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A]">
+        <button
+          className="bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A]"
+          onClick={onSaveButton}>
           Save
           <Check className="w-[20px] h-[20px]" />
         </button>

@@ -65,7 +65,6 @@ const DropZone = ({
 
   const handleFiles = (files: FileList) => {
     const selectedFile = files[0];
-    console.log(selectedFile);
     const fileType = selectedFile.type;
     const fileExtension =
       "." + selectedFile.name.split(".").pop()?.toLowerCase();
@@ -149,7 +148,7 @@ const DropZone = ({
               Choose a file or drag & drop it here
             </h3>
             <p className="text-white/50 text-sm ">
-              JPEG, PNG, SVG, and HEIF formats, up to 50MB
+              JPEG, PNG, SVG, and HEIF formats, up to 5MB
             </p>
           </div>
           <button
