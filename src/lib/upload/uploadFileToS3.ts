@@ -1,8 +1,4 @@
-import {FileUploadProps} from "@/types/profileProps";
-
-// CHANGE PROMISE VOID TO Promise<FileUploadProps> WHEN RETURN DATA IS NEEDED
-
-export default async function uploadFile(
+export default async function uploadFileToS3(
   fileName: string,
   fileType: string,
   fileData: string,
@@ -28,9 +24,8 @@ export default async function uploadFile(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    console.log("Success response:", response);
     const data = await response.json();
-    console.log(data.link); // This is the S3 URL of the uploaded image
+    return data.link; // This is the S3 URL of the uploaded image
   } catch (error) {
     console.error("Error uploading file:", error);
   }
