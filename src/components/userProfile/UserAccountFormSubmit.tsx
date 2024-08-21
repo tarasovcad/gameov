@@ -21,6 +21,7 @@ export default function UserAccountFormSubmit({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   console.log(isLoading, "isLoading");
+
   function clearData() {
     if (file) {
       setFile(null);
@@ -30,9 +31,18 @@ export default function UserAccountFormSubmit({
     }
   }
 
+  const isFormValid = () => {
+    return inputValue !== "" || file !== null;
+  };
+
+  console.log(isFormValid(), "isFormValid");
   async function onSaveButton() {
-    if (!file) return;
-    setIsLoading(true);
+    console.log(inputValue);
+    if (!file || !inputValue) {
+      toast.error("Nothing to submit");
+      return;
+    }
+
     try {
       const result = await readFileAsDataURL(file);
       if (typeof result === "string") {
@@ -71,8 +81,16 @@ export default function UserAccountFormSubmit({
           </div>
           <DropZone setFile={setFile} file={file} />
           <div className="flex mt-5 justify-self-end gap-2 self-end">
-            <ProfileButton cancel clearData={clearData} />
-            <ProfileButton save onSaveButton={onSaveButton} />
+            <ProfileButton
+              cancel
+              clearData={clearData}
+              disabled={!isFormValid()}
+            />
+            <ProfileButton
+              save
+              onSaveButton={onSaveButton}
+              disabled={!isFormValid()}
+            />
           </div>
         </div>
       </div>

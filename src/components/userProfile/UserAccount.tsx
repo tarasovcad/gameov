@@ -31,15 +31,31 @@ const UserAccount = ({data}: {data: Session | null}) => {
         </div>
         <div className="px-8 flex flex-col">
           <div className="z-10 relative rounded-full -mt-[112px] mb-4 bg-[#333333] p-[2px] flex w-fit ">
-            <Image
-              src={"/profile/avatar.jpg"}
-              height={128}
-              width={128}
-              className="rounded-full z-10 object-cover"
-              unoptimized
-              alt="Profile Image"
-              style={{height: "128px", width: "128px"}}
-            />
+            {image ? (
+              <div className="w-32 h-32 flex">
+                <Image
+                  src={image}
+                  height={128}
+                  width={128}
+                  className="rounded-full z-10 object-cover"
+                  unoptimized
+                  alt="Profile Image"
+                />
+              </div>
+            ) : (
+              <div className="w-32 h-32 flex">
+                {" "}
+                <Image
+                  src={"/profile/avatar.png"}
+                  height={128}
+                  width={128}
+                  className="rounded-full z-10 object-cover"
+                  unoptimized
+                  alt="Profile Image"
+                  style={{height: "128px", width: "128px"}}
+                />
+              </div>
+            )}
           </div>
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2">

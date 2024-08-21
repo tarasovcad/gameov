@@ -14,4 +14,4 @@ export const ALLOWED_FILE_EXTENSIONS = [
   ".heif",
   ".heic",
 ];
-export const MAX_NAME_LENGTH = 30;
+export const MAX_NAME_LENGTH = 50;

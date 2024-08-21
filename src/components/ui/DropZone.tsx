@@ -85,7 +85,7 @@ const DropZone = ({
     }
     if (numberOfSymbols > MAX_NAME_LENGTH) {
       toast.error(
-        "You cannot upload this file. File name exceeds 30 characters",
+        "You cannot upload this file. File name exceeds 50 characters",
       );
       return;
     }

@@ -8,6 +8,7 @@ interface ProfileButtonProps {
   save?: boolean;
   clearData?: () => void;
   onSaveButton?: () => void;
+  disabled?: boolean;
 }
 
 const ProfileButton = ({
@@ -17,6 +18,7 @@ const ProfileButton = ({
   save,
   clearData,
   onSaveButton,
+  disabled,
   ...props
 }: ProfileButtonProps) => {
   if (share) {
@@ -39,12 +41,15 @@ const ProfileButton = ({
       </div>
     );
   }
+
   if (save) {
     return (
       <div>
         <button
-          className="bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A]"
-          onClick={onSaveButton}>
+          className={`transition-colors duration-300 ease-in-out bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A] disabled:bg-[#e4ff6dbe] cursor-not-allowed`}
+          onClick={onSaveButton}
+          // disabled={disabled}
+        >
           Save
           <Check className="w-[20px] h-[20px]" />
         </button>

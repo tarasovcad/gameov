@@ -89,19 +89,23 @@ export default function DropdownMenu({
         onClick={() => setIsOpen((prevState) => !prevState)}>
         {image ? (
           <Image
-            className="cursor-pointer rounded-full"
+            className="cursor-pointer rounded-full object-cover"
             src={image}
-            alt="Arrow Down"
             width={30}
             height={30}
+            alt="Profile Image"
+            unoptimized
+            style={{height: "30px", width: "30px"}}
           />
         ) : (
           <Image
             className="cursor-pointer rounded-full"
-            src="/navbar/avatar.png"
-            alt="Arrow Down"
+            src="/profile/avatar.png"
             width={30}
             height={30}
+            alt="Profile Image"
+            unoptimized
+            style={{height: "30px", width: "30px"}}
           />
         )}
 
@@ -130,17 +134,21 @@ export default function DropdownMenu({
             <Image
               className="cursor-pointer rounded-full"
               src={image}
-              alt="Arrow Down"
+              alt="Profile Image"
               width={35}
               height={35}
+              unoptimized
+              style={{height: "35px", width: "35px"}}
             />
           ) : (
             <Image
               className="cursor-pointer rounded-full"
-              src="/navbar/avatar.png"
-              alt="Arrow Down"
-              width={40}
-              height={40}
+              src="/profile/avatar.png"
+              alt="Profile Image"
+              width={35}
+              height={35}
+              unoptimized
+              style={{height: "35px", width: "35px"}}
             />
           )}
           <div className="flex flex-col max-w-full pr-10">

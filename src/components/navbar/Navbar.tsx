@@ -20,7 +20,6 @@ const Navbar = () => {
       <div className="wrapper py-[12px] flex justify-between items-center">
         <SearchInput />
         <div className="flex gap-5 items-center">
-          {/* <LanguageChoice /> */}
           <DropdownLanguage items={NavbarLanuages} />
           <span className="text-[#2E2E2E]">|</span>
           {session && session?.user?.email ? (

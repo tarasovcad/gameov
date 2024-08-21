@@ -100,6 +100,47 @@ export const authOptions: NextAuthOptions = {
           //   break;
         }
       }
+
+      // Check if the user already has a profile
+      const existingProfile = await db.profile.findUnique({
+        where: {
+          userId: user.id!,
+        },
+      });
+      if (existingProfile) {
+        await db.profile.update({
+          where: {
+            userId: user.id!,
+          },
+          data: {
+            username: user.username,
+            email: user.email!,
+            image: user.image,
+            description: existingProfile.description,
+            role: user.role,
+          },
+        });
+      } else {
+        const newProfile = await db.profile.create({
+          data: {
+            userId: user.id!,
+            username: user.username!,
+            email: user.email!,
+            image: user.image,
+            description: "",
+            role: user.role,
+          },
+        });
+
+        await db.user.update({
+          where: {
+            id: user.id!,
+          },
+          data: {
+            profileId: newProfile.id,
+          },
+        });
+      }
       return true;
     },
     async jwt({token, user, account}) {

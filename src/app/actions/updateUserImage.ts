@@ -16,6 +16,11 @@ export async function updateUserImage(
       where: {email: userEmail},
       data: {image: imageUrl},
     });
+
+    await prisma.profile.update({
+      where: {email: userEmail},
+      data: {image: imageUrl},
+    });
     return updatedUser;
   } catch (error) {
     console.error("Error updating user image:", error);
