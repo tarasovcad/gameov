@@ -46,10 +46,9 @@ const ProfileButton = ({
     return (
       <div>
         <button
-          className={`transition-colors duration-300 ease-in-out bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A] disabled:bg-[#e4ff6dbe] cursor-not-allowed`}
+          className={`transition-colors duration-100 ease-in-out bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A] disabled:bg-[#e4ff6d9f] disabled:cursor-not-allowed`}
           onClick={onSaveButton}
-          // disabled={disabled}
-        >
+          disabled={disabled}>
           Save
           <Check className="w-[20px] h-[20px]" />
         </button>
@@ -60,8 +59,9 @@ const ProfileButton = ({
     return (
       <div>
         <button
-          className="bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0] text-black"
-          onClick={clearData}>
+          className="transition-colors duration-100 ease-in-out bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0] text-black disabled:cursor-not-allowed disabled:bg-white/70"
+          onClick={clearData}
+          disabled={disabled}>
           Cancel
           <X className="w-[20px] h-[20px]" />
         </button>

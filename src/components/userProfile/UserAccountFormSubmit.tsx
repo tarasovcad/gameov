@@ -5,40 +5,43 @@ import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
 import toast from "react-hot-toast";
 import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
-import {updateUserImage} from "@/app/actions/updateUserImage";
 import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
 import Loader from "../ui/Loader";
 import {useRouter} from "next/navigation";
-import {clear} from "console";
+import {updateUserImage} from "@/app/actions/profile/updateUserImage";
 
 export default function UserAccountFormSubmit({
   email,
+  userDescription,
 }: {
   email: string | null | undefined;
+  userDescription: string | null;
 }) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(userDescription || "");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  console.log(isLoading, "isLoading");
 
+  const isInputValueChanged = () => {
+    return inputValue !== userDescription;
+  };
   function clearData() {
     if (file) {
       setFile(null);
     }
-    if (inputValue) {
-      setInputValue("");
+    if (isInputValueChanged()) {
+      setInputValue(userDescription || "");
     }
   }
 
   const isFormValid = () => {
-    return inputValue !== "" || file !== null;
+    return file !== null || isInputValueChanged();
   };
 
-  console.log(isFormValid(), "isFormValid");
+  console.log(isFormValid(), "isFormValid()");
+
   async function onSaveButton() {
-    console.log(inputValue);
-    if (!file || !inputValue) {
+    if (!file || isInputValueChanged()) {
       toast.error("Nothing to submit");
       return;
     }

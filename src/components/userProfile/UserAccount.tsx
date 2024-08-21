@@ -12,13 +12,17 @@ import {InputLabel} from "../ui/InputLabel";
 import {CloudAdd} from "iconsax-react";
 import UserAccountFormSubmit from "./UserAccountFormSubmit";
 
-const UserAccount = ({data}: {data: Session | null}) => {
-  const {name, email, image, role, username}: userSession = data?.user || {};
+const UserAccount = ({
+  data,
+  userDescription,
+}: {
+  data: Session | null;
+  userDescription: string | null;
+}) => {
+  const {email, image, role, username}: userSession = data?.user || {};
   if (!data) {
     redirect("/signin");
   }
-  console.log(data, "data");
-
   const [bg, border, text] =
     roleBadgeConfig[(role as keyof typeof roleBadgeConfig) ?? "User"];
   return (
@@ -44,7 +48,6 @@ const UserAccount = ({data}: {data: Session | null}) => {
               </div>
             ) : (
               <div className="w-32 h-32 flex">
-                {" "}
                 <Image
                   src={"/profile/avatar.png"}
                   height={128}
@@ -101,7 +104,10 @@ const UserAccount = ({data}: {data: Session | null}) => {
               <AtSign className="absolute top-1/2 left-[14px] transform -translate-y-1/2 w-[20px] h-[20px] text-white/70" />
             </div>
           </div>
-          <UserAccountFormSubmit email={email} />
+          <UserAccountFormSubmit
+            email={email}
+            userDescription={userDescription}
+          />
         </div>
       </div>
     </div>
