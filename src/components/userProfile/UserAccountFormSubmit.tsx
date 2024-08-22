@@ -9,6 +9,7 @@ import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
 import Loader from "../ui/Loader";
 import {useRouter} from "next/navigation";
 import {updateUserImage} from "@/app/actions/profile/updateUserImage";
+import {updateUserDescription} from "@/app/actions/profile/updateUserDescription";
 
 export default function UserAccountFormSubmit({
   email,
@@ -33,41 +34,56 @@ export default function UserAccountFormSubmit({
       setInputValue(userDescription || "");
     }
   }
-
+  function clearFile() {
+    if (file) {
+      setFile(null);
+    }
+  }
   const isFormValid = () => {
     return file !== null || isInputValueChanged();
   };
 
-  console.log(isFormValid(), "isFormValid()");
-
   async function onSaveButton() {
-    if (!file || isInputValueChanged()) {
+    if (!isInputValueChanged() && !file) {
       toast.error("Nothing to submit");
       return;
     }
-
-    try {
-      const result = await readFileAsDataURL(file);
-      if (typeof result === "string") {
-        const base64Data = result?.split(",")[1];
-        const s3Url = await uploadFileToS3(file.name, file.type, base64Data);
-        try {
-          await updateUserImage(email, s3Url);
-          toast.success("User image updated");
-        } catch (error) {
-          console.error("Failed to update image:", error);
+    setIsLoading(true);
+    if (isInputValueChanged()) {
+      try {
+        await updateUserDescription(email, inputValue);
+        toast.success("User description updated");
+      } catch (error) {
+        console.error("Failed to update description:", error);
+      }
+    }
+    if (file) {
+      try {
+        const result = await readFileAsDataURL(file);
+        if (typeof result === "string") {
+          const base64Data = result?.split(",")[1];
+          const s3Url = await uploadFileToS3(file.name, file.type, base64Data);
+          try {
+            await updateUserImage(email, s3Url);
+            toast.success("User image updated");
+          } catch (error) {
+            console.error("Failed to update image:", error);
+          }
+        } else {
+          toast.error("Something went wrong. Please try again.");
         }
-      } else {
+      } catch (err) {
+        console.error("Error in onSaveButton:", err);
         toast.error("Something went wrong. Please try again.");
       }
-    } catch (err) {
-      console.error("Error in onSaveButton:", err);
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setIsLoading(false);
-      clearData();
     }
+    setIsLoading(false);
+    setTimeout(() => {
+      router.refresh();
+    }, 1000);
+    clearFile();
   }
+
   return (
     <>
       {isLoading && <Loader />}
