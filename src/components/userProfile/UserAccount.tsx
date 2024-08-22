@@ -11,14 +11,11 @@ import InputSpotlight from "../ui/InputSpotlight";
 import {InputLabel} from "../ui/InputLabel";
 import {CloudAdd} from "iconsax-react";
 import UserAccountFormSubmit from "./UserAccountFormSubmit";
+import {getUserDescription} from "@/app/actions/profile/getUserDescription";
 
-const UserAccount = ({
-  data,
-  userDescription,
-}: {
-  data: Session | null;
-  userDescription: string | null;
-}) => {
+const UserAccount = async ({data}: {data: Session | null}) => {
+  const userDescription = await getUserDescription(data?.user?.email);
+
   const {email, image, role, username}: userSession = data?.user || {};
   if (!data) {
     redirect("/signin");

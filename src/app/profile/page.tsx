@@ -15,17 +15,13 @@ const Profile = async ({searchParams}: {searchParams: {tab?: string}}) => {
     "use server";
     redirect(`/profile?tab=${newTab.toLowerCase()}`);
   };
-
   const data = await getServerSession(authOptions);
-  const userDescription = await getUserDescription(data?.user?.email);
 
   return (
     <div className="pt-9 flex flex-col items-center">
       <UserProfileTabs setTabs={setTab} />
       {tab === "profile" && <UserProfile />}
-      {tab === "account" && (
-        <UserAccount data={data} userDescription={userDescription} />
-      )}
+      {tab === "account" && <UserAccount data={data} />}
       {tab === "security" && <UserSecurity />}
     </div>
   );

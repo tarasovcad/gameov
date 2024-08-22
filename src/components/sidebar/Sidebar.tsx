@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import SidebarItem from "./SidebarItem";
-import SidebarThemeChange from "@/components/checkboxes/SidebarThemeChange";
 import {SidebarGeneralLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
 import Logo from "../logo/Logo";
@@ -55,8 +54,7 @@ const Sidebar = () => {
             })}
           </div>
         </div>
-        <div className="stroke mt-3"></div>
-        <SidebarThemeChange />
+
         <div className="absolute bottom-7 max-md:hidden">
           <p className="text-xs text-[#8e8e8e] font-normal leading-5 pr-5">
             Order an advertisement, About us, Copyright (DMCA), Privacy,

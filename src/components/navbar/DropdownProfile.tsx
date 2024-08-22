@@ -3,10 +3,11 @@
 import Link from "next/link";
 import {useState, useEffect} from "react";
 import {useAnimate, stagger, motion} from "framer-motion";
-import {ChevronDown, ChevronRightIcon} from "lucide-react";
+import {ChevronDown, ChevronRightIcon, Moon, Sun} from "lucide-react";
 import {cn} from "@/lib/utils";
 import Image from "next/image";
 import {signOut} from "next-auth/react";
+import DarkModeCheckbox from "../ui/DarkModeCheckbox";
 
 function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
@@ -191,6 +192,9 @@ export default function DropdownMenu({
             )}
           </li>
         ))}
+        <li>
+          <DarkModeCheckbox />
+        </li>
       </ul>
     </nav>
   );
