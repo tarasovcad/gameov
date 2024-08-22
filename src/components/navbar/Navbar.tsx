@@ -1,7 +1,5 @@
-"use client";
 import React from "react";
 import SearchInput from "./SearchInput";
-import LanguageChoice from "./LanguageChoice";
 import DropdownMenu from "./DropdownProfile";
 import {NavbarProfileItems} from "@/data/NavbarItems";
 import {NavbarLanuages} from "@/data/NavbarItems";
@@ -10,11 +8,18 @@ import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {userSession} from "@/types/userSession";
-import {useSession} from "next-auth/react";
-const Navbar = () => {
-  const {data: session, status} = useSession();
+import {headers} from "next/headers";
+import {noRoutes} from "@/data/WrapperRoutes";
+const Navbar = async () => {
+  const headersList = headers();
+  const header = headersList.get("x-pathname");
+  if (noRoutes.includes(header as string)) {
+    return null;
+  }
 
-  const {name, email, image, role, username}: userSession = session?.user || {};
+  const data = await getServerSession(authOptions);
+  const {email, image, username} = (data?.user as userSession) || {};
+
   return (
     <div className="z-20 w-full h-[65px] ">
       <div className="wrapper py-[12px] flex justify-between items-center">
@@ -22,7 +27,7 @@ const Navbar = () => {
         <div className="flex gap-5 items-center">
           <DropdownLanguage items={NavbarLanuages} />
           <span className="text-[#2E2E2E]">|</span>
-          {session && session?.user?.email ? (
+          {data && email ? (
             <DropdownMenu
               items={NavbarProfileItems}
               username={username}

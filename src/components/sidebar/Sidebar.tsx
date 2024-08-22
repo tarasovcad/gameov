@@ -5,8 +5,15 @@ import SidebarThemeChange from "@/components/checkboxes/SidebarThemeChange";
 import {SidebarGeneralLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
 import Logo from "../logo/Logo";
+import {headers} from "next/headers";
+import {noRoutes} from "@/data/WrapperRoutes";
 
 const Sidebar = () => {
+  const headersList = headers();
+  const header = headersList.get("x-pathname");
+  if (noRoutes.includes(header as string)) {
+    return null;
+  }
   return (
     <aside className="w-fit h-ful z-50 top-0 left-0 p-4 max-md:p-2 h-svh text-[#969696] float-left sticky">
       <div className="mx-8 max-md:mx-3">

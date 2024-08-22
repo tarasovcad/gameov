@@ -3,11 +3,11 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import "./../styles/main.css";
 import AuthProvider from "@/lib/AuthProvider";
-import SidebarWrapper from "@/components/layout/SidebarWrapper";
-import NavbarWrapper from "@/components/layout/NavbarWrapper";
 const inter = Inter({subsets: ["latin"], display: "swap"});
 import {Toaster} from "react-hot-toast";
 import {CustomThemeProvider} from "@/providers/ThemeProvider";
+import Navbar from "@/components/navbar/Navbar";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,9 +26,9 @@ export default function RootLayout({
           <AuthProvider>
             <Toaster position="bottom-right" />
             <div className="bodywrapper bg-white relative flex dark:bg-[#0a0a0a]">
-              <SidebarWrapper />
+              <Sidebar />
               <div className="flex-1 flex flex-col">
-                <NavbarWrapper />
+                <Navbar />
                 <main>{children}</main>
               </div>
             </div>
