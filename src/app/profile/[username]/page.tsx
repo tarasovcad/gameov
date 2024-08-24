@@ -48,11 +48,11 @@ const Profile = async () => {
               <p className="text-white/50 text-[18px] mt-2">
                 Account created at {formatDate(createdAt as string | undefined)}
               </p>
-              <p className="text-white text-xl mt-5 font-normal">
-                Code wizard. Bug slayer. API architect. Coffee-fueled problem
-                solver. Git master. Stack Overflow addict. 1s & 0s whisperer.
-              </p>
-
+              {description && (
+                <p className="text-white/80 text-xl mt-5 font-normal">
+                  {description || null}
+                </p>
+              )}
               <div className="flex gap-14 mt-12">
                 <div className="flex items-center gap-2">
                   <SquarePen className="w-6 h-6 text-white" />

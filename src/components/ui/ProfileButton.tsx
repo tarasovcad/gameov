@@ -1,5 +1,7 @@
 import {ArrowRight, Check, Share2, X} from "lucide-react";
+import Link from "next/link";
 import React from "react";
+import ShareButton from "../userProfile/ShareButton";
 
 interface ProfileButtonProps {
   share?: boolean;
@@ -9,6 +11,8 @@ interface ProfileButtonProps {
   clearData?: () => void;
   onSaveButton?: () => void;
   disabled?: boolean;
+  profileLink?: string;
+  shareLink?: string;
 }
 
 const ProfileButton = ({
@@ -19,25 +23,22 @@ const ProfileButton = ({
   clearData,
   onSaveButton,
   disabled,
+  profileLink,
+  shareLink,
   ...props
 }: ProfileButtonProps) => {
   if (share) {
-    return (
-      <div>
-        <button className="bg-white p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#999aa0] text-black">
-          Share
-          <Share2 className="w-[20px] h-[20px]" />
-        </button>
-      </div>
-    );
+    return <ShareButton shareLink={shareLink} />;
   }
   if (viewProfile) {
     return (
       <div>
-        <button className="bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A]">
+        <Link
+          href={profileLink || "/profile"}
+          className="bg-[#E4FF6D] p-[10px] px-[16px] rounded-full flex items-center gap-2 font-bold text-sm border border-[#A0C111] text-[#2F370A] cursor-pointer">
           View Profile
           <ArrowRight className="w-[20px] h-[20px]" />
-        </button>
+        </Link>
       </div>
     );
   }

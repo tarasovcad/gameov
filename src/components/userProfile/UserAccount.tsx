@@ -3,7 +3,6 @@ import React from "react";
 import {AtSign, FileUp, Mail} from "lucide-react";
 import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
-import {userSession} from "@/types/userSession";
 import {Session} from "next-auth";
 import {redirect} from "next/navigation";
 import InputSpotlight from "../ui/InputSpotlight";
@@ -12,6 +11,7 @@ import UserAccountFormSubmit from "./UserAccountFormSubmit";
 import {getUserDescription} from "@/app/actions/profile/getUserDescription";
 import UserBadge from "../ui/UserBadge";
 import UserProfileImage from "./UserProfileImage";
+import {userSession} from "@/types/userTypes";
 
 const UserAccount = async ({data}: {data: Session | null}) => {
   const userDescription = await getUserDescription(data?.user?.email);
@@ -20,6 +20,8 @@ const UserAccount = async ({data}: {data: Session | null}) => {
   if (!data) {
     redirect("/signin");
   }
+  const profileLink = `/profile/${username}`;
+  const shareLink: string = `${process.env.SERVER_HOST}/profile/${username}`;
   return (
     <div className="w-full  rounded-2xl">
       <div className="p-[17px]">
@@ -41,8 +43,8 @@ const UserAccount = async ({data}: {data: Session | null}) => {
               <p className="text-white/50 font-normal text-lg">{email}</p>
             </div>
             <div className="flex gap-2 items-end max-[930px]:flex-col-reverse">
-              <ProfileButton share />
-              <ProfileButton viewProfile />
+              <ProfileButton share shareLink={shareLink} />
+              <ProfileButton viewProfile profileLink={profileLink} />
             </div>
           </div>
           <div className="flex flex-col gap-[10px] mt-9">
