@@ -139,7 +139,7 @@ const DropZone = ({
           ref={fileInputRef}
           onChange={handleFileChange}
           className="hidden"
-          accept=".jpeg,.png,.svg,.heif"
+          accept=".jpeg,.png,.svg,.heif,.jpg"
         />
         <div className="flex flex-col items-center gap-3">
           <CloudAdd size="30" color="#fff" />

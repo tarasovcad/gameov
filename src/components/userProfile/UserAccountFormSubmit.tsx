@@ -10,6 +10,7 @@ import Loader from "../ui/Loader";
 import {useRouter} from "next/navigation";
 import {updateUserImage} from "@/app/actions/profile/updateUserImage";
 import {updateUserDescription} from "@/app/actions/profile/updateUserDescription";
+import DescriptionInput from "./DescriptionInput";
 
 export default function UserAccountFormSubmit({
   email,
@@ -19,6 +20,7 @@ export default function UserAccountFormSubmit({
   userDescription: string | null;
 }) {
   const [inputValue, setInputValue] = useState(userDescription || "");
+
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -91,11 +93,9 @@ export default function UserAccountFormSubmit({
         <div className="flex flex-col justify-end">
           <div className="flex flex-col gap-[10px] mt-5">
             <InputLabel label="About me" className="!text-lg" />
-            <textarea
-              value={inputValue}
-              placeholder="Write your bio..."
-              onChange={(e) => setInputValue(e.target.value)}
-              className="border-2 w-fullborder-[#3C3C3C]placeholder:text-white/70 rounded-[8px] font-normal min-h-[100px] border-white/10 bg-[#1A1A1A] text-white/70 p-3 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none focus:text-gray-100"
+            <DescriptionInput
+              inputValue={inputValue}
+              setInputValue={setInputValue}
             />
           </div>
           <DropZone setFile={setFile} file={file} />
