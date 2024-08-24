@@ -35,7 +35,7 @@ const Tab = ({label, selected, setSelected, component}: TabProps) => {
 
 const UserProfileTabs = ({setTabs}: {setTabs: (text: string) => void}) => {
   const searchParams = useSearchParams();
-  const currentTab = searchParams.get("tab") || "profile";
+  const currentTab = searchParams.get("tab") || "account";
   return (
     <div className="mb-8 flex flex-wrap items-center gap-1">
       {userTabs.map((tab, index) => (

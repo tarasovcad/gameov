@@ -157,6 +157,7 @@ export default function DropdownMenu({
             <span className="font-normal text-[#9b9b9b] text-sm">{email}</span>
           </div>
         </motion.div>
+        {/* <div className="profile-stroke mt-3"></div> */}
         {items.map(({icon, name}) => (
           <li key={name}>
             {name === "Sign out" ? (

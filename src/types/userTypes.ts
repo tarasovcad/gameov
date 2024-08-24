@@ -5,3 +5,11 @@ export interface userSession {
   role?: string | null | undefined;
   username?: string | null | undefined;
 }
+
+export interface Profile {
+  username: string | undefined;
+  description: string | undefined;
+  role: string | undefined;
+  image: string | undefined | null;
+  createdAt: Date | undefined | null;
+}

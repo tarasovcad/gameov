@@ -5,13 +5,13 @@ import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
 import {userSession} from "@/types/userSession";
 import {Session} from "next-auth";
-import {roleBadgeConfig} from "@/data/roleBadge";
 import {redirect} from "next/navigation";
 import InputSpotlight from "../ui/InputSpotlight";
 import {InputLabel} from "../ui/InputLabel";
-import {CloudAdd} from "iconsax-react";
 import UserAccountFormSubmit from "./UserAccountFormSubmit";
 import {getUserDescription} from "@/app/actions/profile/getUserDescription";
+import UserBadge from "../ui/UserBadge";
+import UserProfileImage from "./UserProfileImage";
 
 const UserAccount = async ({data}: {data: Session | null}) => {
   const userDescription = await getUserDescription(data?.user?.email);
@@ -20,53 +20,23 @@ const UserAccount = async ({data}: {data: Session | null}) => {
   if (!data) {
     redirect("/signin");
   }
-  const [bg, border, text] =
-    roleBadgeConfig[(role as keyof typeof roleBadgeConfig) ?? "User"];
   return (
     <div className="w-full  rounded-2xl">
-      <div className="p-[20px]">
+      <div className="p-[17px]">
         <div className="relative h-[228px] w-full rounded-2xl">
           <div className="absolute rounded-2xl inset-0  h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
             <div className="absolute rounded-2xl bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#E4FF6D,transparent)]"></div>
           </div>
         </div>
         <div className="px-8 flex flex-col">
-          <div className="z-10 relative rounded-full -mt-[112px] mb-4 bg-[#333333] p-[2px] flex w-fit ">
-            {image ? (
-              <div className="w-32 h-32 flex">
-                <Image
-                  src={image}
-                  height={128}
-                  width={128}
-                  className="rounded-full z-10 object-cover"
-                  unoptimized
-                  alt="Profile Image"
-                />
-              </div>
-            ) : (
-              <div className="w-32 h-32 flex">
-                <Image
-                  src={"/profile/avatar.png"}
-                  height={128}
-                  width={128}
-                  className="rounded-full z-10 object-cover"
-                  unoptimized
-                  alt="Profile Image"
-                  style={{height: "128px", width: "128px"}}
-                />
-              </div>
-            )}
-          </div>
+          <UserProfileImage image={image} />
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
                 <h1 className="text-white text-3xl font-extrabold">
                   {username}
                 </h1>
-                <span
-                  className={`${bg} border ${border} rounded-full ${text} px-[14px] py-[5px] font-semibold text-sm cursor-default`}>
-                  {role}
-                </span>
+                <UserBadge role={role} />
               </div>
               <p className="text-white/50 font-normal text-lg">{email}</p>
             </div>

@@ -1,10 +1,6 @@
-import {LockKeyhole, Settings, UserRoundCog} from "lucide-react";
+import {LockKeyhole, UserRoundCog} from "lucide-react";
 
 export const userTabs = [
-  {
-    label: "Profile",
-    component: <Settings className="z-10" />,
-  },
   {
     label: "Account",
     component: <UserRoundCog className="z-10" />,

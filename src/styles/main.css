@@ -41,6 +41,20 @@ input {
   background: linear-gradient(90deg, #202020 0%, #2e2e2e 50.5%, #202020 100%);
 }
 
+.profile-stroke {
+  position: relative;
+}
+
+.profile-stroke::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #3c3c3c;
+}
+
 .nav-subtitle {
   font-weight: 600;
   font-size: 13px;

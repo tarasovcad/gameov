@@ -1,5 +1,4 @@
 import UserAccount from "@/components/userProfile/UserAccount";
-import UserProfile from "@/components/userProfile/UserProfile";
 import UserProfileTabs from "@/components/userProfile/UserProfileTabs";
 import UserSecurity from "@/components/userProfile/UserSecurity";
 import {authOptions} from "@/lib/auth";
@@ -10,17 +9,18 @@ import React from "react";
 import {getUserDescription} from "../actions/profile/getUserDescription";
 
 const Profile = async ({searchParams}: {searchParams: {tab?: string}}) => {
-  const tab = searchParams.tab || "profile";
+  const tab = searchParams.tab || "account";
+
   const setTab = async (newTab: string) => {
     "use server";
     redirect(`/profile?tab=${newTab.toLowerCase()}`);
   };
+
   const data = await getServerSession(authOptions);
 
   return (
     <div className="pt-9 flex flex-col items-center">
       <UserProfileTabs setTabs={setTab} />
-      {tab === "profile" && <UserProfile />}
       {tab === "account" && <UserAccount data={data} />}
       {tab === "security" && <UserSecurity />}
     </div>
