@@ -28,7 +28,7 @@ const DescriptionInput = ({
         value={inputValue}
         placeholder="Write your bio..."
         onChange={(e) => handleInputChange(e.target.value)}
-        className="border-2 w-fullborder-[#3C3C3C]placeholder:text-white/70 rounded-[8px] font-normal min-h-[100px] border-white/10 bg-[#1A1A1A] text-white/70 p-3 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none focus:text-gray-100"
+        className="border-2 w-full border-[#3C3C3C]placeholder:text-white/70 rounded-[8px] font-normal min-h-[110px] border-white/10 bg-[#1A1A1A] text-white/70 p-3 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none focus:text-gray-100"
       />
       {error && <p className="text-red-500 mt-2">{error}</p>}
     </>

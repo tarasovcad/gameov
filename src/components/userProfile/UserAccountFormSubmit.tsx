@@ -11,6 +11,7 @@ import {useRouter} from "next/navigation";
 import {updateUserImage} from "@/app/actions/profile/updateUserImage";
 import {updateUserDescription} from "@/app/actions/profile/updateUserDescription";
 import DescriptionInput from "./DescriptionInput";
+import {useProfileProvider} from "@/providers/ProfileProvider";
 
 export default function UserAccountFormSubmit({
   email,
@@ -20,27 +21,16 @@ export default function UserAccountFormSubmit({
   userDescription: string | null;
 }) {
   const [inputValue, setInputValue] = useState(userDescription || "");
-
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const {clearData, clearFile} = useProfileProvider();
+
   const isInputValueChanged = () => {
     return inputValue !== userDescription;
   };
-  function clearData() {
-    if (file) {
-      setFile(null);
-    }
-    if (isInputValueChanged()) {
-      setInputValue(userDescription || "");
-    }
-  }
-  function clearFile() {
-    if (file) {
-      setFile(null);
-    }
-  }
+
   const isFormValid = () => {
     return file !== null || isInputValueChanged();
   };
@@ -83,7 +73,7 @@ export default function UserAccountFormSubmit({
     setTimeout(() => {
       router.refresh();
     }, 1000);
-    clearFile();
+    clearData(setFile, setInputValue, userDescription);
   }
 
   return (
@@ -102,7 +92,9 @@ export default function UserAccountFormSubmit({
           <div className="flex mt-5 justify-self-end gap-2 self-end">
             <ProfileButton
               cancel
-              clearData={clearData}
+              clearData={() =>
+                clearData(setFile, setInputValue, userDescription)
+              }
               disabled={!isFormValid()}
             />
             <ProfileButton
