@@ -1,36 +1,47 @@
 "use client";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
-import {Pencil, RotateCcw, User} from "lucide-react";
+import {Loader2, Pencil, RotateCcw, User} from "lucide-react";
 import UserProfileBackgroundSaveButton from "./UserProfileBackgroundSaveButton";
 import {useProfileProvider} from "@/providers/ProfileProvider";
+import {setRandomBackground} from "@/functions/setRandomBackground";
 const UserProfileBackground = ({image}: {image: string | undefined | null}) => {
   const {backgroundImage, setBackgroundImage} = useProfileProvider();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const setOtherBackground = () => {
-    // TODO: add logic to set random background
-    setBackgroundImage("/hero-slider/slider1.jpg");
+    setRandomBackground({setBackgroundImage, setIsLoading});
   };
 
   return (
     <div className="relative h-[228px] w-full rounded-2xl">
+      {isLoading && (
+        <div className="absolute inset-0 bg-black/50 z-10 flex justify-center items-center">
+          <Loader2 size={30} className="text-white animate-spin" />
+        </div>
+      )}
+
       <div className="flex flex-col gap-2 absolute right-[15px] top-[10px]">
         <button
           onClick={setOtherBackground}
           className="cursor-pointer w-[30px] h-[30px] bg-white/20 z-10 rounded-full flex justify-center items-center hover:rotate-12 transition-all duration-300 ease-in-ou">
           <RotateCcw size={18} />
         </button>
-        {/* <UserProfileBackgroundSaveButton
+        <UserProfileBackgroundSaveButton
           setBackgroundImage={setBackgroundImage}
-        /> */}
+          image={image}
+        />
       </div>
       <Image
         src={backgroundImage}
         alt="profile background"
-        layout="fill"
-        objectFit="cover"
+        fill
+        sizes="100vw"
+        style={{objectFit: "cover"}}
         unoptimized
         className="rounded-2xl"
+        onLoad={() => setIsLoading(false)}
       />
     </div>
   );

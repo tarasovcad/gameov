@@ -6,8 +6,10 @@ import toast from "react-hot-toast";
 
 function UserProfileBackgroundSaveButton({
   setBackgroundImage,
+  image,
 }: {
   setBackgroundImage: (image: string) => void;
+  image: string | undefined | null;
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -16,7 +18,8 @@ function UserProfileBackgroundSaveButton({
   };
 
   const handleSave = () => {
-    setBackgroundImage("/bg.jpg");
+    // set backgound to initial value
+    setBackgroundImage(image || "");
     toast.success("Picture changed");
     console.log("Picture changed");
     setShowModal(false);
@@ -37,7 +40,10 @@ function UserProfileBackgroundSaveButton({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[999]">
           <div className="bg-white p-6 rounded-lg text-black">
             <h2 className="text-xl font-bold mb-4">Change Picture</h2>
-            <p className="mb-4">Are you sure you want to change the picture?</p>
+            <p className="mb-4">
+              Are you sure you want to change your background picture to initial
+              value?
+            </p>
             <div className="flex justify-end space-x-4">
               <button
                 onClick={handleCancel}

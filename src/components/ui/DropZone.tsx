@@ -3,7 +3,7 @@ import {
   ALLOWED_FILE_TYPES,
   MAX_FILE_SIZE,
   MAX_NAME_LENGTH,
-} from "@/data/DropZoneLimits";
+} from "@/data/dropZoneLimits";
 import {formatFileSize} from "@/functions/formatFileSize";
 import {CloudAdd, TickCircle} from "iconsax-react";
 import {CircleCheck, FileUp, Trash2, File, Loader2} from "lucide-react";
