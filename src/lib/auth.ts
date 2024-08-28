@@ -44,11 +44,21 @@ export const authOptions: NextAuthOptions = {
         if (!passwordMatch) {
           return null;
         }
+        // Update user with default image if not present
+        if (!existingUser.image) {
+          await db.user.update({
+            where: {id: existingUser.id},
+            data: {image: "https://e-1.s3.amazonaws.com/wallhaven-eyp3ro.png"},
+          });
+        }
+
         return {
           id: existingUser.id,
           name: existingUser.name,
           email: existingUser.email,
-          image: existingUser.image,
+          image:
+            existingUser.image ||
+            "https://e-1.s3.amazonaws.com/wallhaven-eyp3ro.png",
           role: existingUser.role,
           username: existingUser.username,
           provider: "credentials",
@@ -99,6 +109,9 @@ export const authOptions: NextAuthOptions = {
           //   user.username = profile.login;
           //   break;
         }
+      }
+      if (!user.image) {
+        user.image = "https://e-1.s3.amazonaws.com/wallhaven-eyp3ro.png";
       }
 
       // Check if the user already has a profile
@@ -162,7 +175,8 @@ export const authOptions: NextAuthOptions = {
             id: user.id,
             name: user.name,
             email: user.email,
-            image: user.image,
+            image:
+              user.image || "https://e-1.s3.amazonaws.com/wallhaven-eyp3ro.png",
             role: user.role,
             username: user.username,
           };
