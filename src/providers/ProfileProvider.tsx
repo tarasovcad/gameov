@@ -21,11 +21,19 @@ export function ProfileProvider({
     initialBackgroundImage,
   );
 
+  function isBackgroundImageChanged() {
+    return backgroundImage !== initialBackgroundImage;
+  }
+
+  const clearBackgroundImage = () => {
+    setBackgroundImage(initialBackgroundImage);
+    console.log("Background image reset to initial state");
+  };
+
   const clearData = (
     setFile: SetFileType,
     setInputValue: SetInputValueType,
     userDescription: string | null,
-    setBackgroundImage?: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     if (setFile) {
       setFile(null);
@@ -34,15 +42,17 @@ export function ProfileProvider({
     if (setInputValue) {
       setInputValue(userDescription || "");
     }
-    if (setBackgroundImage) {
-      console.log("background image cleared at profile provider");
-      setBackgroundImage("");
-    }
+    clearBackgroundImage();
   };
 
   return (
     <ProfileContext.Provider
-      value={{clearData, backgroundImage, setBackgroundImage}}>
+      value={{
+        clearData,
+        backgroundImage,
+        setBackgroundImage,
+        isBackgroundImageChanged,
+      }}>
       {children}
     </ProfileContext.Provider>
   );

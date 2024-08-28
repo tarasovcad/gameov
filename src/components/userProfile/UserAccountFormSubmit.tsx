@@ -25,14 +25,14 @@ export default function UserAccountFormSubmit({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const {clearData} = useProfileProvider();
+  const {clearData, isBackgroundImageChanged} = useProfileProvider();
 
   const isInputValueChanged = () => {
     return inputValue !== userDescription;
   };
 
   const isFormValid = () => {
-    return file !== null || isInputValueChanged();
+    return file !== null || isInputValueChanged() || isBackgroundImageChanged();
   };
 
   async function onSaveButton() {

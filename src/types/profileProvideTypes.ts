@@ -11,4 +11,5 @@ export type ContextType = {
   ) => void;
   backgroundImage: string;
   setBackgroundImage: React.Dispatch<React.SetStateAction<string>>;
+  isBackgroundImageChanged: () => boolean;
 };
