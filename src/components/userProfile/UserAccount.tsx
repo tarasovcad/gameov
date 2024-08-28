@@ -20,10 +20,11 @@ const UserAccount = async ({data}: {data: Session | null}) => {
   if (!data) {
     redirect("/signin");
   }
+  console.log(image);
   const profileLink = `/profile/${username}`;
   const shareLink: string = `${process.env.SERVER_HOST}/profile/${username}`;
   return (
-    <ProfileProvider>
+    <ProfileProvider initialBackgroundImage={image || ""}>
       <div className="w-full rounded-2xl bg-second mb-6">
         <div className="p-[17px]">
           <UserProfileBackground image={image} />

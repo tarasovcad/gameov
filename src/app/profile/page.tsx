@@ -6,7 +6,6 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
 import React from "react";
-import {getUserDescription} from "../actions/profile/getUserDescription";
 
 const Profile = async ({searchParams}: {searchParams: {tab?: string}}) => {
   const tab = searchParams.tab || "account";

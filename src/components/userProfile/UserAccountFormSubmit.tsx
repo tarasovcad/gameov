@@ -25,7 +25,7 @@ export default function UserAccountFormSubmit({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const {clearData, clearFile} = useProfileProvider();
+  const {clearData} = useProfileProvider();
 
   const isInputValueChanged = () => {
     return inputValue !== userDescription;

@@ -9,5 +9,6 @@ export type ContextType = {
     setInputValue: SetInputValueType,
     userDescription: string | null,
   ) => void;
-  clearFile: (setFile: SetFileType) => void;
+  backgroundImage: string;
+  setBackgroundImage: React.Dispatch<React.SetStateAction<string>>;
 };

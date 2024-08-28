@@ -5,15 +5,27 @@ import {
   SetFileType,
   SetInputValueType,
 } from "@/types/profileProvideTypes";
+
 import React, {createContext, useContext, useState} from "react";
 
 const ProfileContext = createContext<ContextType | undefined>(undefined);
 
-export function ProfileProvider({children}: {children: React.ReactNode}) {
+export function ProfileProvider({
+  children,
+  initialBackgroundImage = "",
+}: {
+  children: React.ReactNode;
+  initialBackgroundImage?: string;
+}) {
+  const [backgroundImage, setBackgroundImage] = useState(
+    initialBackgroundImage,
+  );
+
   const clearData = (
     setFile: SetFileType,
     setInputValue: SetInputValueType,
     userDescription: string | null,
+    setBackgroundImage?: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     if (setFile) {
       setFile(null);
@@ -22,16 +34,15 @@ export function ProfileProvider({children}: {children: React.ReactNode}) {
     if (setInputValue) {
       setInputValue(userDescription || "");
     }
-  };
-
-  const clearFile = (setFile: SetFileType) => {
-    if (setFile) {
-      setFile(null);
+    if (setBackgroundImage) {
+      console.log("background image cleared at profile provider");
+      setBackgroundImage("");
     }
   };
 
   return (
-    <ProfileContext.Provider value={{clearData, clearFile}}>
+    <ProfileContext.Provider
+      value={{clearData, backgroundImage, setBackgroundImage}}>
       {children}
     </ProfileContext.Provider>
   );
