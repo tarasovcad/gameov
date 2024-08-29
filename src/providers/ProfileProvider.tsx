@@ -25,11 +25,6 @@ export function ProfileProvider({
     return backgroundImage !== initialBackgroundImage;
   }
 
-  const clearBackgroundImage = () => {
-    setBackgroundImage(initialBackgroundImage);
-    console.log("Background image reset to initial state");
-  };
-
   const clearData = (
     setFile: SetFileType,
     setInputValue: SetInputValueType,
@@ -42,7 +37,9 @@ export function ProfileProvider({
     if (setInputValue) {
       setInputValue(userDescription || "");
     }
-    clearBackgroundImage();
+    if (setBackgroundImage) {
+      setBackgroundImage(initialBackgroundImage);
+    }
   };
 
   return (

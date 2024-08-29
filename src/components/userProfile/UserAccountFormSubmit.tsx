@@ -12,6 +12,7 @@ import {updateUserImage} from "@/app/actions/profile/updateUserImage";
 import {updateUserDescription} from "@/app/actions/profile/updateUserDescription";
 import DescriptionInput from "./DescriptionInput";
 import {useProfileProvider} from "@/providers/ProfileProvider";
+import {updateUserBackgoundPicture} from "@/app/actions/profile/updateUserBackgoundPicture";
 
 export default function UserAccountFormSubmit({
   email,
@@ -25,7 +26,8 @@ export default function UserAccountFormSubmit({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const {clearData, isBackgroundImageChanged} = useProfileProvider();
+  const {clearData, isBackgroundImageChanged, backgroundImage} =
+    useProfileProvider();
 
   const isInputValueChanged = () => {
     return inputValue !== userDescription;
@@ -36,7 +38,7 @@ export default function UserAccountFormSubmit({
   };
 
   async function onSaveButton() {
-    if (!isInputValueChanged() && !file) {
+    if (!isInputValueChanged() && !file && !isBackgroundImageChanged()) {
       toast.error("Nothing to submit");
       return;
     }
@@ -47,6 +49,14 @@ export default function UserAccountFormSubmit({
         toast.success("User description updated");
       } catch (error) {
         console.error("Failed to update description:", error);
+      }
+    }
+    if (isBackgroundImageChanged()) {
+      try {
+        await updateUserBackgoundPicture(email, backgroundImage);
+        toast.success("User background picture updated");
+      } catch (error) {
+        console.error("Failed to update background picture:", error);
       }
     }
     if (file) {
@@ -73,7 +83,6 @@ export default function UserAccountFormSubmit({
     setTimeout(() => {
       router.refresh();
     }, 1000);
-    clearData(setFile, setInputValue, userDescription);
   }
 
   return (

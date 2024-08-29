@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import {Loader2, Pencil, RotateCcw, User} from "lucide-react";
 import UserProfileBackgroundSaveButton from "./UserProfileBackgroundSaveButton";
@@ -12,10 +12,7 @@ const UserProfileBackground = ({
   image: string | undefined | null;
   userBackgroundImage: string | undefined | null;
 }) => {
-  console.log(userBackgroundImage, "userBackgroundImage");
-  console.log(image, "image");
   const {backgroundImage, setBackgroundImage} = useProfileProvider();
-
   const [isLoading, setIsLoading] = useState(false);
 
   const setOtherBackground = () => {
@@ -29,7 +26,6 @@ const UserProfileBackground = ({
           <Loader2 size={30} className="text-white animate-spin" />
         </div>
       )}
-
       <div className="flex flex-col gap-2 absolute right-[15px] top-[10px]">
         <button
           onClick={setOtherBackground}
