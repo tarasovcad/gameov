@@ -6,28 +6,34 @@ import {redirect} from "next/navigation";
 import InputSpotlight from "../ui/InputSpotlight";
 import {InputLabel} from "../ui/InputLabel";
 import UserAccountFormSubmit from "./UserAccountFormSubmit";
-import {getUserDescription} from "@/app/actions/profile/getUserDescription";
+
 import UserBadge from "../ui/UserBadge";
 import UserProfileImage from "./UserProfileImage";
 import {userSession} from "@/types/userTypes";
 import UserProfileBackground from "./UserProfileBackground";
 import {ProfileProvider} from "@/providers/ProfileProvider";
+import {getUserProfile} from "@/app/actions/profile/getUserProfile";
 
 const UserAccount = async ({data}: {data: Session | null}) => {
-  const userDescription = await getUserDescription(data?.user?.email);
+  const {description, backgroundImage} = await getUserProfile(
+    data?.user?.email,
+  );
 
   const {email, image, role, username}: userSession = data?.user || {};
   if (!data) {
     redirect("/signin");
   }
-  console.log(image);
+
   const profileLink = `/profile/${username}`;
   const shareLink: string = `${process.env.SERVER_HOST}/profile/${username}`;
   return (
-    <ProfileProvider initialBackgroundImage={image || ""}>
+    <ProfileProvider initialBackgroundImage={backgroundImage || image || ""}>
       <div className="w-full rounded-2xl bg-second mb-6">
         <div className="p-[17px]">
-          <UserProfileBackground image={image} />
+          <UserProfileBackground
+            image={image}
+            userBackgroundImage={backgroundImage}
+          />
           <div className="px-8 flex flex-col">
             <UserProfileImage image={image} />
             <div className="flex justify-between items-start">
@@ -74,7 +80,7 @@ const UserAccount = async ({data}: {data: Session | null}) => {
 
             <UserAccountFormSubmit
               email={email}
-              userDescription={userDescription}
+              userDescription={description}
             />
           </div>
         </div>

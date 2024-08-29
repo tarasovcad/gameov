@@ -114,6 +114,9 @@ export const authOptions: NextAuthOptions = {
         user.image = "https://e-1.s3.amazonaws.com/wallhaven-eyp3ro.png";
       }
 
+      const defaultBackgroundImage =
+        "https://e-1.s3.amazonaws.com/1724120707558.png";
+
       // Check if the user already has a profile
       const existingProfile = await db.profile.findUnique({
         where: {
@@ -129,6 +132,8 @@ export const authOptions: NextAuthOptions = {
             username: user.username,
             email: user.email!,
             image: user.image,
+            backgroundImage:
+              existingProfile.backgroundImage || defaultBackgroundImage,
             description: existingProfile.description,
             role: user.role,
           },
@@ -140,6 +145,7 @@ export const authOptions: NextAuthOptions = {
             username: user.username!,
             email: user.email!,
             image: user.image,
+            backgroundImage: defaultBackgroundImage,
             description: "",
             role: user.role,
           },

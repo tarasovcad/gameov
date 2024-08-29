@@ -5,7 +5,15 @@ import {Loader2, Pencil, RotateCcw, User} from "lucide-react";
 import UserProfileBackgroundSaveButton from "./UserProfileBackgroundSaveButton";
 import {useProfileProvider} from "@/providers/ProfileProvider";
 import {setRandomBackground} from "@/functions/setRandomBackground";
-const UserProfileBackground = ({image}: {image: string | undefined | null}) => {
+const UserProfileBackground = ({
+  image,
+  userBackgroundImage,
+}: {
+  image: string | undefined | null;
+  userBackgroundImage: string | undefined | null;
+}) => {
+  console.log(userBackgroundImage, "userBackgroundImage");
+  console.log(image, "image");
   const {backgroundImage, setBackgroundImage} = useProfileProvider();
 
   const [isLoading, setIsLoading] = useState(false);
