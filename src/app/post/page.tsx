@@ -1,6 +1,9 @@
 import Image from "next/image";
 import React from "react";
-
+import PostImageSlider from "@/components/single-post/PostImageSlider";
+{
+  /* <div className="bg-white/10 rounded-2xl w-[256px]">123123</div> */
+}
 const Post = [
   {
     id: 1,
@@ -21,18 +24,7 @@ const Page = () => {
         </p>
       </div>
       <div className="flex justify-between gap-4">
-        <div className="relative w-full h-[545px]">
-          <Image
-            src="/post.jpg"
-            alt="profile background"
-            fill
-            sizes="100vw"
-            style={{objectFit: "cover"}}
-            unoptimized
-            className="rounded-2xl"
-          />
-        </div>
-        <div className="bg-white/10 rounded-2xl w-[256px]">123123</div>
+        <PostImageSlider />
       </div>
     </div>
   );
