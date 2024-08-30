@@ -25,7 +25,6 @@ export default function RootLayout({
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster position="bottom-right" />
-
             <div className="bodywrapper bg-white relative flex dark:bg-[#0a0a0a]">
               <Sidebar />
               <div className="flex-1 flex flex-col">

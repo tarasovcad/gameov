@@ -7,9 +7,10 @@ import DropdownLanguage from "./DropdownLanguage";
 import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
-import {userSession} from "@/types/userSession";
+``;
 import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
+import {userSession} from "@/types/userTypes";
 const Navbar = async () => {
   const headersList = headers();
   const header = headersList.get("x-pathname");
@@ -21,7 +22,7 @@ const Navbar = async () => {
   const {email, image, username} = (data?.user as userSession) || {};
 
   return (
-    <div className="z-20 w-full h-[65px] ">
+    <div className="z-20 w-full h-[65px] mb-5">
       <div className="wrapper py-[12px] flex justify-between items-center">
         <SearchInput />
         <div className="flex gap-5 items-center">
