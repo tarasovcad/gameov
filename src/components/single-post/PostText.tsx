@@ -62,7 +62,7 @@ const PostText = () => {
       </div>
     </div>
   );
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedTab, setSelectedTab] = useState("Description");
 
   const handleTabChange = (tab: string) => {
