@@ -26,7 +26,7 @@ const Post = () => {
       <div className="flex justify-between gap-4">
         <div className="w-full flex flex-col">
           <PostImageSlider />
-          <div className="bg-[#181818] w-full min-h-[500px] rounded-[8px] p-4">
+          <div className="bg-[#181818] w-full rounded-[8px] p-4">
             <PostText />
           </div>
         </div>
