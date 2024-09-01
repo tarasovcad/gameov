@@ -8,18 +8,18 @@ const PostImageSlider = () => {
   const images = [
     "/post.jpg",
     "/post2.png",
-    "/post3.jpg",
-    "/post4.jpg",
-    "/post5.jpg",
-    "/post6.jpg",
-    "/post7.jpg",
-    "/post8.jpg",
-    "/post9.jpg",
-    "/post10.jpg",
-    "/post.jpg",
-    "/post2.png",
-    "/post3.jpg",
-    "/post4.jpg",
+    // "/post3.jpg",
+    // "/post4.jpg",
+    // "/post5.jpg",
+    // "/post6.jpg",
+    // "/post7.jpg",
+    // "/post8.jpg",
+    // "/post9.jpg",
+    // "/post10.jpg",
+    // "/post.jpg",
+    // "/post2.png",
+    // "/post3.jpg",
+    // "/post4.jpg",
   ];
 
   const [isHovered, setIsHovered] = useState(false);
@@ -48,32 +48,10 @@ const PostImageSlider = () => {
     },
   };
 
-  // THUMBNAIL SLIDER
-  const [currentThumbnailPage, setCurrentThumbnailPage] = useState(0);
-  const thumbnailsPerPage = 8;
-  const totalThumbnailPages = Math.ceil(images.length / thumbnailsPerPage);
-
-  const nextThumbnailPage = () => {
-    setCurrentThumbnailPage((prev) => (prev + 1) % totalThumbnailPages);
-  };
-
-  const prevThumbnailPage = () => {
-    setCurrentThumbnailPage(
-      (prev) => (prev - 1 + totalThumbnailPages) % totalThumbnailPages,
-    );
-  };
-
-  useEffect(() => {
-    const thumbnailPageForCurrentImage = Math.floor(
-      currentIndex / thumbnailsPerPage,
-    );
-    setCurrentThumbnailPage(thumbnailPageForCurrentImage);
-  }, [currentIndex]);
-
   return (
-    <div className="w-full h-[545px]">
+    <div className="w-full">
       <div
-        className="relative w-full h-[545px] overflow-hidden"
+        className="relative w-full h-[500px] overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>
         <div
@@ -131,60 +109,35 @@ const PostImageSlider = () => {
 
       {/* THUMBNAIL SLIDER CONTAINER */}
       <div className="w-full flex items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-[22px] mt-4 sm:mt-[22px]">
-        <button
-          className="cursor-pointer w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300"
-          onClick={prevThumbnailPage}>
+        <button className="cursor-pointer w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300">
           <ChevronLeft />
         </button>
-        {/* THUMBNAIL SLIDER */}
-        <div className="relative  overflow-hidden">
-          <div
-            className="flex transition-transform duration-300 ease-in-out"
-            style={{
-              width: `${totalThumbnailPages * 100}%`,
-              transform: `translateX(-${currentThumbnailPage * (100 / totalThumbnailPages)}%)`,
-            }}>
-            {Array.from({length: totalThumbnailPages}).map((_, pageIndex) => (
-              <div
-                key={pageIndex}
-                className="flex gap-1 sm:gap-2 bg-red-500 rounded-[5px] "
-                style={{width: `${100 / totalThumbnailPages}%`}}>
-                {images
-                  .slice(
-                    pageIndex * thumbnailsPerPage,
-                    (pageIndex + 1) * thumbnailsPerPage,
-                  )
-                  .map((src, index) => {
-                    const actualIndex = pageIndex * thumbnailsPerPage + index;
-                    return (
-                      <div
-                        key={actualIndex}
-                        className={`relative w-[94px] h-[54px]  ${
-                          actualIndex === currentIndex
-                            ? "rounded-[5px] outline outline-white outline-1"
-                            : ""
-                        }`}>
-                        <Image
-                          onClick={() => setCurrentIndex(actualIndex)}
-                          src={src}
-                          alt={`Image ${actualIndex + 1}`}
-                          width={94}
-                          height={54}
-                          style={{objectFit: "cover"}}
-                          unoptimized
-                          className="cursor-pointer rounded-[5px] "
-                        />
-                      </div>
-                    );
-                  })}
-              </div>
-            ))}
-          </div>
+
+        <div className="flex gap-2">
+          {/* THUMBNAIL SLIDER */}
+          {images.map((src, index) => (
+            <div
+              key={index}
+              className={`relative w-[94px] h-[54px] ${
+                index === currentIndex
+                  ? "rounded-[5px] outline outline-white outline-2"
+                  : ""
+              }`}>
+              <Image
+                onClick={() => setCurrentIndex(index)}
+                src={src}
+                alt={`Image ${currentIndex + 1}`}
+                width={94}
+                height={54}
+                style={{objectFit: "cover"}}
+                unoptimized
+                className="cursor-pointer rounded-[5px]"
+              />
+            </div>
+          ))}
         </div>
 
-        <button
-          className="cursor-pointer w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300"
-          onClick={nextThumbnailPage}>
+        <button className="cursor-pointer w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300">
           <ChevronRight />
         </button>
       </div>

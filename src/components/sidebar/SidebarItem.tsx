@@ -15,7 +15,7 @@ const SidebarItem = ({
   return (
     <>
       <Link href={"/"}>
-        <div className="item transition ease-in-out duration-300 hover:bg-[#2D2D2D] flex items-center justify-between py-2 px-3 max-md:px-2 rounded-lg hover:text-[#ffffff]">
+        <div className="item transition ease-in-out duration-300 hover:bg-[#2D2D2D] flex items-center justify-between py-2 px-3 max-[1000px]:px-2 rounded-lg hover:text-[#ffffff]">
           <div className="flex items-center justify-between gap-3">
             <Image
               src={src}
@@ -24,7 +24,7 @@ const SidebarItem = ({
               height={24}
               className="stroke"
             />
-            <span className="text-base font-medium leading-normal max-md:hidden text-nowrap">
+            <span className="text-base font-medium leading-normal max-[1000px]:hidden text-nowrap">
               {title}
             </span>
           </div>
@@ -34,7 +34,7 @@ const SidebarItem = ({
               alt="arrow"
               width={20}
               height={20}
-              className="max-md:hidden"
+              className="max-[1000px]:hidden"
             />
           )}
         </div>

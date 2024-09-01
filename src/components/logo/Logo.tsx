@@ -10,7 +10,7 @@ const Logo = () => {
           alt="logo"
           width={130}
           height={23}
-          className="ml-[9px] mt-[5px] max-md:hidden cursor-pointer "
+          className="ml-[9px] mt-[5px] max-[1000px]:hidden cursor-pointer "
         />
       </Link>
     </div>

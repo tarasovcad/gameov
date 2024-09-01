@@ -1,33 +1,39 @@
 import Image from "next/image";
 import React from "react";
 import PostImageSlider from "@/components/single-post/PostImageSlider";
-{
-  /* <div className="bg-white/10 rounded-2xl w-[256px]">123123</div> */
-}
-const Post = [
-  {
-    id: 1,
-    title: "Black Myth: Wukong",
-    author: "Olivia Rhye",
-    date: "20 Jan 2022",
-    image: "/post.jpg",
-  },
-];
-
-const Page = () => {
+import PostSidebar from "@/components/single-post/PostSidebar";
+import PostText from "@/components/single-post/PostText";
+const Post = () => {
   return (
-    <div className="p-4">
-      <div className="flex flex-col gap-2 mb-4">
+    <div className="p-4 max-[1100px]:p-2 max-[1100px]:pr-4">
+      <div className="flex flex-col gap-1 mb-4">
         <h1 className="text-[40px] font-extrabold">Black Myth: Wukong</h1>
-        <p className="text-sm text-white/50 font-medium">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="border border-white rounded-full px-2 font-semibold py-[2px] text-[14px]">
+            Games 2024
+          </span>
+          <span className="border border-white rounded-full px-2 font-semibold py-[2px] text-[14px]">
+            Action
+          </span>
+          <span className="border border-white rounded-full px-2 font-semibold py-[2px] text-[14px]">
+            China
+          </span>
+        </div>
+        {/* <p className="text-sm text-white/50 font-medium">
           Olivia Rhye • 20 Jan 2022
-        </p>
+        </p> */}
       </div>
       <div className="flex justify-between gap-4">
-        <PostImageSlider />
+        <div className="w-full flex flex-col">
+          <PostImageSlider />
+          <div className="bg-[#181818] w-full min-h-[500px] rounded-[8px] p-4">
+            <PostText />
+          </div>
+        </div>
+        <PostSidebar />
       </div>
     </div>
   );
 };
 
-export default Page;
+export default Post;
