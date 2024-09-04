@@ -76,7 +76,9 @@ const PostMinRequirements = () => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <h2 className="text-[22px] font-semibold ">Recommended requirements</h2>
+        <h2 className="text-[22px] font-semibold ">
+          Recommended requirementss
+        </h2>
         <div className="text-white/70 mt-4">
           <div className="w-full grid grid-cols-2">
             {listOfMaxRequirements.map((item, index) => (
