@@ -1,8 +1,7 @@
 "use client";
-
 import {cn} from "@/lib/utils";
 import {motion} from "framer-motion";
-import {useState} from "react";
+import {useState, useRef, useEffect} from "react";
 
 const tabs = ["Description", "Min. requirements", "Previous versions"];
 
@@ -14,15 +13,23 @@ interface TabProps {
 }
 
 const Tab = ({text, selected, setSelected, customID}: TabProps) => {
+  const [width, setWidth] = useState(0);
+  const textRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (textRef.current) {
+      setWidth(textRef.current.offsetWidth);
+    }
+  }, [text]);
+
   return (
     <button
       onClick={() => setSelected(text)}
-      className={` ${
-        selected
-          ? "text-red-500"
-          : "hover:text-gray-900 dark:hover:text-gray-100"
-      } relative rounded-md px-2 py-4 pt-2 text-sm font-medium text-gray-500 transition-colors duration-300 focus-within:outline-red-500/50`}>
+      className="
+        relative rounded-md px-2 py-4 pt-2 text-sm font-medium text-gray-500 transition-colors duration-300 
+      ">
       <span
+        ref={textRef}
         className={`relative z-10 duration-300 ease-in-out transition-colors text-base ${
           selected ? "text-white" : "text-white/50"
         }`}>
@@ -31,11 +38,12 @@ const Tab = ({text, selected, setSelected, customID}: TabProps) => {
 
       {selected && (
         <motion.div
-          className="absolute left-0 top-0 flex  h-full w-full items-end justify-center"
+          className="absolute left-0 bottom-0 h-[2px] bg-white"
           layoutId={customID + "linetab"}
-          transition={{type: "spring", duration: 0.4, bounce: 0, delay: 0.1}}>
-          <span className="z-0 h-[2px] w-[90%]  bg-white"></span>
-        </motion.div>
+          initial={{width: 0}}
+          animate={{width}}
+          transition={{type: "spring", stiffness: 500, damping: 30}}
+        />
       )}
     </button>
   );
@@ -54,6 +62,7 @@ const PostTabs = ({center, customID, onTabChange}: LineTabProps) => {
     setSelected(tab);
     onTabChange(tab);
   };
+
   return (
     <div
       className={cn(
