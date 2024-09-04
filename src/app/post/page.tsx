@@ -47,7 +47,7 @@ const accordionItems = [
 
 const Post = () => {
   return (
-    <div className="p-4 max-[1100px]:p-2 max-[1100px]:pr-4">
+    <div className="p-4 max-[1100px]:p-2 max-[1200px]:pr-6">
       <div className="flex flex-col gap-1 mb-4">
         <h1 className="text-[40px] font-extrabold">Black Myth: Wukong</h1>
         <div className="flex items-center gap-2 flex-wrap">
@@ -68,16 +68,19 @@ const Post = () => {
       <div className="flex justify-between gap-4">
         <div className="w-full flex flex-col">
           <PostImageSlider />
-          <div className="flex flex-col gap-4">
-            <div className="bg-[#181818] w-full rounded-[8px] p-4">
+          <div className="flex flex-col gap-5">
+            <div className="bg-[#181818] w-full rounded-[12px] p-6">
               <PostText />
             </div>
-            <div className="bg-[#181818] w-full rounded-[8px] p-4">
+            <div className="bg-[#181818] w-full rounded-[12px] p-6">
               <h2 className="text-[22px] font-semibold mb-4 mt-1">FAQ</h2>
               <PostAccordion items={accordionItems} />
             </div>
-            <div className="bg-[#181818] w-full rounded-[8px] p-4">
+            <div className="bg-[#181818] w-full rounded-[12px] p-6 pb-5">
               <PostDownload />
+            </div>
+            <div className="bg-[#181818] w-full rounded-[12px] p-6">
+              <h2 className="text-[22px] font-semibold mb-4 mt-1">FAQ</h2>
             </div>
           </div>
         </div>

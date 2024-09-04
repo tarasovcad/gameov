@@ -4,7 +4,7 @@ import {cn} from "@/lib/utils";
 import {motion} from "framer-motion";
 import {useState} from "react";
 
-const tabs = ["Description", "Min. requirements"];
+const tabs = ["Description", "Min. requirements", "Previous versions"];
 
 interface TabProps {
   text: string;
