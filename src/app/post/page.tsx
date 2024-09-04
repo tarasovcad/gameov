@@ -80,7 +80,7 @@ const Post = () => {
               <PostDownload />
             </div>
             <div className="bg-[#181818] w-full rounded-[12px] p-6">
-              <h2 className="text-[22px] font-semibold mb-4 mt-1">FAQ</h2>
+              <h2 className="text-[22px] font-semibold mb-16 mt-1">Comments</h2>
             </div>
           </div>
         </div>
