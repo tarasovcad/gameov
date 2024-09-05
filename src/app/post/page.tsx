@@ -50,17 +50,6 @@ const Post = () => {
     <div className="p-4 max-[1100px]:p-2 max-[1200px]:pr-6">
       <div className="flex flex-col gap-1 mb-4">
         <h1 className="text-[40px] font-extrabold">Black Myth: Wukong</h1>
-        {/* <div className="flex items-center gap-2 flex-wrap">
-          <span className="border border-white rounded-full px-2 font-semibold py-[2px] text-[14px]">
-            Games 2024
-          </span>
-          <span className="border border-white rounded-full px-2 font-semibold py-[2px] text-[14px]">
-            Action
-          </span>
-          <span className="border border-white rounded-full px-2 font-semibold py-[2px] text-[14px]">
-            China
-          </span>
-        </div> */}
         <p className="text-sm text-white/50 font-medium">
           Olivia Rhye • 20 Jan 2022
         </p>
@@ -69,18 +58,15 @@ const Post = () => {
         <div className="w-full flex flex-col">
           <PostImageSlider />
           <div className="flex flex-col gap-5">
-            <div className="bg-[#181818] w-full rounded-[12px] p-6">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121]">
               <PostText />
             </div>
-            <div className="bg-[#181818] w-full rounded-[12px] p-6">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121]">
               <h2 className="text-[22px] font-semibold mb-4 mt-1">FAQ</h2>
               <PostAccordion items={accordionItems} />
             </div>
-            <div className="bg-[#181818] w-full rounded-[12px] p-6 pb-5">
+            <div className="w-full rounded-[12px] p-6 pb-5 bg-[#181818] border border-[#212121]">
               <PostDownload />
-            </div>
-            <div className="bg-[#181818] w-full rounded-[12px] p-6">
-              <h2 className="text-[22px] font-semibold mb-16 mt-1">Comments</h2>
             </div>
           </div>
         </div>

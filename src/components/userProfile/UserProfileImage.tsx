@@ -3,7 +3,6 @@ import Image from "next/image";
 
 const UserProfileImage = ({image}: {image: string | null | undefined}) => {
   return (
-    // 0a0a0a
     <div className="z-10 rounded-full -mt-[58px] mb-3 bg-[#181818] w-[140px] h-[140px] flex items-center justify-center">
       {image ? (
         <div className="w-auto h-[140px] flex rounded-full items-center">

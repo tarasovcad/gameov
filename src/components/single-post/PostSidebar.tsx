@@ -10,12 +10,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import PostSidebarLanguages from "./PostSidebarLanguages";
+import PostSimilarPosts from "./PostSimilarPosts";
 
 const data = [
   {
-    icon: File,
-    title: "File name",
-    value: "Black Myth: Wukong",
+    icon: ChevronsLeftRight,
+    title: "Game version",
+    value: "v11938463",
   },
   {
     icon: CalendarDays,
@@ -28,11 +29,6 @@ const data = [
     value: "Endnight Games Ltd",
   },
   {
-    icon: ChevronsLeftRight,
-    title: "Game version",
-    value: "v11938463",
-  },
-  {
     icon: CalendarDays,
     title: "Released Rate",
     value: "14 Apr, 2015",
@@ -42,11 +38,6 @@ const data = [
     title: "Interface language",
     value:
       "British,Russian, English, German, French, Spanish, Italian, Portuguese, Turkish, Polish, Dutch, Czech, Hungarian, Romanian, Bulgarian, Greek, Russian",
-  },
-  {
-    icon: File,
-    title: "Size",
-    value: "1.5 GB",
   },
   {
     icon: AppWindow,
@@ -61,9 +52,9 @@ const PostSidebar = () => {
   return (
     <div className=" max-w-[300px] w-full flex flex-col max-[1200px]:hidden">
       <div className="my-4 self-center">
-        <Image src="/game.png" alt="post" width={240} height={85} />
+        <Image src="/game_logo.png" alt="post" width={240} height={85} />
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         <div className="bg-[#181818] border border-[#212121] rounded-[8px] px-5 py-5  text-sm flex flex-col gap-5">
           <div className="w-full border-b border-[#212121] ">
             <h2 className="text-white text-[20px] font-semibold mb-4">
@@ -75,8 +66,8 @@ const PostSidebar = () => {
             return (
               <div className="flex flex-col gap-1 relative" key={index}>
                 <div className="flex items-center justify-start gap-1">
-                  <Icon size={15} className="text-white/80" />
-                  <p className="text-white/80 text-[15px] font-semibold">
+                  <Icon size={15} className="text-whit" />
+                  <p className="text-white text-[15px] font-semibold">
                     {title}
                   </p>
                 </div>
@@ -100,7 +91,7 @@ const PostSidebar = () => {
             {tags.map((tag, index) => {
               return (
                 <span
-                  className="border border-white rounded-full px-3 font-medium py-[3px]"
+                  className="border border-white rounded-full px-2 font-medium py-[2px] text-[13px]"
                   key={index}>
                   {tag}
                 </span>
@@ -117,6 +108,14 @@ const PostSidebar = () => {
           <h2 className="text-center text-white/80 text-[18px] leading-normal py-6">
             Here could be your advertising
           </h2>
+        </div>
+        <div className="bg-[#181818] border border-[#212121] rounded-[8px] px-5 py-5  text-sm flex flex-col gap-5">
+          <div className="w-full border-b border-[#212121] ">
+            <h2 className="text-white text-[20px] font-semibold mb-4">
+              Related Products
+            </h2>
+          </div>
+          <PostSimilarPosts />
         </div>
       </div>
     </div>
