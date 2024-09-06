@@ -7,14 +7,16 @@ import {
   AudioLines,
   File,
   AppWindow,
+  History,
 } from "lucide-react";
 import Image from "next/image";
 import PostSidebarLanguages from "./PostSidebarLanguages";
 import PostSimilarPosts from "./PostSimilarPosts";
+import PostTags from "./PostTags";
 
 const data = [
   {
-    icon: ChevronsLeftRight,
+    icon: History,
     title: "Game version",
     value: "v11938463",
   },
@@ -46,8 +48,6 @@ const data = [
   },
 ];
 
-const tags = ["Games 2024", "Horror", "Adventure", "Action", "RPG", "Indie"];
-
 const PostSidebar = () => {
   return (
     <div className=" max-w-[300px] w-full flex flex-col max-[1200px]:hidden">
@@ -55,8 +55,8 @@ const PostSidebar = () => {
         <Image src="/game_logo.png" alt="post" width={240} height={85} />
       </div>
       <div className="flex flex-col gap-5">
-        <div className="bg-[#181818] border border-[#212121] rounded-[8px] px-5 py-5  text-sm flex flex-col gap-5">
-          <div className="w-full border-b border-[#212121] ">
+        <div className="bg-[#181818] border border-[#212121] rounded-[8px] px-5 py-5  text-sm flex flex-col gap-6">
+          <div className="w-full border-b border-[#212121]">
             <h2 className="text-white text-[20px] font-semibold mb-4">
               Product Information
             </h2>
@@ -64,14 +64,14 @@ const PostSidebar = () => {
           {data.map((item, index) => {
             const {icon: Icon, title, value} = item;
             return (
-              <div className="flex flex-col gap-1 relative" key={index}>
-                <div className="flex items-center justify-start gap-1">
-                  <Icon size={15} className="text-whit" />
+              <div className="flex flex-col gap-1 relative " key={index}>
+                <div className="flex items-center justify-start gap-1 ">
+                  <Icon size={16} className="text-white" />
                   <p className="text-white text-[15px] font-semibold">
                     {title}
                   </p>
                 </div>
-                <div className=" text-[#A3A3A3] text-[14px] ">
+                <div className=" text-[#8e8e8e] text-[14px] ">
                   {title === "Interface language" ? (
                     <PostSidebarLanguages value={value} />
                   ) : (
@@ -87,17 +87,7 @@ const PostSidebar = () => {
           <div className="w-full border-b border-[#212121] ">
             <h2 className="text-white text-[20px] font-semibold mb-4">Tags</h2>
           </div>
-          <div className="flex items-center gap-2 flex-wrap mt-4">
-            {tags.map((tag, index) => {
-              return (
-                <span
-                  className="border border-white rounded-full px-2 font-medium py-[2px] text-[13px]"
-                  key={index}>
-                  {tag}
-                </span>
-              );
-            })}
-          </div>
+          <PostTags />
         </div>
         <div className="bg-[#181818] border border-[#212121] rounded-[8px] px-5 py-5  text-sm flex flex-col gap-5">
           <div className="w-full border-b border-[#212121] ">
@@ -112,7 +102,7 @@ const PostSidebar = () => {
         <div className="bg-[#181818] border border-[#212121] rounded-[8px] px-5 py-5  text-sm flex flex-col gap-5">
           <div className="w-full border-b border-[#212121] ">
             <h2 className="text-white text-[20px] font-semibold mb-4">
-              Related Products
+              You may also like
             </h2>
           </div>
           <PostSimilarPosts />

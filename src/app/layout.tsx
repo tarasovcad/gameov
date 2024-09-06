@@ -3,11 +3,17 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import "./../styles/main.css";
 import AuthProvider from "@/lib/AuthProvider";
-const inter = Inter({subsets: ["latin"], display: "swap"});
+
 import {Toaster} from "react-hot-toast";
 import {CustomThemeProvider} from "@/providers/ThemeProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
