@@ -1,7 +1,7 @@
 export const SidebarGeneralLinks = [
   {
     title: "Home",
-    src: "/sidemenu/home.svg",
+    src: "/lottie/home-animation.json",
     hasArrow: false,
     link: "/",
   },
@@ -9,31 +9,31 @@ export const SidebarGeneralLinks = [
     title: "PC Games",
     src: "/sidemenu/swords.svg",
     hasArrow: true,
-    link: "/",
+    link: "/games",
   },
   {
     title: "Software",
     src: "/sidemenu/software.svg",
     hasArrow: true,
-    link: "/",
+    link: "/software",
   },
   {
     title: "Desktop",
     src: "/sidemenu/monitor-down.svg",
     hasArrow: false,
-    link: "/",
+    link: "/desktop",
   },
   {
     title: "Games for Mac OS",
     src: "/sidemenu/mac.svg",
     hasArrow: false,
-    link: "/",
+    link: "/mac",
   },
   {
     title: "Apps for Mac OS",
     src: "/sidemenu/mac-apps.svg",
     hasArrow: false,
-    link: "/",
+    link: "/mac-apps",
   },
 ];
 
@@ -42,12 +42,12 @@ export const SidebarOtherLinks = [
     title: "Settings",
     src: "/sidemenu/settings.svg",
     hasArrow: false,
-    link: "/",
+    link: "/profile",
   },
   {
     title: "Help",
     src: "/sidemenu/help.svg",
     hasArrow: false,
-    link: "/",
+    link: "/help",
   },
 ];
