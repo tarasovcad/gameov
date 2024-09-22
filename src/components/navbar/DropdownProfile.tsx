@@ -82,7 +82,7 @@ export default function DropdownMenu({
     signOut({callbackUrl: "/"});
   };
   return (
-    <nav className={cn("max-w-fit w-fit mx-auto space-y-2")} ref={scope}>
+    <nav className={cn("max-w-fit w-fit mx-auto space-y-2 ")} ref={scope}>
       <motion.button
         whileTap={{scale: 0.97}}
         className="flex gap-3 items-center"

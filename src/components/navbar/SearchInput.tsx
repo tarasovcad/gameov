@@ -1,6 +1,5 @@
 "use client";
 import {Search} from "lucide-react";
-import Image from "next/image";
 import React, {useState} from "react";
 import SearchInputModalMenu from "./SearchInputModalMenu";
 
@@ -11,7 +10,7 @@ const SearchInput = () => {
   const closeModal = () => setIsModalOpen(false);
   return (
     <>
-      <div className="flex-grow mr-4">
+      <div className="flex-grow mr-6 max-[700px]:hidden ">
         <div className="relative max-w-[710px] w-full" onClick={openModal}>
           <button className="max-w-[710px] w-full caret-white/50 border border-[#3c3c3c] rounded-[8px] py-[7px] pl-[42px] pr-3 bg-[#262626] placeholder:font-normal font-medium cursor-pointer transition-all duration-300 ease-in-out hover:border-white/80 text-white/50 hover:text-white">
             <div className="flex items-center justify-between w-full">
@@ -26,6 +25,9 @@ const SearchInput = () => {
           </button>
         </div>
       </div>
+
+      <Search size={20} className="min-[700px]:hidden z-50" />
+
       <SearchInputModalMenu isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
