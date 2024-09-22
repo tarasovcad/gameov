@@ -3,17 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 const Logo = () => {
   return (
-    <div className="z-50">
-      <Link href={"/"}>
-        <Image
-          src="/logo.svg"
-          alt="logo"
-          width={130}
-          height={23}
-          className="ml-[9px] mt-[5px] max-[1000px]:hidden cursor-pointer "
-        />
-      </Link>
-    </div>
+    <>
+      <div className="z-50 mt-[5px] ml-[9px] max-[1100px]:mt-[13px] max-[1000px]:hidden ">
+        <Link href={"/"} className="flex w-fit items-center justify-start">
+          <Image
+            src="/logo.svg"
+            alt="logo"
+            width={130}
+            height={23}
+            className="cursor-pointer"
+          />
+        </Link>
+      </div>
+      <div className="w-[40px] h-[40px] bg-[#262626]  rounded-full flex items-center justify-center p-1 min-[1000px]:hidden">
+        <Image src="/mdLogo.svg" alt="avatar" width={50} height={50} />
+      </div>
+    </>
   );
 };
 

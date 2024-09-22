@@ -1,7 +1,7 @@
 export const SidebarGeneralLinks = [
   {
     title: "Home",
-    src: "/lottie/home-animation.json",
+    src: "/sidemenu/home.svg",
     hasArrow: false,
     link: "/",
   },

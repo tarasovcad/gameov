@@ -9,7 +9,6 @@ import {CustomThemeProvider} from "@/providers/ThemeProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import {GeistSans} from "geist/font/sans";
-import {GeistMono} from "geist/font/mono";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,14 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-[#0a0a0a]">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster position="bottom-right" />
             <div className="bodywrapper bg-white relative flex dark:bg-[#0a0a0a]">
               <Sidebar />
-
               <div className="flex-1 flex flex-col">
                 <Navbar />
                 <main>{children}</main>

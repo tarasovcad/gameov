@@ -6,16 +6,18 @@ const LottieAnimation = ({
   animationData,
   size = 24,
   isHovered,
+  infinite = false,
 }: {
   animationData: any;
   size?: number;
-  isHovered: boolean;
+  isHovered?: boolean;
+  infinite?: boolean;
 }) => {
   const lottieRef = useRef(null);
 
   const options = {
     animationData: animationData,
-    loop: false,
+    loop: infinite,
     autoplay: false,
     lottieRef: lottieRef,
   };
@@ -27,14 +29,16 @@ const LottieAnimation = ({
   }, [setSpeed]);
 
   useEffect(() => {
-    if (isHovered) {
+    if (infinite) {
+      play();
+    } else if (isHovered) {
       setDirection(1);
       play();
     } else {
       setDirection(-1);
       play();
     }
-  }, [isHovered, setDirection, play]);
+  }, [infinite, isHovered, setDirection, play]);
 
   return (
     <div

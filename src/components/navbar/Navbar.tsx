@@ -2,8 +2,7 @@ import React from "react";
 import SearchInput from "./SearchInput";
 import DropdownMenu from "./DropdownProfile";
 import {NavbarProfileItems} from "@/data/NavbarItems";
-import {NavbarLanuages} from "@/data/NavbarItems";
-import DropdownLanguage from "./DropdownLanguage";
+
 import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
@@ -11,6 +10,7 @@ import {authOptions} from "@/lib/auth";
 import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
 import {userSession} from "@/types/userTypes";
+import ThemeDropdown from "./ThemeDropdown";
 const Navbar = async () => {
   const headersList = headers();
   const header = headersList.get("x-pathname");
@@ -25,9 +25,9 @@ const Navbar = async () => {
     <div className="z-20 w-full h-[65px] mb-5">
       <div className="wrapper py-[12px] flex justify-between items-center">
         <SearchInput />
-        <div className="flex gap-5 items-center">
-          <DropdownLanguage items={NavbarLanuages} />
-          <span className="text-[#2E2E2E]">|</span>
+        <div className="flex gap-2 items-center">
+          <ThemeDropdown />
+          <span className="text-[#2E2E2E] mr-2">|</span>
           {data && email ? (
             <DropdownMenu
               items={NavbarProfileItems}

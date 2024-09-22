@@ -14,13 +14,10 @@ const Sidebar = () => {
     return null;
   }
   return (
-    <aside className="w-fit h-ful z-50 top-0 left-0 p-4 max-[1100px]:p-2 h-svh text-[#969696] float-left sticky">
-      <div className="mx-8 max-[1100px]:mx-3 ">
+    <aside className="w-fit h-ful z-50 top-0 left-0 p-4 max-[1100px]:p-2 h-svh text-[#969696] float-left sticky max-[700px]:hidden">
+      <div className="mx-8 max-[1100px]:mx-3">
         <Logo />
-        <div className="w-12 h-12 bg-[#262626] dark:bg-white rounded-full flex items-center justify-center p-1 min-[1000px]:hidden">
-          <Image src="/mdLogo.svg" alt="avatar" width={50} height={50} />
-        </div>
-        <div className="stroke mt-5"></div>
+        <div className="stroke mt-5 max-[1000px]:mt-4 "></div>
         <div className="flex min-[1000px]:flex-col justify-center min-[1000px]:mt-[30px]">
           <span className="nav-subtitle max-[1000px]:hidden">General</span>
           <div className="flex flex-col gap-2 mt-3 cursor-pointer">
