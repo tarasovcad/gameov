@@ -25,11 +25,11 @@ const Navbar = async () => {
 
   return (
     <div className="z-20 w-full h-[65px] mb-5">
-      <div className="py-[12px] flex justify-between px-4 items-center max-[701px]:px-6">
+      <div className="py-[12px] flex justify-between px-4 items-center max-[701px]:px-6 pr-4">
         <Logo showatNavbar={true} />
         <div className="flex gap-2 items-center  min-[701px]:w-full">
           <SearchInput />
-          <BurgerMenu />
+          <BurgerMenu username={username} image={image} email={email} />
         </div>
 
         <div className="flex gap-2 items-center max-[700px]:hidden">
@@ -45,7 +45,7 @@ const Navbar = async () => {
           ) : (
             <Link
               href={"/signin"}
-              className="bg-white p-[5px] px-[20px] rounded-md flex items-center gap-2 font-bold text-sm border border-[#999aa0] hover:bg-white/90 transition-colors duration-300">
+              className="bg-black p-[5px] px-[20px] rounded-md flex items-center gap-2 font-bold text-sm border border-[#999aa0] min-w-[90px]  hover:bg-white/90 transition-colors duration-300">
               Sign In
             </Link>
           )}

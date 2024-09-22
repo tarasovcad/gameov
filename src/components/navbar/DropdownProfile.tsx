@@ -7,6 +7,7 @@ import {ChevronDown, ChevronRightIcon, Moon, Sun} from "lucide-react";
 import {cn} from "@/lib/utils";
 import Image from "next/image";
 import {signOut} from "next-auth/react";
+import SignOutModalMenu from "../ui/SignOutModalMenu";
 
 function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
@@ -77,122 +78,139 @@ export default function DropdownMenu({
   email,
 }: DropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const scope = useMenuAnimation(isOpen);
   const handleSignOut = () => {
+    setIsSignOutModalOpen(true);
+  };
+  const confirmSignOut = () => {
     signOut({callbackUrl: "/"});
   };
-  return (
-    <nav className={cn("max-w-fit w-fit mx-auto space-y-2 ")} ref={scope}>
-      <motion.button
-        whileTap={{scale: 0.97}}
-        className="flex gap-3 items-center"
-        onClick={() => setIsOpen((prevState) => !prevState)}>
-        {image ? (
-          <Image
-            className="cursor-pointer rounded-full object-cover"
-            src={image}
-            width={30}
-            height={30}
-            alt="Profile Image"
-            unoptimized
-            style={{height: "30px", width: "30px"}}
-          />
-        ) : (
-          <Image
-            className="cursor-pointer rounded-full"
-            src="/profile/avatar.png"
-            width={30}
-            height={30}
-            alt="Profile Image"
-            unoptimized
-            style={{height: "30px", width: "30px"}}
-          />
-        )}
 
-        <div className="flex gap-[8px] items-center">
-          <span className="text-[#C4C4C4] font-medium">{username}</span>
-          <div style={{transformOrigin: "50% 55%"}}>
-            <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
-          </div>
-        </div>
-      </motion.button>
-      <ul
-        // to move the dropdown menu set "-ml-20"
-        className={cn(
-          "absolute -ml-[107px] z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
-          isOpen ? "pointer-events-auto" : "pointer-events-none",
-        )}
-        style={{
-          clipPath: "inset(10% 50% 90% 50% round 12px)",
-        }}>
-        <motion.div
-          className="flex items-center gap-[10px]"
-          initial="hidden"
-          animate={isOpen ? "visible" : "hidden"}
-          variants={userInfoVariants}>
+  const closeSignOutModal = () => {
+    setIsSignOutModalOpen(false);
+  };
+
+  return (
+    <>
+      <nav className={cn("max-w-fit w-fit mx-auto space-y-2")} ref={scope}>
+        <motion.button
+          whileTap={{scale: 0.97}}
+          className="flex gap-3 items-center"
+          onClick={() => setIsOpen((prevState) => !prevState)}>
           {image ? (
             <Image
-              className="cursor-pointer rounded-full"
+              className="cursor-pointer rounded-full object-cover"
               src={image}
+              width={30}
+              height={30}
               alt="Profile Image"
-              width={35}
-              height={35}
               unoptimized
-              style={{height: "35px", width: "35px"}}
+              style={{height: "30px", width: "30px"}}
             />
           ) : (
             <Image
               className="cursor-pointer rounded-full"
               src="/profile/avatar.png"
+              width={30}
+              height={30}
               alt="Profile Image"
-              width={35}
-              height={35}
               unoptimized
-              style={{height: "35px", width: "35px"}}
+              style={{height: "30px", width: "30px"}}
             />
           )}
-          <div className="flex flex-col max-w-full pr-10">
-            <span className="text-[#C4C4C4] font-semibold">{username}</span>
-            <span className="font-normal text-[#9b9b9b] text-sm">{email}</span>
+          <div className="flex gap-[8px] items-center mr-[30px]">
+            <span className="text-[#C4C4C4] font-medium">{username}</span>
+            <div style={{transformOrigin: "50% 55%"}}>
+              <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
+            </div>
           </div>
-        </motion.div>
-        {/* <div className="profile-stroke mt-3"></div> */}
-        {items.map(({icon, name}) => (
-          <li key={name}>
-            {name === "Sign out" ? (
-              <button
-                onClick={handleSignOut}
-                className={cn(
-                  "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
-                )}>
-                <span>{icon}</span>
-                <span className="flex items-center gap-1 text-sm font-medium">
-                  {name}
-                  <ChevronRightIcon
-                    size={12}
-                    className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
-                  />
-                </span>
-              </button>
+        </motion.button>
+        <ul
+          // to move the dropdown menu set "-ml-20"
+          className={cn(
+            "absolute -ml-[107px] z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
+            isOpen ? "pointer-events-auto" : "pointer-events-none",
+          )}
+          style={{
+            clipPath: "inset(10% 50% 90% 50% round 12px)",
+          }}>
+          <motion.div
+            className="flex items-center gap-[10px]"
+            initial="hidden"
+            animate={isOpen ? "visible" : "hidden"}
+            variants={userInfoVariants}>
+            {image ? (
+              <Image
+                className="cursor-pointer rounded-full"
+                src={image}
+                alt="Profile Image"
+                width={35}
+                height={35}
+                unoptimized
+                style={{height: "35px", width: "35px"}}
+              />
             ) : (
-              <Link
-                href="/profile"
-                className={cn(
-                  "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
-                )}>
-                <span>{icon}</span>
-                <span className="flex items-center gap-1 text-sm font-medium">
-                  {name}
-                  <ChevronRightIcon
-                    size={12}
-                    className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
-                  />
-                </span>
-              </Link>
+              <Image
+                className="cursor-pointer rounded-full"
+                src="/profile/avatar.png"
+                alt="Profile Image"
+                width={35}
+                height={35}
+                unoptimized
+                style={{height: "35px", width: "35px"}}
+              />
             )}
-          </li>
-        ))}
-      </ul>
-    </nav>
+            <div className="flex flex-col max-w-full pr-10">
+              <span className="text-[#C4C4C4] font-semibold">{username}</span>
+              <span className="font-normal text-[#9b9b9b] text-sm">
+                {email}
+              </span>
+            </div>
+          </motion.div>
+          {/* <div className="profile-stroke mt-3"></div> */}
+          {items.map(({icon, name}) => (
+            <li key={name}>
+              {name === "Sign out" ? (
+                <button
+                  onClick={handleSignOut}
+                  className={cn(
+                    "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                  )}>
+                  <span>{icon}</span>
+                  <span className="flex items-center gap-1 text-sm font-medium">
+                    {name}
+                    <ChevronRightIcon
+                      size={12}
+                      className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
+                    />
+                  </span>
+                </button>
+              ) : (
+                <Link
+                  href="/profile"
+                  className={cn(
+                    "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                  )}>
+                  <span>{icon}</span>
+                  <span className="flex items-center gap-1 text-sm font-medium">
+                    {name}
+                    <ChevronRightIcon
+                      size={12}
+                      className="-translate-x-1 scale-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all"
+                    />
+                  </span>
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <SignOutModalMenu
+        isOpen={isSignOutModalOpen}
+        onClose={closeSignOutModal}
+        onConfirm={confirmSignOut}
+      />
+    </>
   );
 }

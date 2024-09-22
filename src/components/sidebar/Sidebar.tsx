@@ -1,11 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import SidebarItem from "./SidebarItem";
-import {SidebarGeneralLinks} from "@/data/SidebarLinks";
+import {SidebarGeneralLinks, SidebarSmallLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
 import Logo from "../logo/Logo";
 import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
+import Link from "next/link";
+import UnderlineLink from "../ui/UnderlineLink";
+import UnderlineLinkTerms from "../ui/UnderlineLinkTerms";
 
 const Sidebar = () => {
   const headersList = headers();
@@ -54,8 +57,16 @@ const Sidebar = () => {
 
         <div className="absolute bottom-7 max-[1000px]:hidden">
           <p className="text-xs text-[#8e8e8e] font-normal leading-5 pr-5">
-            Order an advertisement, About us, Copyright (DMCA), Privacy,
-            Reviews, Contacts
+            {SidebarSmallLinks.map((link, index) => {
+              return (
+                <>
+                  <UnderlineLinkTerms
+                    title={`${link.title}${", "}  `}
+                    link={link.link}
+                  />
+                </>
+              );
+            })}
           </p>
         </div>
       </div>

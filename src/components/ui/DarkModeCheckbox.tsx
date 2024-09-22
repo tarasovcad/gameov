@@ -1,7 +1,13 @@
 "use client";
-import {Moon, Sun} from "lucide-react";
+import {Laptop, Moon, Sun} from "lucide-react";
 import {useTheme} from "next-themes";
 import React, {useEffect, useState} from "react";
+
+const themes = [
+  {icon: <Sun size={18} />, name: "light"},
+  {icon: <Moon size={18} />, name: "dark"},
+  {icon: <Laptop size={18} />, name: "system"},
+];
 
 const DarkModeCheckbox = () => {
   const {theme, setTheme} = useTheme();
@@ -21,29 +27,17 @@ const DarkModeCheckbox = () => {
   if (!mounted) return null;
 
   return (
-    <div
-      className={
-        "group cursor-default flex items-center gap-2 rounded-md border border-transparent text-neutral-400 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none"
-      }>
-      {isChecked ? (
-        <Moon width={16} height={16} />
-      ) : (
-        <Sun width={16} height={16} />
-      )}
-      <span className="flex justify-between items-center gap-1 text-sm font-medium w-full">
-        Dark mode
+    <div className="flex items-center bg-black  border border-[#2D2D2D] rounded-full text-white/70">
+      {themes.map(({icon, name}) => (
         <button
-          className={`relative w-9 h-5 rounded-full transition-colors duration-300 mr-3 ${
-            isChecked ? "bg-[#D8FF2E]" : "bg-gray-300"
-          }`}
-          onClick={handleToggle}>
-          <span
-            className={`absolute left-1 top-1 w-3 h-3 rounded-full bg-white transition-transform duration-300 ${
-              isChecked ? "transform translate-x-4" : ""
-            }`}
-          />
+          key={name}
+          onClick={() => {
+            setTheme(name);
+          }}
+          className={`hover:text-white px-[5px] py-[5px] rounded-full ${theme === name && "text-white outline outline-1 outline-[#2D2D2D] transition duration-300 ease-in-out"}`}>
+          {icon}
         </button>
-      </span>
+      ))}
     </div>
   );
 };

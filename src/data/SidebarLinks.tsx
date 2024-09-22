@@ -51,3 +51,29 @@ export const SidebarOtherLinks = [
     link: "/help",
   },
 ];
+export const SidebarSmallLinks = [
+  {
+    title: "Order an advertisement",
+    link: "/advertisement",
+  },
+  {
+    title: "About us",
+    link: "/about-us",
+  },
+  {
+    title: "Copyright (DMCA)",
+    link: "/copyright",
+  },
+  {
+    title: "Privacy",
+    link: "/privacy",
+  },
+  {
+    title: "Reviews",
+    link: "/reviews",
+  },
+  {
+    title: "Contacts",
+    link: "/contacts",
+  },
+];

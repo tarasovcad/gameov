@@ -3,7 +3,15 @@ import React, {useState} from "react";
 import {motion, AnimatePresence} from "framer-motion";
 import BurgerMenuContent from "./BurgerMenuContent";
 
-const BurgerMenu = () => {
+const BurgerMenu = ({
+  username,
+  image,
+  email,
+}: {
+  username?: string | null;
+  image?: string | null;
+  email?: string | null;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -37,8 +45,12 @@ const BurgerMenu = () => {
             animate={{clipPath: "circle(150% at top right)"}}
             exit={{clipPath: "circle(0% at top right)"}}
             transition={{duration: 0.3, ease: "easeInOut"}}
-            className="fixed inset-0 bg-[#0A0A0A] z-40">
-            <BurgerMenuContent />
+            className="absolute top-0 right-0 w-full h-full bg-[#0A0A0A] z-40 min-[701px]:hidden">
+            <BurgerMenuContent
+              username={username}
+              image={image}
+              email={email}
+            />
           </motion.div>
         )}
       </AnimatePresence>
