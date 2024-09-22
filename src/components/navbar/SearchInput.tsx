@@ -1,32 +1,33 @@
 "use client";
-import {Search, X} from "lucide-react";
+import {Search} from "lucide-react";
 import Image from "next/image";
 import React, {useState} from "react";
+import SearchInputModalMenu from "./SearchInputModalMenu";
 
 const SearchInput = () => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
-    <div className="flex-grow mr-4">
-      <form>
-        <div className="relative max-w-[710px] w-full">
-          <input
-            className="searchinput max-w-[710px] w-full caret-white/50 placeholder:text-white/50 font-medium text-white"
-            placeholder="Search"
-            type="text"
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-          <button className="absolute inset-y-0 left-0 flex items-center pl-3 searchsvg">
-            <Search size={20} color="#9B9B9B" />
+    <>
+      <div className="flex-grow mr-4">
+        <div className="relative max-w-[710px] w-full" onClick={openModal}>
+          <button className="max-w-[710px] w-full caret-white/50 border border-[#3c3c3c] rounded-[8px] py-[7px] pl-[42px] pr-3 bg-[#262626] placeholder:font-normal font-medium cursor-pointer transition-all duration-300 ease-in-out hover:border-white/80 text-white/50 hover:text-white">
+            <div className="flex items-center justify-between w-full">
+              <span className="text-left">Search...</span>
+              <p className="text-right text-[12px] bg-[#3c3c3c] px-2 py-[1px] rounded-md">
+                ⌘+T
+              </p>
+            </div>
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3 searchsvg">
+              <Search size={20} />
+            </span>
           </button>
-          {isFocused && (
-            <button className="close absolute inset-y-0 right-0 flex items-center pr-3">
-              <X size={20} color="#9B9B9B" />
-            </button>
-          )}
         </div>
-      </form>
-    </div>
+      </div>
+      <SearchInputModalMenu isOpen={isModalOpen} onClose={closeModal} />
+    </>
   );
 };
 

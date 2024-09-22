@@ -11,6 +11,7 @@ import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
 import {userSession} from "@/types/userTypes";
 import ThemeDropdown from "./ThemeDropdown";
+import SearchInputModalMenu from "./SearchInputModalMenu";
 const Navbar = async () => {
   const headersList = headers();
   const header = headersList.get("x-pathname");
@@ -25,6 +26,7 @@ const Navbar = async () => {
     <div className="z-20 w-full h-[65px] mb-5">
       <div className="wrapper py-[12px] flex justify-between items-center">
         <SearchInput />
+        {/* <SearchInputModalMenu /> */}
         <div className="flex gap-2 items-center">
           <ThemeDropdown />
           <span className="text-[#2E2E2E] mr-2">|</span>

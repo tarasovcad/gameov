@@ -1,10 +1,12 @@
-/* class="bg-root relative font-sans text-slate-12 antialiased selection:bg-[#00cc9937] selection:text-[#007763fd] dark:selection:bg-[#00fff61d] dark:selection:text-[#67ffded2]" */
-
 input {
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
   color: inherit;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
 }
 
 .bodywrapper {
@@ -62,31 +64,6 @@ input {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.51);
-}
-
-/* SEARCH INPUT */
-
-.searchinput {
-  border: 1px solid #3c3c3c;
-  border-radius: 8px;
-  padding: 7px 42px;
-  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
-  background: #262626;
-}
-
-.close svg {
-  transition: all 0.3s;
-}
-
-.close:hover svg {
-  stroke: #fff;
-}
-
-.searchsvg svg {
-  transition: all 0.3s;
-}
-.searchsvg:hover svg {
-  stroke: #fff;
 }
 
 /* HEADER */

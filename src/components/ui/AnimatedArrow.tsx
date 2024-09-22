@@ -1,9 +1,19 @@
 import {motion} from "framer-motion";
 
-const AnimatedArrow = ({isHovered}: {isHovered: boolean}) => {
+const AnimatedArrow = ({
+  isHovered,
+  color,
+  useBlackColor,
+}: {
+  isHovered: boolean;
+  color?: string;
+  useBlackColor?: boolean;
+}) => {
+  const strokeColor = useBlackColor && isHovered ? "black" : color || "white";
+
   return (
     <motion.svg
-      className={`max-[1000px]:hidden`}
+      className={`max-[1000px]:hidden `}
       width="20"
       height="20"
       viewBox="0 0 20 20"
@@ -13,8 +23,8 @@ const AnimatedArrow = ({isHovered}: {isHovered: boolean}) => {
       transition={{duration: 0.2}}>
       <path
         d="M7.5 15L12.5 10L7.5 5"
-        stroke="white"
-        strokeOpacity="0.67"
+        stroke={strokeColor}
+        strokeOpacity={isHovered ? "1" : "0.67"}
         strokeWidth="1.66667"
         strokeLinecap="round"
         strokeLinejoin="round"
