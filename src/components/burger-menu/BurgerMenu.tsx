@@ -16,27 +16,30 @@ const BurgerMenu = ({
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
   };
 
   return (
     <>
       <button
-        className="relative z-50 w-10 h-10 focus:outline-none min-[701px]:hidden "
+        className="relative z-[60] w-6 h-[22px] focus:outline-none min-[701px]:hidden flex items-center justify-center"
         onClick={toggleMenu}>
-        <div className="absolute inset-0 flex flex-col justify-center items-center gap-[2px]">
-          <span
-            className={`w-6 h-[1px] bg-white transition-all duration-300 ease-out ${
-              isOpen ? "rotate-45 translate-y-[6px]" : ""
-            }`}></span>
-          <span
-            className={`w-6 h-[1px] bg-white transition-all duration-300 ease-out my-[3px] ${
-              isOpen ? "opacity-0" : ""
-            }`}></span>
-          <span
-            className={`w-6 h-[1px] bg-white transition-all duration-300 ease-out ${
-              isOpen ? "-rotate-45 -translate-y-[6px]" : ""
-            }`}></span>
-        </div>
+        <div
+          className={`absolute w-5 h-[1.5px] bg-white transition-all duration-200 ease-in-out ${
+            isOpen ? "rotate-45 top-2.5" : "top-1"
+          }`}></div>
+        <div
+          className={`absolute w-5 h-[1.5px] bg-white transition-all duration-200 ease-in-out ${
+            isOpen ? "opacity-0" : "top-2.5"
+          }`}></div>
+        <div
+          className={`absolute w-5 h-[1.5px] bg-white transition-all duration-200 ease-in-out ${
+            isOpen ? "-rotate-45 top-2.5" : "top-4"
+          }`}></div>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -45,7 +48,7 @@ const BurgerMenu = ({
             animate={{clipPath: "circle(150% at top right)"}}
             exit={{clipPath: "circle(0% at top right)"}}
             transition={{duration: 0.3, ease: "easeInOut"}}
-            className="absolute top-0 right-0 w-full h-full bg-[#0A0A0A] z-40 min-[701px]:hidden">
+            className="fixed top-0 right-0 w-full h-full bg-[#0A0A0A] min-[701px]:hidden overflow-y-auto z-40">
             <BurgerMenuContent
               username={username}
               image={image}

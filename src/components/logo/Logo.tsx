@@ -5,7 +5,7 @@ const Logo = ({showatNavbar = false}: {showatNavbar?: boolean}) => {
   return (
     <>
       {showatNavbar ? (
-        <div className="z-50 min-[701px]:hidden cursor-pointer">
+        <div className="min-[701px]:hidden cursor-pointer">
           <Link href={"/"} className="flex w-fit items-center justify-start">
             <Image
               src="/logo.svg"
@@ -18,7 +18,7 @@ const Logo = ({showatNavbar = false}: {showatNavbar?: boolean}) => {
         </div>
       ) : (
         <>
-          <div className="z-50 mt-[5px] ml-[9px] max-[1100px]:mt-[13px] max-[1000px]:hidden cursor-pointer">
+          <div className="mt-[5px] ml-[9px] max-[1100px]:mt-[13px] max-[1000px]:hidden cursor-pointer">
             <Link href={"/"} className="flex w-fit items-center justify-start">
               <Image
                 src="/logo.svg"

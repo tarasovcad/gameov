@@ -11,7 +11,7 @@ const BurgerMenuOtherLinks = ({title}: {title: string}) => {
   return (
     <div ref={scope}>
       <motion.div
-        className={`text-white/70 item transition ease-in-out duration-200 py-2 rounded-md px-2 hover:text-[#ffffff] hover:bg-[#2D2D2D]`}
+        className="text-white/70 item transition ease-in-out duration-200 py-2 rounded-md px-2 hover:text-[#ffffff] hover:bg-[#2D2D2D]"
         onClick={() => setIsOpen(!isOpen)}>
         <div className="flex items-center justify-between gap-2">
           <span className="leading-normal text-nowrap text-sm">{title}</span>
@@ -22,23 +22,26 @@ const BurgerMenuOtherLinks = ({title}: {title: string}) => {
           </div>
         </div>
       </motion.div>
-      <motion.div
-        className="dropdown-content"
-        style={{
-          clipPath: "inset(10% 50% 90% 50% round 12px)",
-        }}>
-        {SidebarSmallLinks.map((link, index) => (
-          <motion.div key={index} className="dropdown-item">
-            <div className="text-white/70 item transition ease-in-out duration-200 py-2 rounded-md px-2 hover:text-[#ffffff] hover:bg-[#2D2D2D]">
-              <div className="flex items-center justify-between gap-2 ">
-                <span className=" leading-normal text-nowrap text-sm">
-                  {link.title}
-                </span>
+
+      {isOpen && (
+        <motion.div
+          className="dropdown-content"
+          style={{
+            clipPath: "inset(10% 50% 90% 50% round 12px)",
+          }}>
+          {SidebarSmallLinks.map((link, index) => (
+            <motion.div key={index} className="dropdown-item">
+              <div className="text-white/70 item transition ease-in-out duration-200 py-2 rounded-md px-2 hover:text-[#ffffff] hover:bg-[#2D2D2D]">
+                <div className="flex items-center justify-between gap-2 ">
+                  <span className=" leading-normal text-nowrap text-sm">
+                    {link.title}
+                  </span>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 };

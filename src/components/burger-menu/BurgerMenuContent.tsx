@@ -36,7 +36,7 @@ const BurgerMenuContent = ({
         </div>
       )}
 
-      <div className="flex flex-col gap-2 mt-[20px] cursor-pointer w-full 0">
+      <div className="flex flex-col gap-2 mt-[20px] cursor-pointer w-full">
         {email && (
           <div
             className={` text-white item transition ease-in-out duration-200 py-2 rounded-md px-2  hover:text-[#ffffff] `}>
@@ -99,5 +99,5 @@ const BurgerMenuContent = ({
     </div>
   );
 };
-// 90 - 64 = 26 px for the padding
+
 export default BurgerMenuContent;
