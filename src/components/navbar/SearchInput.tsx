@@ -26,7 +26,11 @@ const SearchInput = () => {
         </div>
       </div>
 
-      <Search size={22} className="min-[700px]:hidden" />
+      <Search
+        size={22}
+        className="min-[700px]:hidden cursor-pointer"
+        onClick={openModal}
+      />
 
       <SearchInputModalMenu isOpen={isModalOpen} onClose={closeModal} />
     </>

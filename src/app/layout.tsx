@@ -9,6 +9,7 @@ import {CustomThemeProvider} from "@/providers/ThemeProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import {GeistSans} from "geist/font/sans";
+import ThemeKeyboardShortcuts from "@/lib/ThemeKeyboardShortcuts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster position="bottom-right" />
+            <ThemeKeyboardShortcuts />
             <div className="bodywrapper bg-white relative flex dark:bg-[#0a0a0a]">
               <Sidebar />
               <div className="flex-1 flex flex-col">

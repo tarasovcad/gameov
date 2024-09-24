@@ -5,12 +5,11 @@ import {useAnimate, stagger, motion} from "framer-motion";
 import {Sun, Moon, Laptop} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useTheme} from "next-themes";
-import Loader from "../ui/Loader";
 
 const themes = [
-  {icon: <Sun size={22} />, name: "light"},
-  {icon: <Moon size={22} />, name: "dark"},
-  {icon: <Laptop size={22} />, name: "system"},
+  {icon: <Sun size={22} />, name: "light", keydown: "L"},
+  {icon: <Moon size={22} />, name: "dark", keydown: "D"},
+  {icon: <Laptop size={22} />, name: "system", keydown: "S"},
 ];
 
 export default function ThemeDropdown() {
@@ -40,7 +39,7 @@ export default function ThemeDropdown() {
         },
       );
       animate(
-        "li",
+        "li, p",
         isOpen
           ? {opacity: 1, scale: 1, filter: "blur(0px)"}
           : {opacity: 0, scale: 0.3, filter: "blur(20px)"},
@@ -80,22 +79,28 @@ export default function ThemeDropdown() {
         style={{
           clipPath: "inset(10% 50% 90% 50% round 12px)",
         }}>
-        {themes.map(({icon, name}) => (
-          <li key={name}>
-            <button
-              onClick={() => {
-                setTheme(name);
-                setIsOpen(false);
-              }}
-              className={cn(
-                "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
-                theme === name && "text-neutral-200",
-              )}>
-              <span className="flex items-center gap-1 text-sm font-medium">
-                {name.charAt(0).toUpperCase() + name.slice(1)}
-              </span>
-            </button>
-          </li>
+        {themes.map(({icon, name, keydown}) => (
+          <div className="flex gap-6 items-center justify-between" key={name}>
+            <li>
+              <button
+                onClick={() => {
+                  setTheme(name);
+                  setIsOpen(false);
+                }}
+                className={cn(
+                  "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-white/70 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                  theme === name && "text-white hover:text-white",
+                )}>
+                <span className="flex items-center gap-1 text-sm font-medium">
+                  {name.charAt(0).toUpperCase() + name.slice(1)}
+                </span>
+              </button>
+            </li>
+            <motion.p
+              className={`text-right text-[12px] text-neutral-400 px-2 py-[1px] rounded-md ${theme === name && "text-white"}`}>
+              {`⌘+${keydown}`}
+            </motion.p>
+          </div>
         ))}
       </ul>
     </nav>
