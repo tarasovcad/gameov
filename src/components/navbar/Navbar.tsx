@@ -34,7 +34,7 @@ const Navbar = async () => {
 
           <div className="flex gap-2 items-center max-[700px]:hidden">
             <ThemeDropdown />
-            <span className="text-[#2E2E2E] mr-2 ">|</span>
+            <span className=" dark:text-[#2E2E2E] text-black/70 mr-2 ">|</span>
             {data && email ? (
               <DropdownMenu
                 items={NavbarProfileItems}

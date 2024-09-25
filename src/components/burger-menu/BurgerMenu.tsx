@@ -26,18 +26,18 @@ const BurgerMenu = ({
   return (
     <>
       <button
-        className="relative z-[60] w-6 h-[22px] focus:outline-none min-[701px]:hidden flex items-center justify-center"
+        className="relative z-[60] w-6 h-[22px] focus:outline-none min-[701px]:hidden flex items-center justify-center "
         onClick={toggleMenu}>
         <div
-          className={`absolute w-5 h-[1.5px] bg-white transition-all duration-200 ease-in-out ${
+          className={`absolute w-5 h-[1.5px] bg-black dark:bg-white transition-all duration-200 ease-in-out ${
             isOpen ? "rotate-45 top-2.5" : "top-1"
           }`}></div>
         <div
-          className={`absolute w-5 h-[1.5px] bg-white transition-all duration-200 ease-in-out ${
+          className={`absolute w-5 h-[1.5px] bg-black dark:bg-white transition-all duration-200 ease-in-out ${
             isOpen ? "opacity-0" : "top-2.5"
           }`}></div>
         <div
-          className={`absolute w-5 h-[1.5px] bg-white transition-all duration-200 ease-in-out ${
+          className={`absolute w-5 h-[1.5px] bg-black dark:bg-white transition-all duration-200 ease-in-out ${
             isOpen ? "-rotate-45 top-2.5" : "top-4"
           }`}></div>
       </button>

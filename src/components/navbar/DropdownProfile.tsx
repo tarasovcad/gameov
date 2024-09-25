@@ -120,9 +120,15 @@ export default function DropdownMenu({
             />
           )}
           <div className="flex gap-[8px] items-center mr-[30px]">
-            <span className="text-[#C4C4C4] font-medium">{username}</span>
+            <span className="dark:text-[#C4C4C4] text-black font-medium">
+              {username}
+            </span>
             <div style={{transformOrigin: "50% 55%"}}>
-              <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
+              <ChevronDown
+                size={20}
+                id="menu-icon"
+                className="dark:text-[#9B9B9B] text-black"
+              />
             </div>
           </div>
         </motion.button>

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,8 +6,21 @@ const Logo = ({showatNavbar = false}: {showatNavbar?: boolean}) => {
   return (
     <>
       {showatNavbar ? (
-        <div className="min-[701px]:hidden cursor-pointer">
-          <Link href={"/"} className="flex w-fit items-center justify-start">
+        <div className="min-[701px]:hidden cursor-pointer ">
+          <Link
+            href={"/"}
+            className="flex w-fit items-center justify-start dark:hidden ">
+            <Image
+              src="/logo-dark.svg"
+              alt="logo"
+              width={130}
+              height={23}
+              className="cursor-pointer"
+            />
+          </Link>
+          <Link
+            href={"/"}
+            className=" w-fit items-center justify-start hidden dark:block">
             <Image
               src="/logo.svg"
               alt="logo"
@@ -19,7 +33,20 @@ const Logo = ({showatNavbar = false}: {showatNavbar?: boolean}) => {
       ) : (
         <>
           <div className="mt-[5px] ml-[9px] max-[1100px]:mt-[13px] max-[1000px]:hidden cursor-pointer">
-            <Link href={"/"} className="flex w-fit items-center justify-start">
+            <Link
+              href={"/"}
+              className="flex w-fit items-center justify-start dark:hidden ">
+              <Image
+                src="/logo-dark.svg"
+                alt="logo"
+                width={130}
+                height={23}
+                className="cursor-pointer"
+              />
+            </Link>
+            <Link
+              href={"/"}
+              className=" w-fit items-center justify-start hidden dark:block">
               <Image
                 src="/logo.svg"
                 alt="logo"
