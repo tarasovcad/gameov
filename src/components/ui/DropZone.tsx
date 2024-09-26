@@ -1,10 +1,9 @@
-import {
-  ALLOWED_FILE_EXTENSIONS,
-  ALLOWED_FILE_TYPES,
-  MAX_FILE_SIZE,
-  MAX_NAME_LENGTH,
-} from "../../data/dropZoneLimits";
-
+// import {
+//   ALLOWED_FILE_EXTENSIONS,
+//   ALLOWED_FILE_TYPES,
+//   MAX_FILE_SIZE,
+//   MAX_NAME_LENGTH,
+// } from "@/data/dropZoneLimits";
 import {formatFileSize} from "@/functions/formatFileSize";
 import {CloudAdd, TickCircle} from "iconsax-react";
 import {CircleCheck, FileUp, Trash2, File, Loader2} from "lucide-react";
@@ -24,6 +23,24 @@ const DropZone = ({
   setFile: Dispatch<SetStateAction<File | null>>;
   file: File | null;
 }) => {
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+  const ALLOWED_FILE_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/svg+xml",
+    "image/heif",
+    "image/heic",
+  ];
+  const ALLOWED_FILE_EXTENSIONS = [
+    ".jpeg",
+    ".jpg",
+    ".png",
+    ".svg",
+    ".heif",
+    ".heic",
+  ];
+  const MAX_NAME_LENGTH = 50;
+
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
