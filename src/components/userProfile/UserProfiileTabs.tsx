@@ -31,7 +31,7 @@ const Tab = ({label, selected, setSelected, component}: TabProps) => {
   );
 };
 
-const UserProfileTabs = ({setTabs}: {setTabs: (text: string) => void}) => {
+const UserProfiileTabs = ({setTabs}: {setTabs: (text: string) => void}) => {
   const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "account";
   return (
@@ -49,4 +49,4 @@ const UserProfileTabs = ({setTabs}: {setTabs: (text: string) => void}) => {
   );
 };
 
-export default UserProfileTabs;
+export default UserProfiileTabs;
