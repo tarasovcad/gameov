@@ -1,5 +1,5 @@
 import UserAccount from "@/components/userProfile/UserAccount";
-import UserProfileTabs from "@/components/userProfile/UserProfileTabs";
+import UserProfileTabs from "./../../components/userProfile/UserProfileTabs";
 import UserSecurity from "@/components/userProfile/UserSecurity";
 import {authOptions} from "@/lib/auth";
 import {getServerSession} from "next-auth";
