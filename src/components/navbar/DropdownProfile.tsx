@@ -100,7 +100,7 @@ export default function DropdownMenu({
           onClick={() => setIsOpen((prevState) => !prevState)}>
           {image ? (
             <Image
-              className="cursor-pointer rounded-full object-cover"
+              className="rounded-full object-cover"
               src={image}
               width={30}
               height={30}
@@ -110,7 +110,7 @@ export default function DropdownMenu({
             />
           ) : (
             <Image
-              className="cursor-pointer rounded-full"
+              className="rounded-full object-cover"
               src="/profile/avatar.png"
               width={30}
               height={30}
@@ -135,7 +135,7 @@ export default function DropdownMenu({
         <ul
           // to move the dropdown menu set "-ml-20"
           className={cn(
-            "absolute -ml-[107px] z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c;] rounded-xl",
+            "absolute -ml-[107px] z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-modal_bg border border-border rounded-xl pb-3",
             isOpen ? "pointer-events-auto" : "pointer-events-none",
           )}
           style={{
@@ -148,7 +148,7 @@ export default function DropdownMenu({
             variants={userInfoVariants}>
             {image ? (
               <Image
-                className="cursor-pointer rounded-full"
+                className="rounded-full object-cover"
                 src={image}
                 alt="Profile Image"
                 width={35}
@@ -158,7 +158,7 @@ export default function DropdownMenu({
               />
             ) : (
               <Image
-                className="cursor-pointer rounded-full"
+                className="rounded-full"
                 src="/profile/avatar.png"
                 alt="Profile Image"
                 width={35}
@@ -169,19 +169,18 @@ export default function DropdownMenu({
             )}
             <div className="flex flex-col max-w-full pr-10">
               <span className="text-[#C4C4C4] font-semibold">{username}</span>
-              <span className="font-normal text-[#9b9b9b] text-sm">
+              <span className="font-normal text-secondary_text text-sm">
                 {email}
               </span>
             </div>
           </motion.div>
-          {/* <div className="profile-stroke mt-3"></div> */}
           {items.map(({icon, name}) => (
             <li key={name}>
               {name === "Sign out" ? (
                 <button
                   onClick={handleSignOut}
                   className={cn(
-                    "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                    "group flex items-center gap-2 rounded-md text-secondary_text hover:text-secondary_text_hover transition-colors duration-300 ease-in-out",
                   )}>
                   <span>{icon}</span>
                   <span className="flex items-center gap-1 text-sm font-medium">
@@ -196,7 +195,7 @@ export default function DropdownMenu({
                 <Link
                   href="/profile"
                   className={cn(
-                    "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-neutral-300 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                    "group flex items-center gap-2 rounded-md text-secondary_text hover:text-secondary_text_hover transition-colors duration-300 ease-in-out",
                   )}>
                   <span>{icon}</span>
                   <span className="flex items-center gap-1 text-sm font-medium">

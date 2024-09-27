@@ -23,7 +23,7 @@ const SidebarItem = ({
 
   const content = (
     <div
-      className={`${isActive ? "bg-[#2D2D2D] text-white" : ""} item transition ease-in-out duration-300 hover:bg-[#2D2D2D] flex items-center justify-between py-2 px-3 max-[1000px]:px-2 rounded-lg hover:text-[#ffffff] `}
+      className={`${isActive ? "bg-bg text-white" : ""} item transition ease-in-out duration-300 hover:bg-bg flex items-center justify-between py-2 px-3 max-[1000px]:px-2 rounded-lg hover:text-primary_text `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <div className="flex items-center justify-between gap-2 ">

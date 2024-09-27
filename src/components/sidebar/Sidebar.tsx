@@ -1,13 +1,10 @@
 import React from "react";
-import Image from "next/image";
 import SidebarItem from "./SidebarItem";
 import {SidebarGeneralLinks, SidebarSmallLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
 import Logo from "../logo/Logo";
 import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
-import Link from "next/link";
-import UnderlineLink from "../ui/UnderlineLink";
 import UnderlineLinkTerms from "../ui/UnderlineLinkTerms";
 
 const Sidebar = () => {
@@ -17,7 +14,7 @@ const Sidebar = () => {
     return null;
   }
   return (
-    <aside className="w-fit h-ful top-0 left-0 p-4 max-[1100px]:p-2 h-svh text-[#969696] float-left sticky max-[700px]:hidden">
+    <aside className="w-fit h-ful top-0 left-0 p-4 max-[1100px]:p-2 h-svh text-secondary_text float-left sticky max-[700px]:hidden">
       <div className="mx-8 max-[1100px]:mx-3">
         <Logo />
         <div className="stroke mt-5 max-[1000px]:mt-4 "></div>
@@ -56,7 +53,7 @@ const Sidebar = () => {
         </div>
 
         <div className="absolute bottom-7 max-[1000px]:hidden">
-          <p className="text-xs text-[#8e8e8e] font-normal leading-5 pr-5">
+          <p className="text-xs text-secondary_text font-normal leading-5 pr-5">
             {SidebarSmallLinks.map((link, index) => {
               return (
                 <>

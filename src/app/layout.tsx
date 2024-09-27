@@ -29,12 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-[#0a0a0a]">
+      <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster position="bottom-right" />
             <ThemeKeyboardShortcuts />
-            <div className="bodywrapper bg-white relative flex dark:bg-[#0a0a0a]">
+            <div className="bodywrapper bg-white relative flex dark:bg-backgound">
               <Sidebar />
               <div className="flex-1 flex flex-col">
                 <Navbar />

@@ -25,7 +25,7 @@ const Navbar = async () => {
 
   return (
     <div className="relative">
-      <div className="w-full h-[65px] relative mb-5 z-50 dark:bg-[#0a0a0a] bg-white ">
+      <div className="w-full h-[65px] relative mb-5 z-50 dark:bg-backgound bg-white ">
         <div className="py-[12px] flex justify-between px-4 items-center max-[701px]:px-6 pr-4 h-full">
           <Logo showatNavbar={true} />
           <div className="flex gap-2 items-center min-[701px]:w-full pr-6">
@@ -34,7 +34,7 @@ const Navbar = async () => {
 
           <div className="flex gap-2 items-center max-[700px]:hidden">
             <ThemeDropdown />
-            <span className=" dark:text-[#2E2E2E] text-black/70 mr-2 ">|</span>
+            <span className=" dark:text-[#2b2b2b] text-black/70 mr-2 ">|</span>
             {data && email ? (
               <DropdownMenu
                 items={NavbarProfileItems}

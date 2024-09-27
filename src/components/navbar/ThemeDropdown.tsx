@@ -67,20 +67,20 @@ export default function ThemeDropdown() {
   return (
     <nav className={cn("max-w-fit w-fit mx-auto space-y-2")} ref={scope}>
       <div
-        className="cursor-pointer flex items-center w-[35px] h-[35px]  rounded-full justify-center transtiuon duration-300 ease-in-out dark:hover:bg-[#2D2D2D] hover:bg-[#C4C4C4]"
+        className="cursor-pointer flex items-center w-[35px] h-[35px]  rounded-full justify-center transtiuon duration-300 ease-in-out dark:hover:bg-bg hover:bg-[#C4C4C4]"
         onClick={() => setIsOpen((prevState) => !prevState)}>
         {getSelectedIcon()}
       </div>
       <ul
         className={cn(
-          "absolute z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-[#262626] border border-[#3c3c3c] rounded-xl",
+          "absolute z-[1] max-w-fit w-fit space-y-3 p-2.5 bg-modal_bg border border-border rounded-xl",
           isOpen ? "pointer-events-auto" : "pointer-events-none",
         )}
         style={{
           clipPath: "inset(10% 50% 90% 50% round 12px)",
         }}>
         {themes.map(({icon, name, keydown}) => (
-          <div className="flex gap-6 items-center justify-between" key={name}>
+          <div className="flex gap-8 items-center justify-between" key={name}>
             <li>
               <button
                 onClick={() => {
@@ -88,7 +88,7 @@ export default function ThemeDropdown() {
                   setIsOpen(false);
                 }}
                 className={cn(
-                  "group flex items-center gap-2 rounded-md border border-transparent text-neutral-400 hover:text-white/70 focus-visible:text-neutral-300 focus-visible:border-neutral-800 focus-visible:outline-none",
+                  "group flex items-center  rounded-md border border-transparent text-secondary_text hover:text-secondary_text_hover transition-colors duration-300 ease-in-out",
                   theme === name && "text-white hover:text-white",
                 )}>
                 <span className="flex items-center gap-1 text-sm font-medium">

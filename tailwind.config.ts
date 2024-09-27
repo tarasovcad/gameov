@@ -19,8 +19,15 @@ const config = {
     },
     extend: {
       colors: {
+        backgound: "#121212",
+        primary_text: "#FAFAFA",
+        secondary_text: "#898989",
+        secondary_text_hover: "#FFFFFFB3",
+        bg: "#212121",
+        modal_bg: "#242424",
         second: "#181818",
-        border: "hsl(var(--border))",
+        border: "#3c3c3c",
+
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
