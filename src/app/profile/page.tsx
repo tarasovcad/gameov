@@ -1,5 +1,5 @@
 import UserAccount from "@/components/userProfile/UserAccount";
-import UserProfileTabs from "@/components/userProfile/UserProfileTabs";
+import UserProfileTabs from "@/components/userProfile/UserProfiileTabs";
 
 import UserSecurity from "@/components/userProfile/UserSecurity";
 import {authOptions} from "@/lib/auth";
