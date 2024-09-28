@@ -1,28 +1,20 @@
+"use client";
 import React from "react";
 import SearchInput from "./SearchInput";
 import DropdownMenu from "./DropdownProfile";
 import {NavbarProfileItems} from "@/data/NavbarItems";
-
-import Link from "next/link";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/auth";
-
-import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
-import {userSession} from "@/types/userTypes";
 import ThemeDropdown from "./ThemeDropdown";
 import Logo from "../logo/Logo";
 import BurgerMenu from "../burger-menu/BurgerMenu";
-const Navbar = async () => {
-  const headersList = headers();
-  const header = headersList.get("x-pathname");
-  if (noRoutes.includes(header as string)) {
+import Link from "next/link";
+import {usePathname} from "next/navigation";
+const Navbar = ({username, image, email}: any) => {
+  const pathname = usePathname();
+
+  if (noRoutes.includes(pathname as string)) {
     return null;
   }
-
-  const data = await getServerSession(authOptions);
-  const {email, image, username} = (data?.user as userSession) || {};
-
   return (
     <div className="relative">
       <div className="w-full h-[65px] relative mb-5 z-50 dark:bg-backgound bg-white ">
@@ -35,7 +27,7 @@ const Navbar = async () => {
           <div className="flex gap-2 items-center max-[700px]:hidden">
             <ThemeDropdown />
             <span className=" dark:text-[#2b2b2b] text-black/70 mr-2 ">|</span>
-            {data && email ? (
+            {email ? (
               <DropdownMenu
                 items={NavbarProfileItems}
                 username={username}
@@ -44,8 +36,8 @@ const Navbar = async () => {
               />
             ) : (
               <Link
-                href={"/signin"}
-                className="bg-black p-[5px] px-[20px] rounded-md flex items-center gap-2 font-bold text-sm border border-[#999aa0] min-w-[90px]  hover:bg-white/90 transition-colors duration-300">
+                href="/signin"
+                className="bg-[#262626] p-2 rounded-md border border-white/10 text-center text-white transition-all duration-300 ease-in-out hover:bg-[#3a3a3a] hover:border-white/20 hover:shadow-lg active:transform active:scale-95 min-w-[110px]">
                 Sign In
               </Link>
             )}

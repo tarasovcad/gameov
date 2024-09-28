@@ -48,7 +48,7 @@ const BurgerMenu = ({
             animate={{clipPath: "circle(150% at top right)"}}
             exit={{clipPath: "circle(0% at top right)"}}
             transition={{duration: 0.3, ease: "easeInOut"}}
-            className="fixed top-0 right-0 w-full h-full bg-[#0A0A0A] min-[701px]:hidden overflow-y-auto z-40">
+            className="fixed top-0 right-0 w-full h-full dark:bg-backgound bg-white min-[701px]:hidden overflow-y-auto z-40">
             <BurgerMenuContent
               username={username}
               image={image}

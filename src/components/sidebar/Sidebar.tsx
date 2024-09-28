@@ -1,16 +1,16 @@
+"use client";
 import React from "react";
 import SidebarItem from "./SidebarItem";
 import {SidebarGeneralLinks, SidebarSmallLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
 import Logo from "../logo/Logo";
-import {headers} from "next/headers";
 import {noRoutes} from "@/data/WrapperRoutes";
 import UnderlineLinkTerms from "../ui/UnderlineLinkTerms";
+import {usePathname} from "next/navigation";
 
 const Sidebar = () => {
-  const headersList = headers();
-  const header = headersList.get("x-pathname");
-  if (noRoutes.includes(header as string)) {
+  const pathname = usePathname();
+  if (noRoutes.includes(pathname as string)) {
     return null;
   }
   return (

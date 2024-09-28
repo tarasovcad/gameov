@@ -14,7 +14,7 @@ const BurgerMenuOtherLinks = ({title}: {title: string}) => {
         className="text-white/70 item transition ease-in-out duration-200 py-2 rounded-md px-2 hover:text-[#ffffff] hover:bg-[#2D2D2D]"
         onClick={() => setIsOpen(!isOpen)}>
         <div className="flex items-center justify-between gap-2">
-          <span className="leading-normal text-nowrap text-sm">{title}</span>
+          <span className="leading-normal text-nowrap text-base">{title}</span>
           <div className="flex gap-[8px] items-center mr-1">
             <div style={{transformOrigin: "50% 55%"}}>
               <ChevronDown size={20} color="#9B9B9B" id="menu-icon" />
@@ -33,7 +33,7 @@ const BurgerMenuOtherLinks = ({title}: {title: string}) => {
             <motion.div key={index} className="dropdown-item">
               <div className="text-white/70 item transition ease-in-out duration-200 py-2 rounded-md px-2 hover:text-[#ffffff] hover:bg-[#2D2D2D]">
                 <div className="flex items-center justify-between gap-2 ">
-                  <span className=" leading-normal text-nowrap text-sm">
+                  <span className=" leading-normal text-nowrap text-base">
                     {link.title}
                   </span>
                 </div>

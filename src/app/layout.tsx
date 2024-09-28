@@ -3,13 +3,13 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import "./../styles/main.css";
 import AuthProvider from "@/lib/AuthProvider";
-
 import {Toaster} from "react-hot-toast";
 import {CustomThemeProvider} from "@/providers/ThemeProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import {GeistSans} from "geist/font/sans";
 import ThemeKeyboardShortcuts from "@/lib/ThemeKeyboardShortcuts";
+import NavbarServerComponent from "@/components/navbar/NavbarServerComponent";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,7 +37,7 @@ export default function RootLayout({
             <div className="bodywrapper bg-white relative flex dark:bg-backgound">
               <Sidebar />
               <div className="flex-1 flex flex-col">
-                <Navbar />
+                <NavbarServerComponent />
                 <main>{children}</main>
               </div>
             </div>
