@@ -5,12 +5,12 @@ import "./../styles/main.css";
 import AuthProvider from "@/lib/AuthProvider";
 import {Toaster} from "react-hot-toast";
 import {CustomThemeProvider} from "@/providers/ThemeProvider";
-import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import {GeistSans} from "geist/font/sans";
 import ThemeKeyboardShortcuts from "@/lib/ThemeKeyboardShortcuts";
 import NavbarServerComponent from "@/components/navbar/NavbarServerComponent";
-
+import {SpeedInsights} from "@vercel/speed-insights/next";
+import {Analytics} from "@vercel/analytics/react";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -43,6 +43,8 @@ export default function RootLayout({
             </div>
           </AuthProvider>
         </CustomThemeProvider>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
