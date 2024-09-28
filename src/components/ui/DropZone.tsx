@@ -1,12 +1,6 @@
-// import {
-//   ALLOWED_FILE_EXTENSIONS,
-//   ALLOWED_FILE_TYPES,
-//   MAX_FILE_SIZE,
-//   MAX_NAME_LENGTH,
-// } from "@/data/dropZoneLimits";
 import {formatFileSize} from "@/functions/formatFileSize";
 import {CloudAdd, TickCircle} from "iconsax-react";
-import {CircleCheck, FileUp, Trash2, File, Loader2} from "lucide-react";
+import {Trash2, File, Loader2} from "lucide-react";
 import React, {
   Dispatch,
   SetStateAction,
@@ -16,6 +10,24 @@ import React, {
 } from "react";
 import toast from "react-hot-toast";
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+const ALLOWED_FILE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/svg+xml",
+  "image/heif",
+  "image/heic",
+];
+const ALLOWED_FILE_EXTENSIONS = [
+  ".jpeg",
+  ".jpg",
+  ".png",
+  ".svg",
+  ".heif",
+  ".heic",
+];
+const MAX_NAME_LENGTH = 50;
+
 const DropZone = ({
   setFile,
   file,
@@ -23,24 +35,6 @@ const DropZone = ({
   setFile: Dispatch<SetStateAction<File | null>>;
   file: File | null;
 }) => {
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
-  const ALLOWED_FILE_TYPES = [
-    "image/jpeg",
-    "image/png",
-    "image/svg+xml",
-    "image/heif",
-    "image/heic",
-  ];
-  const ALLOWED_FILE_EXTENSIONS = [
-    ".jpeg",
-    ".jpg",
-    ".png",
-    ".svg",
-    ".heif",
-    ".heic",
-  ];
-  const MAX_NAME_LENGTH = 50;
-
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
@@ -70,50 +64,56 @@ const DropZone = ({
     }
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    dragCounter.current = 0;
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      handleFiles(e.dataTransfer.files);
-      e.dataTransfer.clearData();
-    }
-  }, []);
+  const handleFiles = useCallback(
+    (files: FileList) => {
+      const selectedFile = files[0];
+      const fileType = selectedFile.type;
+      const fileExtension =
+        "." + selectedFile.name.split(".").pop()?.toLowerCase();
 
-  const handleFiles = (files: FileList) => {
-    const selectedFile = files[0];
-    const fileType = selectedFile.type;
-    const fileExtension =
-      "." + selectedFile.name.split(".").pop()?.toLowerCase();
+      const numberOfSymbols = selectedFile.name.split(".")[0].length;
 
-    const numberOfSymbols = selectedFile.name.split(".")[0].length;
+      if (
+        !ALLOWED_FILE_TYPES.includes(fileType) &&
+        !ALLOWED_FILE_EXTENSIONS.includes(fileExtension)
+      ) {
+        toast.error("You cannot upload this file. File type is not supported");
+        return;
+      }
 
-    if (
-      !ALLOWED_FILE_TYPES.includes(fileType) &&
-      !ALLOWED_FILE_EXTENSIONS.includes(fileExtension)
-    ) {
-      toast.error("You cannot upload this file. File type is not supported");
-      return;
-    }
+      if (selectedFile.size > MAX_FILE_SIZE) {
+        toast.error("You cannot upload this file. File size exceeds 5MB limit");
+        return;
+      }
+      if (numberOfSymbols > MAX_NAME_LENGTH) {
+        toast.error(
+          "You cannot upload this file. File name exceeds 50 characters",
+        );
+        return;
+      }
+      setFile(selectedFile);
+      setIsLoading(true);
 
-    if (selectedFile.size > MAX_FILE_SIZE) {
-      toast.error("You cannot upload this file. File size exceeds 5MB limit");
-      return;
-    }
-    if (numberOfSymbols > MAX_NAME_LENGTH) {
-      toast.error(
-        "You cannot upload this file. File name exceeds 50 characters",
-      );
-      return;
-    }
-    setFile(selectedFile);
-    setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    },
+    [setFile, setIsLoading],
+  );
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  };
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(false);
+      dragCounter.current = 0;
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleFiles(e.dataTransfer.files);
+        e.dataTransfer.clearData();
+      }
+    },
+    [handleFiles],
+  );
 
   const handleBrowseFiles = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

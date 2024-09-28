@@ -16,7 +16,6 @@ import AuthSignUpFooter from "@/components/auth/AuthSignUpFooter";
 import Logo from "@/components/logo/Logo";
 import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
-import {StarsBackground} from "@/components/ui/stars-background";
 import toast from "react-hot-toast";
 import {ShowToast} from "@/components/ui/CustomToast";
 
@@ -142,7 +141,6 @@ const SignUp = () => {
         </h3>
       </div>
       <AuthSignUpFooter />
-      <StarsBackground />
     </div>
   );
 };

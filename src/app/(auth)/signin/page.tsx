@@ -12,7 +12,6 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {SignInFormData, signInSchema} from "@/validation/signInValidation";
 import Logo from "@/components/logo/Logo";
-import {StarsBackground} from "@/components/ui/stars-background";
 import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
 const SignIn = () => {
@@ -104,7 +103,6 @@ const SignIn = () => {
           <UnderlineLink link={"/signup"} title="Sign up" />
         </h3>
       </div>
-      <StarsBackground />
     </div>
   );
 };
