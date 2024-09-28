@@ -27,6 +27,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("RootLayout");
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
