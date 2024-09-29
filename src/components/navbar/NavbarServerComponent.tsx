@@ -7,11 +7,6 @@ import {userSession} from "@/types/userTypes";
 import Navbar from "./Navbar";
 
 const NavbarServerComponent = async () => {
-  const headersList = headers();
-  const header = headersList.get("x-pathname");
-  if (noRoutes.includes(header as string)) {
-    return null;
-  }
   const data = await getServerSession(authOptions);
   const {email, image, username} = (data?.user as userSession) || {};
   return (

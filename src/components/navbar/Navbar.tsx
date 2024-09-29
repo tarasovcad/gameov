@@ -11,10 +11,10 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 const Navbar = ({username, image, email}: any) => {
   const pathname = usePathname();
-
   if (noRoutes.includes(pathname as string)) {
     return null;
   }
+
   return (
     <div className="relative">
       <div className="w-full h-[65px] relative mb-5 z-50 dark:bg-backgound bg-white ">
