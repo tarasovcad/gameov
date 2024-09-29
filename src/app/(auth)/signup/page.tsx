@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import {Google} from "iconsax-react";
 import AuthProviderButton from "@/components/auth/AuthProviderButton";
+import SignUpProgressComponent from "@/components/auth/SignUpProgressComponent";
 
 const SignUp = () => {
   const router = useRouter();
@@ -38,36 +39,69 @@ const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const onSubmit = async (data: SignUpFormData) => {
     setIsLoading(true);
-    const {confirmPassword, ...apiData} = data;
+    setShowProgress(true);
+    setProgress(0);
+    const startTime = performance.now();
     try {
       const response = await fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(apiData),
+        body: JSON.stringify(data),
       });
+
       if (response.ok) {
-        toast.success(
-          "Temperaly account created successfully. Please verify your email.",
-        );
-        localStorage.setItem("userEmail", apiData.email);
-        router.push("/verify-request");
+        const endTime = performance.now();
+        const duration = endTime - startTime;
+        console.log(`User creation took ${duration.toFixed(2)} milliseconds`);
+
+        // Calculate the number of steps needed
+        const steps = Math.max(Math.ceil(duration / 50), 27); // Minimum 27 steps (1350ms)
+        const stepDuration = duration / steps;
+
+        let elapsed = 0;
+        const interval = setInterval(() => {
+          elapsed += stepDuration;
+          setProgress(Math.min((elapsed / duration) * 100, 100));
+
+          if (elapsed >= duration) {
+            clearInterval(interval);
+
+            // Add a fixed 1 second delay after completion
+            setTimeout(() => {
+              toast.success(
+                "Temporary account created successfully. Please verify your email.",
+              );
+              localStorage.setItem("userEmail", data.email);
+              router.push("/verify-request");
+            }, 1000);
+          }
+        }, stepDuration);
       } else {
         const errorData = await response.json();
         console.error("Registration failed:", errorData.message);
         toast.error(errorData.message || "Registration failed");
+        setShowProgress(false);
       }
     } catch (error) {
       console.error("Registration error:", error);
       toast.error("An error occurred during registration");
+      setShowProgress(false);
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (showProgress) {
+    return <SignUpProgressComponent progress={progress} />;
+  }
+
   return (
     <div className="h-screen flex gap-[30px] p-[30px] pt-[40px]">
       <div className="absolute top-[30px] left-[30px] flex items-center justify-center cursor-pointer">
@@ -188,6 +222,7 @@ const SignUp = () => {
           height={300}
           draggable="false"
           unoptimized
+          priority
           className="object-cover w-full h-full rounded-lg rounded-s-[40px] "
         />
       </div>

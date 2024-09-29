@@ -6,7 +6,7 @@ import {InputLabel} from "@/components/ui/InputLabel";
 import ProviderButton from "@/components/ui/ProviderButton";
 import {signIn} from "next-auth/react";
 import Link from "next/link";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useForm} from "react-hook-form";
@@ -24,6 +24,8 @@ import {
   Mail,
   Twitter,
 } from "lucide-react";
+import toast from "react-hot-toast";
+import SignUpProgressComponent from "@/components/auth/SignUpProgressComponent";
 const SignIn = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -35,8 +37,9 @@ const SignIn = () => {
   } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
   const onSubmit = async (data: SignInFormData) => {
     try {
       const result = await signIn("credentials", {
@@ -44,16 +47,24 @@ const SignIn = () => {
         email: data.email,
         password: data.password,
       });
-
+      if (result?.ok) {
+        toast.success("Sign in successful");
+        setTimeout(() => {
+          router.push("/");
+          router.refresh();
+        }, 1500);
+      }
       if (result?.error) {
         setError("root", {message: "Invalid email or password"});
         console.log(result?.error);
-      } else {
-        router.push("/");
+        toast.error("Invalid email or password");
       }
     } catch (error) {
       console.error("Sign in error:", error);
       setError("root", {message: "An error occurred during sign in"});
+      toast.error("An error occurred during sign in");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -137,7 +148,11 @@ const SignIn = () => {
               </Link>
             </div>
 
-            <AuthMainButton buttonTitle="Sign In" className="mt-6" />
+            <AuthMainButton
+              buttonTitle="Sign In"
+              className="mt-6"
+              isLoading={isLoading}
+            />
           </form>
 
           <h3 className="text-white/50 text-sm font-medium text-center ">
@@ -159,6 +174,7 @@ const SignIn = () => {
           height={300}
           draggable="false"
           unoptimized
+          priority
           className="object-cover w-full h-full rounded-lg rounded-s-[40px] "
         />
       </div>
