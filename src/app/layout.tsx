@@ -11,6 +11,8 @@ import ThemeKeyboardShortcuts from "@/lib/ThemeKeyboardShortcuts";
 import NavbarServerComponent from "@/components/navbar/NavbarServerComponent";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/react";
+import {headers} from "next/headers";
+import {noRoutes} from "@/data/WrapperRoutes";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -27,7 +29,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("RootLayout");
+  const headersList = headers();
+  const header = headersList.get("x-pathname");
+
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
@@ -35,7 +39,8 @@ export default function RootLayout({
           <AuthProvider>
             <Toaster position="bottom-right" />
             <ThemeKeyboardShortcuts />
-            <div className="bodywrapper bg-white relative flex dark:bg-backgound">
+            <div
+              className={`${header == "/signup" || header == "/signin" ? "" : "bodywrapper"} bg-white relative flex dark:bg-backgound`}>
               <Sidebar />
               <div className="flex-1 flex flex-col">
                 <NavbarServerComponent />

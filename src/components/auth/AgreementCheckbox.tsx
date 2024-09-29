@@ -20,28 +20,15 @@ const AgreementCheckbox: React.FC<AgreementCheckboxProps> = ({register}) => {
         type="checkbox"
         id="agreement"
         {...register("agreement")}
-        className="h-4 w-4 rounded border-gray-300 text-[#E4FF6D] focus:[#A0C111] accent-current"
+        className="h-4 w-4 rounded border-gray-300 text-[#E4FF6D] accent-current"
       />
-      <label htmlFor="agreement" className="text-sm text-white">
-        I agree to all the
+      <label htmlFor="agreement" className="text-sm text-secondary_text">
+        I agree to the
         <Link
           href="/terms"
-          className="mx-1 text-[#E4FF6D] hover:text-[#A0C111] transition-colors duration-300">
-          Term
+          className="mx-1 text-primary_text hover:text-[#A0C111] transition-colors duration-300">
+          Terms & Policy
         </Link>
-        ,
-        <Link
-          href="/privacy"
-          className="mx-1 text-[#E4FF6D] hover:text-[#A0C111] transition-colors duration-300">
-          Privacy Policy
-        </Link>
-        and
-        <Link
-          href="/fees"
-          className="ml-1 text-[#E4FF6D] hover:text-[#A0C111] transition-colors duration-300">
-          Fees
-        </Link>
-        .
       </label>
     </div>
   );

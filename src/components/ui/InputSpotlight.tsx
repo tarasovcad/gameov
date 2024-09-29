@@ -1,5 +1,5 @@
 "use client";
-import {Eye, EyeOff} from "lucide-react";
+import {Eye, EyeOff, Github} from "lucide-react";
 import React, {useCallback, useRef, useState} from "react";
 
 interface InputSpotlightProps
@@ -8,6 +8,7 @@ interface InputSpotlightProps
   name?: string;
   type: string;
   id: string;
+  icon?: React.ReactNode;
   register?: any;
 }
 
@@ -17,6 +18,7 @@ const InputSpotlight = ({
   type,
   id,
   register,
+  icon,
   ...props
 }: InputSpotlightProps) => {
   const divRef = useRef<HTMLInputElement>(null);
@@ -75,7 +77,7 @@ const InputSpotlight = ({
           type={inputType}
           {...register}
           {...props}
-          className={`h-12 w-full cursor-default rounded-md border border-white/10 bg-[#1A1A1A] p-3.5 text-gray-100 transition-colors duration-500 placeholder:text-white/40 placeholder:select-none  focus:border-[#A0C111] focus:outline-none text-[15px] font-normal ${props.className || ""}`}
+          className={`pl-[38px] h-12 w-full cursor-default rounded-md border border-border bg-bg p-3.5  transition-colors duration-500 placeholder:text-secondary_text placeholder:select-none  focus:border-white focus:outline-none text-[15px] max-[600px]:text-[14px] font-normal ${props.className || ""}`}
         />
         {type === "password" && (
           <button
@@ -86,16 +88,20 @@ const InputSpotlight = ({
             {isPasswordVisible ? <EyeOff size={23} /> : <Eye size={23} />}
           </button>
         )}
+
+        <div className="absolute top-1/2 -translate-y-1/2 left-3 text-white focus:outline-none">
+          {icon}
+        </div>
         <input
           ref={divRef}
           disabled
           style={{
-            border: "1.5px solid #A0C111",
+            border: "1.5px solid #fff",
             opacity,
             WebkitMaskImage: `radial-gradient(30% 30px at ${position.x}px ${position.y}px, black 45%, transparent)`,
           }}
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-10 h-12 w-full cursor-default rounded-md border border-[#A0C111] bg-[transparent] p-3.5 opacity-0 transition-opacity duration-500 placeholder:select-none"
+          className="pointer-events-none absolute left-0 top-0 z-10 h-12 w-full cursor-default rounded-md border border-white bg-[transparent] p-3.5 opacity-0 transition-opacity duration-500 placeholder:select-none"
         />
       </div>
     </>
