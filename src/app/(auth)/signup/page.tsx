@@ -15,7 +15,6 @@ import {type SignUpFormData, signUpSchema} from "@/validation/signUpValidation";
 
 import InputSpotlight from "@/components/ui/InputSpotlight";
 import UnderlineLink from "@/components/ui/UnderlineLink";
-import toast from "react-hot-toast";
 import {
   ChromeIcon,
   CircleUser,
@@ -28,9 +27,11 @@ import {
 import {Google} from "iconsax-react";
 import AuthProviderButton from "@/components/auth/AuthProviderButton";
 import SignUpProgressComponent from "@/components/auth/SignUpProgressComponent";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const SignUp = () => {
   const router = useRouter();
+  const toast = useCustomToast();
   const {
     register,
     handleSubmit,
@@ -85,14 +86,18 @@ const SignUp = () => {
         }, stepDuration);
       } else {
         const errorData = await response.json();
-        console.error("Registration failed:", errorData.message);
-        toast.error(errorData.message || "Registration failed");
-        setShowProgress(false);
+        setTimeout(() => {
+          console.error("Registration failed:", errorData.message);
+          toast.error(errorData.message || "Registration failed");
+          setShowProgress(false);
+        }, 1000);
       }
     } catch (error) {
-      console.error("Registration error:", error);
-      toast.error("An error occurred during registration");
-      setShowProgress(false);
+      setTimeout(() => {
+        console.error("Registration error:", error);
+        toast.error("An error occurred during registration");
+        setShowProgress(false);
+      }, 1000);
     } finally {
       setIsLoading(false);
     }

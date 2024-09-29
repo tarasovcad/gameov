@@ -24,8 +24,8 @@ import {
   Mail,
   Twitter,
 } from "lucide-react";
-import toast from "react-hot-toast";
-import SignUpProgressComponent from "@/components/auth/SignUpProgressComponent";
+import useCustomToast from "@/hooks/useCustomToast";
+
 const SignIn = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -39,8 +39,10 @@ const SignIn = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const toast = useCustomToast();
 
   const onSubmit = async (data: SignInFormData) => {
+    setIsLoading(true);
     try {
       const result = await signIn("credentials", {
         redirect: false,

@@ -13,6 +13,7 @@ import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/react";
 import {noRoutes} from "@/data/WrapperRoutes";
 import LayoutWrapper from "@/providers/LayoutWrapper";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -34,7 +35,7 @@ export default function RootLayout({
       <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
         <CustomThemeProvider>
           <AuthProvider>
-            <Toaster position="bottom-right" />
+            <Toaster position="bottom-right" toastOptions={{duration: 2000}} />
             <ThemeKeyboardShortcuts />
             <LayoutWrapper>
               <Sidebar />
