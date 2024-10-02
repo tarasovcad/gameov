@@ -5,10 +5,12 @@ import ListOfItems from "@/components/main/ListOfItems";
 
 const Home = () => {
   return (
-    <div className="wrapper">
+    <div className="max-[700px]:px-0">
       <Hero />
-      <ContentShowcase />
-      <ListOfItems />
+      <div className="max-[700px]:px-4 max-[450px]:px-[5vw]">
+        <ContentShowcase />
+        <ListOfItems />
+      </div>
     </div>
   );
 };

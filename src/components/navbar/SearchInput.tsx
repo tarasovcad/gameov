@@ -28,7 +28,7 @@ const SearchInput = () => {
 
       <Search
         size={22}
-        className="min-[700px]:hidden cursor-pointer transition-all duration-200 ease-in-out"
+        className="min-[701px]:hidden cursor-pointer transition-all duration-200 ease-in-out"
         onClick={openModal}
       />
 

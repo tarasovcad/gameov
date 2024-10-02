@@ -108,7 +108,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className="h-screen flex gap-[30px] p-[30px] pt-[40px]">
+    <div className="h-screen flex gap-[30px] pt-[10px]">
       <div className="absolute top-[30px] left-[30px] flex items-center justify-center cursor-pointer">
         <Link
           href={"/"}

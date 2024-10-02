@@ -38,7 +38,7 @@ const SidebarItem = ({
 
   return (
     <Link href={link}>
-      <div className="max-[1000px]:block hidden">
+      <div className="max-[999px]:block hidden">
         <Tooltip text={title}>{content}</Tooltip>
       </div>
 
