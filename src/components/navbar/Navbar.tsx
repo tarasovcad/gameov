@@ -37,14 +37,14 @@ const Navbar = ({username, image, email}: any) => {
             ) : (
               <>
                 <Link
-                  href="/signin"
-                  className="bg-white p-2 rounded-md border border-[#3a3a3a]  text-center text-black transition-all duration-300 ease-in-out hover:bg-white/80 hover:border-[#3a3a3a]  hover:shadow-lg active:transform active:scale-95 min-w-[110px] text-[14px]">
-                  Sign In
+                  href="/signup"
+                  className="bg-white py-2 px-3 rounded-md border border-[#3a3a3a]  text-center text-black transition-all duration-300 ease-in-out hover:bg-white/80 hover:border-[#3a3a3a]  hover:shadow-lg active:transform active:scale-95 min-w-[110px] text-[14px]">
+                  Get Started
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/signin"
                   className="bg-[#262626] py-2 px-3 rounded-md border border-white/10 text-center text-white transition-all duration-300 ease-in-out hover:bg-[#3a3a3a] hover:border-white/20 hover:shadow-lg active:transform active:scale-95 min-w-[110px] text-[14px]">
-                  Get Started
+                  Sign In
                 </Link>
               </>
             )}

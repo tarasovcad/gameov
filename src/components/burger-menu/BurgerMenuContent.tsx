@@ -24,14 +24,14 @@ const BurgerMenuContent = ({
       {!email && (
         <div className="flex flex-col gap-3 w-full text-sm">
           <Link
-            href="/signin"
-            className="bg-[#262626] p-2 rounded-md border border-white/10 text-center text-white transition-all duration-300 ease-in-out hover:bg-[#3a3a3a] hover:border-white/20 hover:shadow-lg active:transform active:scale-95">
-            Sign In
-          </Link>
-          <Link
             href="/signup"
             className="bg-white text-black p-2 rounded-md border border-black/10 text-center transition-all duration-300 ease-in-out hover:bg-gray-100 hover:border-black/20 hover:shadow-lg active:transform active:scale-95">
             Get Started
+          </Link>
+          <Link
+            href="/signin"
+            className="bg-[#262626] p-2 rounded-md border border-white/10 text-center text-white transition-all duration-300 ease-in-out hover:bg-[#3a3a3a] hover:border-white/20 hover:shadow-lg active:transform active:scale-95">
+            Sign In
           </Link>
         </div>
       )}

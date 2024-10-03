@@ -1,7 +1,10 @@
 import React, {useRef, useEffect, useState} from "react";
-import {Search, X} from "lucide-react";
+import {Search, X, ArrowUp, ArrowDown, Undo2} from "lucide-react";
 import AnimatedArrow from "../ui/AnimatedArrow";
 import {motion, AnimatePresence} from "framer-motion";
+import BurgerMenuThemeToggle from "../burger-menu/BurgerMenuThemeToggle";
+import DarkModeCheckbox from "../ui/DarkModeCheckbox";
+import Image from "next/image";
 const SearchInputModalMenu = ({
   isOpen,
   onClose,
@@ -12,6 +15,8 @@ const SearchInputModalMenu = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  const [search, setSearch] = useState("");
 
   const toggleBodyScroll = (disable: boolean) => {
     if (disable) {
@@ -55,15 +60,38 @@ const SearchInputModalMenu = ({
 
   if (!isOpen) return null;
 
-  const resentInfo = [
+  const gameInfo = [
     {
-      title: "Battlefield 1",
+      title: "Skyrim",
+      description: "lorem ipsum dolor sit amet",
+      image: "/game1.jpg",
     },
     {
-      title: "Arma 3",
+      title: "The Last Of Us",
+      description: "lorem ipsum dolor sit amet",
+      image: "/game2.jpg",
+    },
+    {
+      title: "Genshin Impact",
+      description: "lorem ipsum dolor sit amet",
+      image: "/game3.jpeg",
+    },
+    {
+      title: "Cyberpunk 2077",
+      description: "lorem ipsum dolor sit amet",
+      image: "/game4.jpg",
+    },
+    {
+      title: "The Witcher 3",
+      description: "lorem ipsum dolor sit amet",
+      image: "/game5.jpg",
+    },
+    {
+      title: "The Witcher 3: Wild Hunt",
+      description: "lorem ipsum dolor sit amet",
+      image: "/game6.jpg",
     },
   ];
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -79,24 +107,102 @@ const SearchInputModalMenu = ({
             animate={{scale: 1, opacity: 1}}
             exit={{scale: 0.95, opacity: 0}}
             transition={{duration: 0.15}}
-            className="bg-[#262626] rounded-xl w-full max-w-[600px] border border-[#3c3c3c] relative">
+            className="bg-[#262626] rounded-xl w-full max-w-[700px] border border-[#3c3c3c] relative">
+            {/* input */}
             <div className="relative">
               <input
                 ref={inputRef}
+                onChange={(e) => setSearch(e.target.value)}
                 type="text"
-                placeholder="Search..."
-                className="w-full caret-white/50 border-b rounded-t-xl border-[#3c3c3c] pl-[42px] pr-3 bg-[#262626] placeholder:font-normal font-medium placeholder:text-white/70 text-white focus:outline-none py-3"
+                placeholder="Search"
+                className="w-full caret-white/50 border-b rounded-t-xl border-[#3c3c3c] pl-[40px] pr-3 bg-[#262626] placeholder:font-normal font-medium placeholder:text-white/70 text-white focus:outline-none py-3.5 placeholder:text-[#BEBEBE] placeholder:text-[16px] "
               />
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search size={20} className="text-white/50" />
-              </span>
-              <button
-                onClick={onClose}
-                className="absolute inset-y-0 right-0 flex items-center pr-3 text-white/50 hover:text-white">
-                <X size={20} />
-              </button>
+              <div className="absolute top-1/2 left-3 -translate-y-1/2">
+                <Search size={20} className="text-[#BEBEBE]" />
+              </div>
+              {search && (
+                <button
+                  onClick={onClose}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-white/50 hover:text-white">
+                  <X size={20} />
+                </button>
+              )}
             </div>
-            <div className="p-3 mt-2">
+
+            <div className="border-b border-[#3c3c3c] p-3">
+              <div className=" grid grid-cols-[45%_55%]">
+                {/* left column */}
+                <div className="pr-2 h-[300px] overflow-y-auto custom-scrollbar">
+                  <p className="text-sm stickytop-0">Results</p>
+                  {/* list of items */}
+                  <div className="flex flex-col gap-1 mt-3 ">
+                    {gameInfo.map(({title, description, image}) => {
+                      return (
+                        <div className="" key={title}>
+                          <div className="flex items-center justify-start gap-3 rounded-lg hover:bg-bg transition-all duration-300 ease-in-out cursor-pointer p-1.5">
+                            <div className=" w-[50px] h-[50px] overflow-hidden">
+                              <Image
+                                src={image}
+                                width={1}
+                                height={1}
+                                alt="Profile Image"
+                                unoptimized
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div>
+                              <p className="text-[15px]">{title}</p>
+                              <p className="text-[14px] text-white/70">
+                                {description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                {/* right column */}
+                <div className="border-l border-[#3c3c3c]">asdfsdf</div>
+              </div>
+            </div>
+
+            <div className="p-3 py-3.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-5 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
+                      <div className="p-1 rounded-md bg-bg border border-border">
+                        <ArrowUp size={17} />
+                      </div>
+                      <div className="p-1 rounded-md bg-bg border border-border">
+                        <ArrowDown size={17} />
+                      </div>
+                    </div>
+                    <p className="">to navigate</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
+                      <div className="p-1 rounded-md bg-bg border border-border">
+                        <Undo2 size={17} className="scale-y-[-1]" />
+                      </div>
+                    </div>
+                    <p className="">to select</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
+                      <div className="p-1 px-[7px] rounded-md bg-bg border border-border">
+                        esc
+                      </div>
+                    </div>
+                    <p className="">to close</p>
+                  </div>
+                </div>
+                <DarkModeCheckbox />
+              </div>
+            </div>
+
+            {/* <div className="p-3 mt-2">
               <p className="text-white/70">Recent:</p>
               <ul className="flex flex-col gap-1 mt-3">
                 {resentInfo.map(({title}) => {
@@ -121,7 +227,7 @@ const SearchInputModalMenu = ({
                   );
                 })}
               </ul>
-            </div>
+            </div> */}
           </motion.div>
         </motion.div>
       )}
