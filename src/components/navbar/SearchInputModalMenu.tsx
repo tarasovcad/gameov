@@ -1,5 +1,13 @@
 import React, {useRef, useEffect, useState} from "react";
-import {Search, X, ArrowUp, ArrowDown, Undo2} from "lucide-react";
+import {
+  Search,
+  X,
+  ArrowUp,
+  ArrowDown,
+  Undo2,
+  ExternalLink,
+  Heart,
+} from "lucide-react";
 import AnimatedArrow from "../ui/AnimatedArrow";
 import {motion, AnimatePresence} from "framer-motion";
 import BurgerMenuThemeToggle from "../burger-menu/BurgerMenuThemeToggle";
@@ -132,10 +140,10 @@ const SearchInputModalMenu = ({
             <div className="border-b border-[#3c3c3c] ">
               <div className=" grid grid-cols-[45%_55%]">
                 {/* left column */}
-                <div className="pr-5 p-3 mr-1 h-[300px] overflow-y-auto custom-scrollbar ">
+                <div className="pr-5 p-3 pt-0 mr-1 mt-3 h-[342px] overflow-y-auto custom-scrollbar ">
                   <p className="text-sm">Results</p>
                   {/* list of items */}
-                  <div className="flex flex-col gap-1 mt-3 ">
+                  <div className="flex flex-col gap-[2px] mt-3 ">
                     {gameInfo.map(({title, description, image}) => {
                       return (
                         <div className="" key={title}>
@@ -174,11 +182,24 @@ const SearchInputModalMenu = ({
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div>
-                    <h2></h2>
-                    <p></p>
-                    <button></button>
-                    <button></button>
+                  <div className=" p-3">
+                    <div className="flex flex-col justify-center gap-2">
+                      <h2 className="text-[19px]">Skyrim</h2>
+                      <p className="text-secondary_text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Doloribus incidunt dolor tempore quas. At, vero.
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center justify-between gap-2 mt-4">
+                      <button className="w-full bg-[#3c3c3c] p-2 rounded-md text-[15px] flex items-center gap-2 justify-center transtion all duration-300 ease-in-out hover:bg-[#525252] ">
+                        <ExternalLink size={16} />
+                        Learn More
+                      </button>
+                      <button className="w-full bg-red-700 p-2 rounded-md text-[15px] flex items-center gap-2 justify-center transtion all duration-300 ease-in-out hover:bg-red-900">
+                        <Heart size={16} />
+                        Add to Favorites
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
