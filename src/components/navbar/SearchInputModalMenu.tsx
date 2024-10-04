@@ -129,11 +129,11 @@ const SearchInputModalMenu = ({
               )}
             </div>
 
-            <div className="border-b border-[#3c3c3c] p-3">
+            <div className="border-b border-[#3c3c3c] ">
               <div className=" grid grid-cols-[45%_55%]">
                 {/* left column */}
-                <div className="pr-2 h-[300px] overflow-y-auto custom-scrollbar">
-                  <p className="text-sm stickytop-0">Results</p>
+                <div className="pr-5 p-3 mr-1 h-[300px] overflow-y-auto custom-scrollbar ">
+                  <p className="text-sm">Results</p>
                   {/* list of items */}
                   <div className="flex flex-col gap-1 mt-3 ">
                     {gameInfo.map(({title, description, image}) => {
@@ -163,7 +163,24 @@ const SearchInputModalMenu = ({
                   </div>
                 </div>
                 {/* right column */}
-                <div className="border-l border-[#3c3c3c]">asdfsdf</div>
+                <div className="border-l border-[#3c3c3c]">
+                  <div className="w-full max-h-[150px] h-full overflow-hidden border-b border-[#3c3c3c]">
+                    <Image
+                      src={"/game1.jpg"}
+                      width={1}
+                      height={1}
+                      alt="Profile Image"
+                      unoptimized
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h2></h2>
+                    <p></p>
+                    <button></button>
+                    <button></button>
+                  </div>
+                </div>
               </div>
             </div>
 

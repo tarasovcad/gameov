@@ -106,7 +106,6 @@ input {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #1a1a1a;
   border-radius: 4px;
 }
 

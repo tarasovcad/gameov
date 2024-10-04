@@ -1,10 +1,18 @@
 "use client";
 import {Search} from "lucide-react";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SearchInputModalMenu from "./SearchInputModalMenu";
-
+import {useSearchParams} from "next/navigation";
 const SearchInput = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const openParam = searchParams.get("open");
+    if (openParam === "true") {
+      setIsModalOpen(true);
+    }
+  }, [searchParams]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
