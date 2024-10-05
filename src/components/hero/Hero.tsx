@@ -1,9 +1,8 @@
 "use client";
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect, useCallback, useRef} from "react";
 import {Poppins} from "next/font/google";
 import {CirclePlus, ExternalLink, Heart} from "lucide-react";
 import {motion, AnimatePresence} from "framer-motion";
-import {au} from "vitest/dist/chunks/reporters.WnPwkmgA";
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
@@ -44,20 +43,31 @@ const slides = [
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [key, setKey] = useState(0);
+  const [shouldResetInterval, setShouldResetInterval] = useState(false);
   const intervalDuration = 8000;
 
   const resetInterval = useCallback(() => {
     setKey((prevKey) => prevKey + 1);
+    setShouldResetInterval(true);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const nextSlide = () => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
       resetInterval();
-    }, intervalDuration);
+    };
+
+    const interval = setInterval(nextSlide, intervalDuration);
+
+    if (shouldResetInterval) {
+      clearInterval(interval);
+      const newInterval = setInterval(nextSlide, intervalDuration);
+      setShouldResetInterval(false);
+      return () => clearInterval(newInterval);
+    }
 
     return () => clearInterval(interval);
-  }, [resetInterval]);
+  }, [shouldResetInterval, resetInterval]);
 
   const handleDotClick = (index: number) => {
     setCurrentSlide(index);
@@ -120,11 +130,15 @@ const Hero = () => {
           <button
             key={`${index}-${key}`}
             onClick={() => handleDotClick(index)}
-            className="w-3 h-3 rounded-full mx-1 border border-white overflow-hidden relative">
+            className="w-3 h-3 rounded-full mx-1 border border-white overflow-hidden relative hover:scale-110 transition-all duration-300 ease-in-out">
             <motion.span
-              initial={{x: "-90%"}}
-              animate={{x: currentSlide === index ? "0%" : "-110%"}}
-              transition={{duration: intervalDuration / 1000, ease: "linear"}}
+              initial={{x: "-100%"}}
+              animate={{x: currentSlide === index ? "0%" : "-100%"}}
+              transition={{
+                duration: intervalDuration / 1000,
+                ease: "easeInOut",
+                type: "tween",
+              }}
               className="absolute inset-0 bg-white transform"
             />
           </button>
