@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Poppins} from "next/font/google";
 import {CirclePlus, ExternalLink, Heart} from "lucide-react";
 import {motion, AnimatePresence} from "framer-motion";
@@ -11,40 +11,53 @@ const poppins = Poppins({
   weight: ["600"],
 });
 
+const slides = [
+  {
+    image: "/hero-slider/hero1.png",
+    title: "The Haunting of Blackwood Manor",
+    date: "15 Mar 2024",
+    author: "Emma Nightshade",
+    description:
+      "Explore the chilling secrets of Blackwood Manor in this atmospheric first-person horror game. Uncover the tragic history of the estate as you solve puzzles and evade malevolent spirits.",
+    link: "https://www.blackwoodmanorgame.com",
+  },
+  {
+    image: "/hero-slider/hero2.png",
+    title: "Cyberpunk Nightmares",
+    date: "3 Sep 2023",
+    author: "Zack Neural",
+    description:
+      "Dive into a dystopian future where reality and virtual nightmares blend. As a rogue AI hunter, your mission is to track down corrupt programs that have gained sentience and are terrorizing the city's datascape.",
+    link: "https://www.cyberpunknightmares.net",
+  },
+  {
+    image: "/hero-slider/hero3.png",
+    title: "Lovecraftian Depths",
+    date: "7 Dec 2023",
+    author: "H.P. Anderson",
+    description:
+      "Descend into the abyssal trenches of the ocean in this cosmic horror adventure. As a deep-sea explorer, you'll encounter ancient entities and face mind-bending terrors that challenge your sanity.",
+    link: "https://www.lovecraftiandepths.com",
+  },
+];
+
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    {
-      image: "/hero-slider/hero1.png",
-      title: "The Haunting of Blackwood Manor",
-      date: "15 Mar 2024",
-      author: "Emma Nightshade",
-      description:
-        "Explore the chilling secrets of Blackwood Manor in this atmospheric first-person horror game. Uncover the tragic history of the estate as you solve puzzles and evade malevolent spirits.",
-      link: "https://www.blackwoodmanorgame.com",
-    },
-    {
-      image: "/hero-slider/hero2.png",
-      title: "Cyberpunk Nightmares",
-      date: "3 Sep 2023",
-      author: "Zack Neural",
-      description:
-        "Dive into a dystopian future where reality and virtual nightmares blend. As a rogue AI hunter, your mission is to track down corrupt programs that have gained sentience and are terrorizing the city's datascape.",
-      link: "https://www.cyberpunknightmares.net",
-    },
-    {
-      image: "/hero-slider/hero3.png",
-      title: "Lovecraftian Depths",
-      date: "7 Dec 2023",
-      author: "H.P. Anderson",
-      description:
-        "Descend into the abyssal trenches of the ocean in this cosmic horror adventure. As a deep-sea explorer, you'll encounter ancient entities and face mind-bending terrors that challenge your sanity.",
-      link: "https://www.lovecraftiandepths.com",
-    },
-  ];
+  const [key, setKey] = useState(0);
+  const intervalDuration = 8000;
 
-  const handleDotClick = (index) => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+      setKey((prevKey) => prevKey + 1);
+    }, intervalDuration);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleDotClick = (index: number) => {
     setCurrentSlide(index);
+    setKey((prevKey) => prevKey + 1);
   };
 
   return (
@@ -82,12 +95,18 @@ const Hero = () => {
       <div className="flex justify-center">
         {slides.map((_, index) => (
           <button
-            key={index}
+            key={`${index}-${key}`}
             onClick={() => handleDotClick(index)}
-            className={`w-3 h-3 rounded-full mx-1 transition-all duration-300 border border-white ${
-              currentSlide === index ? "bg-white" : "bg-transparent"
-            }`}
-          />
+            className="w-3 h-3 rounded-full mx-1 border border-white overflow-hidden relative">
+            <span
+              className={`absolute inset-0 bg-white transform ${
+                currentSlide === index ? "animate-fill" : "translate-x-full"
+              }`}
+              style={{
+                animationDuration: `${intervalDuration}ms`,
+              }}
+            />
+          </button>
         ))}
       </div>
     </>

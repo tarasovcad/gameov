@@ -85,6 +85,19 @@ input {
   backdrop-filter: blur(50px);
 }
 
+@keyframes fillAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-fill {
+  animation: fillAnimation 5s linear;
+}
+
 /* MAIN  */
 
 .mainitem:hover .scaleitem {
