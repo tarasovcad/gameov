@@ -1,44 +1,53 @@
 "use client";
-import {Montserrat} from "next/font/google";
-import {ArrowUpRight} from "lucide-react";
+import {ArrowUpRight, Eye, MessageSquare} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {motion} from "framer-motion";
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["700", "400"],
-});
 
-const GameCartMainMenu = ({name, year}: {name: string; year: number}) => {
+import {Card, CardContent} from "@/components/ui/card";
+
+interface Game {
+  game: {
+    title: string;
+    description: string;
+    image: string;
+    year: number;
+    views: string;
+    comments: number;
+  };
+}
+
+const GameCartMainMenu = ({game}: Game) => {
   return (
-    <Link href={""}>
-      <div className="mainitem relative min-h-[210px] text-white rounded-xl flex overflow-hidden ">
-        <div>
-          <Image
-            src="/hero-slider/slider1.jpg"
-            fill
-            className="scaleitem absolute object-cover rounded-xl opacity-40 scale-105 duration-300 transition ease-in-out"
-            alt="game"
-          />
-        </div>
-
-        <ArrowUpRight
-          width={20}
-          height={20}
-          className="arrowupright absolute top-[14px] right-[14px] duration-300 transition ease-in-out"
+    <Link href={"/games/" + game.title}>
+      <Card
+        key={game.title}
+        className="bg-bg overflow-hidden border border-border">
+        <Image
+          src={game.image}
+          alt={game.title}
+          width={400}
+          height={200}
+          className="object-cover w-full h-48"
         />
-        <div
-          className={`${"relative p-5 flex flex-col gap-1 justify-end max-[1335px]:p-4"} ${montserrat.className}`}>
-          <h2 className="font-bold text-xl tracking-[0.02em] max-[1335px]:text-[18px]">
-            Chaperone (2023)
-          </h2>
-          <p className="font-normal text-sm text-[#e9e9e9] tracking-[0.01em] leading-6 max-[1335px]:leading-5">
-            Chaperone is a first-person psychological horror game. The events
-            are ...
-          </p>
-        </div>
-      </div>
+        <CardContent className="p-4">
+          <h3 className="text-2xl font-bold mb-2">
+            {game.title} ({game.year})
+          </h3>
+          <p className="text-secondary_text  mb-4">{game.description}</p>
+          <div className="flex items-center text-sm text-secondary_text ">
+            <span className="mr-3 flex items-center">
+              <Eye size={16} className="mr-1" />
+
+              {game.views}
+            </span>
+            <span className="flex items-center">
+              <MessageSquare size={16} className="mr-1" />
+              {game.comments}
+            </span>
+          </div>
+        </CardContent>
+      </Card>
     </Link>
   );
 };

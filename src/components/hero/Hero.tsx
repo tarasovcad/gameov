@@ -109,14 +109,14 @@ const Hero = () => {
                   whileHover={{scale: 1.03}}
                   whileTap={{scale: 0.97}}
                   transition={{duration: 0.1}}
-                  className="bg-white text-black w-fit py-3 rounded-lg px-10 transition-all duration-300 ease-in-out hover:bg-white/80 cursor-pointer text-base flex items-center gap-2 justify-center">
+                  className="bg-white text-black w-fit py-3 rounded-lg px-10 transition-all duration-300 ease-in-out hover:bg-white/80 cursor-pointer text-sm flex items-center gap-2 justify-center">
                   Read more
                 </motion.button>
                 <motion.button
                   whileHover={{scale: 1.03}}
                   whileTap={{scale: 0.97}}
                   transition={{duration: 0.1}}
-                  className="text-white w-fit py-3 rounded-lg px-5 transition-all duration-300 ease-in-out hover:bg-white/10 cursor-pointer text-base flex items-center gap-3 justify-center">
+                  className="text-white w-fit py-3 rounded-lg px-5 transition-all duration-300 ease-in-out hover:bg-white/10 cursor-pointer text-sm flex items-center gap-3 justify-center">
                   <CirclePlus size={20} />
                   Add to Favorites
                 </motion.button>
