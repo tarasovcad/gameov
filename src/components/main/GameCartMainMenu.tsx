@@ -1,6 +1,7 @@
 "use client";
 import {
   ArrowUpRight,
+  Calendar,
   Check,
   Eye,
   MessageSquare,
@@ -12,14 +13,14 @@ import Image from "next/image";
 import {AnimatePresence, motion} from "framer-motion";
 
 import {Card, CardContent} from "@/components/ui/card";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "./../../components/ui/tooltip";
 import useCustomToast from "@/hooks/useCustomToast";
 
 interface Game {
@@ -29,23 +30,49 @@ interface Game {
   year: number;
   views: string;
   comments: number;
+  date: string;
 }
 
 const GameCartMainMenu = ({game}: {game: Game}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [tooltipText, setTooltipText] = useState("Add to favorites");
   const [showTooltip, setShowTooltip] = useState(false);
+  const tooltipTimeoutRef = useRef<NodeJS.Timeout>();
   const toast = useCustomToast();
 
   useEffect(() => {
     setTooltipText(isFavorite ? "Remove from favorites" : "Add to favorites");
   }, [isFavorite]);
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsFavorite((prev) => !prev);
-    toast.info(isFavorite ? "Removed from favorites" : "Added to favorites");
-  };
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      setIsFavorite((prev) => !prev);
+      toast.info(isFavorite ? "Removed from favorites" : "Added to favorites");
+    },
+    [isFavorite, toast],
+  );
+
+  const handleMouseEnter = useCallback(() => {
+    if (tooltipTimeoutRef.current) {
+      clearTimeout(tooltipTimeoutRef.current);
+    }
+    setShowTooltip(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    tooltipTimeoutRef.current = setTimeout(() => {
+      setShowTooltip(false);
+    }, 100);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <Link href={"/games/" + game.title}>
@@ -68,10 +95,8 @@ const GameCartMainMenu = ({game}: {game: Game}) => {
                 <motion.button
                   className="p-[6px] bg-bg rounded-full flex items-center justify-center"
                   onClick={handleClick}
-                  onMouseEnter={() =>
-                    setTimeout(() => setShowTooltip(true), 50)
-                  }
-                  onMouseLeave={() => setShowTooltip(false)}>
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}>
                   <AnimatePresence mode="wait">
                     {!isFavorite ? (
                       <motion.div
@@ -106,17 +131,22 @@ const GameCartMainMenu = ({game}: {game: Game}) => {
         </TooltipProvider>
 
         <CardContent className="p-4">
-          <h3 className="text-2xl font-bold mb-2">
+          <h3 className="text-xl font-bold mb-2">
             {game.title} ({game.year})
           </h3>
-          <p className="text-secondary_text mb-4">{game.description}</p>
-          <div className="flex items-center text-sm text-secondary_text">
-            <span className="mr-3 flex items-center">
-              <Eye size={16} className="mr-1" /> {game.views}
-            </span>
-            <span className="flex items-center">
-              <MessageSquare size={16} className="mr-1" /> {game.comments}
-            </span>
+          <p className="text-secondary_text mb-6 text-sm">{game.description}</p>
+          <div className="flex justify-between text-sm text-secondary_text">
+            <div className="flex items-center text-sm">
+              <span className="mr-3 flex items-center">
+                <Eye size={16} className="mr-1" /> {game.views}
+              </span>
+              <span className="flex items-center">
+                <MessageSquare size={16} className="mr-1" /> {game.comments}
+              </span>
+            </div>
+            <div>
+              <span className="flex items-center">{game.date}</span>
+            </div>
           </div>
         </CardContent>
       </Card>

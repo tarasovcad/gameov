@@ -10,6 +10,7 @@ const games = [
     year: 2023,
     views: "1.2K",
     comments: 120,
+    date: "16 Jan 2024",
   },
   {
     title: "Stellar Odyssey",
@@ -19,6 +20,7 @@ const games = [
     year: 2023,
     views: "2.5K",
     comments: 230,
+    date: "29 Jan 2024",
   },
   {
     title: "Neon Nights",
@@ -28,6 +30,7 @@ const games = [
     year: 2023,
     views: "1.8K",
     comments: 150,
+    date: "5 Feb 2024",
   },
   {
     title: "Mystic Realms",
@@ -37,6 +40,7 @@ const games = [
     year: 2023,
     views: "3.1K",
     comments: 280,
+    date: "12 Feb 2024",
   },
   {
     title: "Velocity Rush",
@@ -46,6 +50,7 @@ const games = [
     year: 2023,
     views: "1.5K",
     comments: 110,
+    date: "19 Feb 2024",
   },
   {
     title: "Chronos Shift",
@@ -54,6 +59,7 @@ const games = [
     year: 2023,
     views: "2.0K",
     comments: 190,
+    date: "26 Feb 2024",
   },
   {
     title: "Eco Warriors",
@@ -63,6 +69,7 @@ const games = [
     year: 2023,
     views: "1.7K",
     comments: 140,
+    date: "2 Mar 2024",
   },
   {
     title: "Shadow Tactics",
@@ -71,6 +78,7 @@ const games = [
     year: 2023,
     views: "2.3K",
     comments: 210,
+    date: "9 Mar 2024",
   },
   {
     title: "Pixel Legends",
@@ -79,12 +87,13 @@ const games = [
     year: 2023,
     views: "1.9K",
     comments: 170,
+    date: "16 Mar 2024",
   },
 ];
 
 const ListOfItems = () => {
   return (
-    <div className="grid grid-cols-3 gap-8 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+    <div className="grid grid-cols-3 gap-8 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1 mb-[100px]">
       {games.map((game, index) => (
         <GameCartMainMenu key={index} game={game} />
       ))}

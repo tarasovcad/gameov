@@ -80,10 +80,10 @@ const Hero = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            initial={{opacity: 0, scale: 1.03}}
-            animate={{opacity: 1, scale: 1}}
-            exit={{opacity: 0, scale: 0.97}}
-            transition={{duration: 0.2, ease: "easeOut"}}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.1, ease: "easeOut"}}
             className="flex-grow min-h-[504px] max-h-[504px] w-full bg-cover bg-center rounded-xl px-4 max-[768px]:px-3 flex items-end mb-6 p-2 py-8 max-[540px]:px-2 max-[540px]:pb-3 max-[700px]:rounded-none"
             style={{backgroundImage: `url(${slides[currentSlide].image})`}}>
             {/* BLUR */}
