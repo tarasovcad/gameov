@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import AnimatedArrow from "../ui/AnimatedArrow";
-import Tooltip from "../ui/Tooltip";
+import CustomTooltip from "../ui/CustomTooltip";
 
 const SidebarItem = ({
   title,
@@ -39,7 +39,7 @@ const SidebarItem = ({
   return (
     <Link href={link}>
       <div className="max-[999px]:block hidden">
-        <Tooltip text={title}>{content}</Tooltip>
+        <CustomTooltip text={title}>{content}</CustomTooltip>
       </div>
 
       <div className="min-[1000px]:block hidden">{content}</div>

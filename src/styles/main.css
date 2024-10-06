@@ -91,13 +91,6 @@ input {
   transform: scale(1);
   opacity: 50%;
 }
-.arrowupright {
-  transform: rotate(45deg);
-}
-.mainitem:hover .arrowupright {
-  transform: rotate(0);
-  transition: all 0.3s ease-in-out;
-}
 
 /* search input */
 
