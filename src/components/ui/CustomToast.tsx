@@ -1,10 +1,10 @@
-import {CheckCircleIcon, XCircleIcon} from "lucide-react";
+import {CheckCircleIcon, Info, XCircleIcon} from "lucide-react";
 import {Toast, toast} from "react-hot-toast";
 
 interface CustomToastProps {
   t: Toast;
   message: string;
-  type: "success" | "error";
+  type: "success" | "error" | "info";
 }
 
 const CustomToast: React.FC<CustomToastProps> = ({t, message, type}) => {
@@ -45,6 +45,25 @@ const CustomToast: React.FC<CustomToastProps> = ({t, message, type}) => {
             <div className="flex items-center gap-[5px] text-[#ffffff92]">
               <CheckCircleIcon size={18} />
               <p className="text-sm font-medium">Success</p>
+            </div>
+            <p className="mt-[8px] text-[15px]">{message}</p>
+          </div>
+        </div>
+      </div>
+    );
+  } else if (type === "info") {
+    return (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } max-w-[346px] w-full shadow-lg rounded-md overflow-hidden cursor-pointer opacity-[96%] transition-opacity duration-300 ease-in-out`}
+        onClick={handleClick}
+        style={{pointerEvents: "auto"}}>
+        <div className="bg-bg border border-border text-white hover:bg-[#161616] transition-colors duration-300 rounded-md">
+          <div className="flex flex-col p-4">
+            <div className="flex items-center gap-[5px] text-[#ffffff92]">
+              <Info size={18} />
+              <p className="text-sm font-medium">Info</p>
             </div>
             <p className="mt-[8px] text-[15px]">{message}</p>
           </div>
