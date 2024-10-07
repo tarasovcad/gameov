@@ -32,19 +32,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="bg-white selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
+      <body className="bg-white  selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster position="bottom-right" toastOptions={{duration: 2000}} />
             <ThemeKeyboardShortcuts />
-            <LayoutWrapper>
+            {/* <LayoutWrapper> */}
+            <div className="bodywrapper">
               <Sidebar />
               {/* responsive design for 700-0px is inside the page */}
               <div className="flex-1 flex flex-col pr-12 max-[1100px]:pr-5 max-[700px]:p-0">
                 <NavbarServerComponent />
                 <main>{children}</main>
               </div>
-            </LayoutWrapper>
+            </div>
+
+            {/* </LayoutWrapper> */}
           </AuthProvider>
         </CustomThemeProvider>
         <SpeedInsights />
