@@ -6,36 +6,6 @@ const Home = () => {
   // i fetch the data from the api
   const games = [
     {
-      title: "Chaperone",
-      description:
-        "A first-person psychological horror game set in a mysterious workplace.",
-      image: "/fake/1.jpg",
-      year: 2023,
-      views: "1.2K",
-      comments: 120,
-      date: "16 Jan 2024",
-    },
-    {
-      title: "Stellar Odyssey",
-      description:
-        "An epic space exploration RPG with stunning visuals and deep storylines.",
-      image: "/fake/2.png",
-      year: 2023,
-      views: "2.5K",
-      comments: 230,
-      date: "29 Jan 2024",
-    },
-    {
-      title: "Neon Nights",
-      description:
-        "A cyberpunk-themed action-adventure game set in a dystopian future.",
-      image: "/fake/3.jpg",
-      year: 2023,
-      views: "1.8K",
-      comments: 150,
-      date: "5 Feb 2024",
-    },
-    {
       title: "Mystic Realms",
       description:
         "A fantasy MMORPG with intricate world-building and magical combat.",
@@ -93,6 +63,36 @@ const Home = () => {
       views: "1.9K",
       comments: 170,
       date: "16 Mar 2024",
+    },
+    {
+      title: "Chaperone",
+      description:
+        "A first-person psychological horror game set in a mysterious workplace.",
+      image: "/fake/1.jpg",
+      year: 2023,
+      views: "1.2K",
+      comments: 120,
+      date: "16 Jan 2024",
+    },
+    {
+      title: "Stellar Odyssey",
+      description:
+        "An epic space exploration RPG with stunning visuals and deep storylines.",
+      image: "/fake/2.png",
+      year: 2023,
+      views: "2.5K",
+      comments: 230,
+      date: "29 Jan 2024",
+    },
+    {
+      title: "Neon Nights",
+      description:
+        "A cyberpunk-themed action-adventure game set in a dystopian future.",
+      image: "/fake/3.jpg",
+      year: 2023,
+      views: "1.8K",
+      comments: 150,
+      date: "5 Feb 2024",
     },
   ];
 

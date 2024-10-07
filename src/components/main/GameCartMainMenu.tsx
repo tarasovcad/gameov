@@ -69,8 +69,8 @@ const GameCartMainMenu = ({game}: {game: Game}) => {
     <Link href={"/games/" + game.title}>
       <Card
         key={game.title}
-        className="bg-bg overflow-hidden border border-border relative group flex flex-col w-full">
-        <div className="overflow-hidden h-48 relative ">
+        className="bg-bg overflow-hidden border border-border relative group flex flex-col w-full h-full">
+        <div className="relative w-full min-[1300px]:h-48 aspect-[16/9] max-[1170px]:aspect-[16/10] max-[1100px]:aspect-[16/8] max-[769px]:aspect-[10/4] max-[701px]:aspect-[10/3] overflow-hidden max-[600px]:aspect-[16/7]">
           <Image
             src={game.image}
             alt={game.title}
@@ -79,60 +79,17 @@ const GameCartMainMenu = ({game}: {game: Game}) => {
             className="transition-all duration-300 ease-in-out group-hover:scale-100 group-hover:opacity-100 scale-105 opacity-80"
           />
         </div>
-        <TooltipProvider delayDuration={50}>
-          <Tooltip open={showTooltip}>
-            <div className="absolute top-[9px] right-[9px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <TooltipTrigger asChild>
-                <button
-                  className="p-[6px] rounded-full flex items-center justify-center"
-                  onClick={handleClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}>
-                  <motion.div className="p-[6px] bg-bg rounded-full flex items-center justify-center">
-                    <AnimatePresence mode="wait">
-                      {!isFavorite ? (
-                        <motion.div
-                          key="plus"
-                          initial={{rotate: 0}}
-                          animate={{rotate: 90}}
-                          exit={{rotate: 180, opacity: 0}}
-                          transition={{duration: 0.3}}>
-                          <Plus size={16} strokeWidth={3} />
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="check"
-                          initial={{scale: 0}}
-                          animate={{scale: 1}}
-                          transition={{
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 30,
-                          }}>
-                          <Check size={16} strokeWidth={3} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                </button>
-              </TooltipTrigger>
-            </div>
-            <TooltipContent>
-              <p>{tooltipText}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
 
-        <div className="p-4 h-full ">
-          <h3 className="text-xl font-bold mb-2">
+        <div className="p-4 flex flex-col flex-grow ">
+          <h3 className="text-xl font-bold mb-2 max-[1200px]:text-[18px] max-[1200px]:mb-[6px]">
             {game.title} ({game.year})
           </h3>
-          <div className="flex-grow ">
-            <p className="text-secondary_text mb-6 text-sm ">
+          <div className="flex-grow">
+            <p className="text-secondary_text mb-6 text-sm max-[1150px]:text-[13px] max-[1150px]:mb-[20px]">
               {game.description}
             </p>
           </div>
-          <div className="flex justify-between text-sm text-secondary_text">
+          <div className="flex justify-between text-sm text-secondary_text mt-auto ">
             <div className="flex items-center text-sm">
               <span className="mr-3 flex items-center">
                 <Eye size={16} className="mr-1" /> {game.views}

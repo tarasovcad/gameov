@@ -20,17 +20,25 @@ const LatestGameSection = ({games}: {games: Game[]}) => {
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
 
+  const updateSwiper = () => {
+    if (swiperRef.current) {
+      const screenWidth = window.innerWidth;
+      swiperRef.current.params.allowTouchMove = screenWidth < 700;
+      swiperRef.current.update();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", updateSwiper);
+    return () => {
+      window.removeEventListener("resize", updateSwiper);
+    };
+  }, []);
+
   useEffect(() => {
     if (games.length > 0) {
       setIsLoading(false);
     }
   }, [games]);
-
-  // useEffect(() => {
-  //   if (swiperRef.current) {
-  //     swiperRef.current.update();
-  //   }
-  // }, [games]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -66,44 +74,58 @@ const LatestGameSection = ({games}: {games: Game[]}) => {
             </button>
           </div>
         </div>
-      </div>
+        <Swiper
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            updateSwiper();
+          }}
+          onSlideChange={(swiper) => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
+          slidesPerView={3}
+          spaceBetween={30}
+          slidesPerGroup={3}
+          allowTouchMove={false}
+          breakpoints={{
+            320: {
+              slidesPerView: 1.2,
+              spaceBetween: 10,
+              allowTouchMove: true,
+              slidesPerGroup: 1,
+            },
+            700: {
+              slidesPerView: 1.2,
+              spaceBetween: 20,
+              slidesPerGroup: 1,
+              allowTouchMove: true,
+            },
+            768: {
+              slidesPerView: 2,
+              slidesPerGroup: 2,
+              spaceBetween: 30,
+            },
 
-      <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        onSlideChange={(swiper) => {
-          setIsBeginning(swiper.isBeginning);
-          setIsEnd(swiper.isEnd);
-        }}
-        slidesPerView={3}
-        spaceBetween={30}
-        slidesPerGroup={3}
-        breakpoints={{
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 30,
-          },
-        }}
-        // loop={true}
-        // loopAddBlankSlides={true}
-        // slidesPerGroupSkip={1}
-        modules={[Navigation]}
-        className="mb-[100px] flex justify-center">
-        {games.map((game, index) => (
-          <SwiperSlide key={index}>
-            <GameCartMainMenu game={game} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            1100: {
+              slidesPerView: 3,
+              slidesPerGroup: 3,
+
+              spaceBetween: 20,
+            },
+            1300: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
+          modules={[Navigation]}
+          className="mb-[100px] flex justify-center ">
+          {games.map((game, index) => (
+            <SwiperSlide key={index} style={{height: "auto"}}>
+              <GameCartMainMenu game={game} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </>
   );
 };
