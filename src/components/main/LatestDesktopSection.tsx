@@ -1,5 +1,5 @@
 "use client";
-import {Game} from "@/types/postProps";
+import {Desctop, Game} from "@/types/postProps";
 import React, {useEffect, useRef, useState} from "react";
 import {motion} from "framer-motion";
 import {ChevronLeft, ChevronRight, Eye, MessageSquare} from "lucide-react";
@@ -12,8 +12,9 @@ import {Swiper as SwiperType} from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import DesktopCartMainMenu from "./DesktopCartMainMenu";
 
-const LatestGameSection = ({games}: {games: Game[]}) => {
+const LatestDesktopSection = ({desctopList}: {desctopList: Desctop[]}) => {
   const [isHover, setIsHover] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -35,24 +36,24 @@ const LatestGameSection = ({games}: {games: Game[]}) => {
   }, []);
 
   useEffect(() => {
-    if (games.length > 0) {
+    if (desctopList.length > 0) {
       setIsLoading(false);
     }
-  }, [games]);
+  }, [desctopList]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
   return (
     <>
-      <div className="max-[700px]:px-4 max-[450px]:px-[5vw] mt-6">
+      <div className="max-[700px]:px-4 max-[450px]:px-[5vw]">
         <div className="flex justify-between items-center mb-4">
           <Link
             href={"/games"}
             className="flex items-center justify-center gap-2 text-white w-fit  "
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}>
-            <h2 className="font-semibold text-[25px] ">Latest PC Games</h2>
+            <h2 className="font-semibold text-[25px] ">Latest Desktop Apps</h2>
             <motion.div
               animate={{x: isHover ? 5 : 0}}
               transition={{type: "spring", stiffness: 100}}>
@@ -119,9 +120,9 @@ const LatestGameSection = ({games}: {games: Game[]}) => {
           }}
           modules={[Navigation]}
           className="flex justify-center ">
-          {games.map((game, index) => (
+          {desctopList.map((desctop, index) => (
             <SwiperSlide key={index} style={{height: "auto"}}>
-              <GameCartMainMenu game={game} />
+              <DesktopCartMainMenu desctop={desctop} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -129,4 +130,5 @@ const LatestGameSection = ({games}: {games: Game[]}) => {
     </>
   );
 };
-export default LatestGameSection;
+
+export default LatestDesktopSection;

@@ -84,7 +84,7 @@ const Hero = () => {
             animate={{opacity: 1}}
             exit={{opacity: 0}}
             transition={{duration: 0.1, ease: "easeOut"}}
-            className="flex-grow min-h-[504px] max-h-[504px] w-full bg-cover bg-center rounded-xl px-4 max-[768px]:px-3 flex items-end mb-6 p-2 py-8 max-[540px]:px-2 max-[540px]:pb-3 max-[700px]:rounded-none"
+            className="flex-grow min-h-[504px] max-h-[504px] w-full bg-cover bg-center rounded-xl px-4 max-[768px]:px-3 flex items-end mb-5 p-2 py-8 max-[540px]:px-2 max-[540px]:pb-3 max-[700px]:rounded-none"
             style={{backgroundImage: `url(${slides[currentSlide].image})`}}>
             {/* BLUR */}
             <motion.div
