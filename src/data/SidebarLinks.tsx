@@ -24,14 +24,14 @@ export const SidebarGeneralLinks = [
     link: "/desktop",
   },
   {
-    title: "Mac OS Games",
-    src: "/sidemenu/mac.svg",
+    title: "Graphics and design",
+    src: "/sidemenu/mac-apps.svg",
     hasArrow: false,
     link: "/mac",
   },
   {
     title: "Mac OS Software",
-    src: "/sidemenu/mac-apps.svg",
+    src: "/sidemenu/mac.svg",
     hasArrow: false,
     link: "/mac-apps",
   },

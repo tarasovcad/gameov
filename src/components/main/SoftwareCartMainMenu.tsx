@@ -1,135 +1,47 @@
 "use client";
-import {
-  ArrowUpRight,
-  Calendar,
-  Check,
-  Eye,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-} from "lucide-react";
+
 import Link from "next/link";
 import Image from "next/image";
-import {AnimatePresence, motion} from "framer-motion";
+import {Post} from "@/types/postProps";
+import {useState} from "react";
+import {Card} from "../ui/card";
 
-import {Card, CardContent} from "@/components/ui/card";
-import {useCallback, useEffect, useRef, useState} from "react";
-
-import useCustomToast from "@/hooks/useCustomToast";
-import {Game, Software} from "@/types/postProps";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/Tooltip";
-
-const SoftwareCartMainMenu = ({software}: {software: Software}) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [tooltipText, setTooltipText] = useState("Add to favorites");
-  const [showTooltip, setShowTooltip] = useState(false);
-  const tooltipTimeoutRef = useRef<NodeJS.Timeout>();
-  const toast = useCustomToast();
-
-  useEffect(() => {
-    setTooltipText(isFavorite ? "Remove from favorites" : "Add to favorites");
-  }, [isFavorite]);
-
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      setIsFavorite((prev) => !prev);
-      toast.info(isFavorite ? "Removed from favorites" : "Added to favorites");
-    },
-    [isFavorite, toast],
-  );
-
-  const handleMouseEnter = useCallback(() => {
-    if (tooltipTimeoutRef.current) {
-      clearTimeout(tooltipTimeoutRef.current);
-    }
-    setShowTooltip(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    tooltipTimeoutRef.current = setTimeout(() => {
-      setShowTooltip(false);
-    }, 100);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (tooltipTimeoutRef.current) {
-        clearTimeout(tooltipTimeoutRef.current);
-      }
-    };
-  }, []);
-
+const SoftwareCartMainMenu = ({item}: {item: Post}) => {
+  console.log(item);
+  const [isHovering, setIsHovering] = useState(false);
   return (
-    <Link href={"/games/" + software.title}>
-      <div
-        key={software.title}
-        className="overflow-hidden transition-colors group duration-300 ease-in-out relative group flex flex-col w-full h-full ">
-        <div className="relative w-full aspect-[9/10] overflow-hidden">
-          {/* min-[1300px]:h-44 */}
-          <Image
-            src={software.image}
-            alt={software.title}
-            layout="fill"
-            objectFit="cover"
-            className="transition-all duration-300 ease-in-out group-hover:scale-100 group-hover:opacity-100 scale-105 opacity-80"
-          />
+    <Link href={"/games/" + item.title}>
+      <Card
+        key={item.title}
+        className="bg-bg overflow-hidden border transition-colors duration-300 ease-in-out border-border/40 hover:border-border relative flex flex-col w-full h-full px-2 py-8 hover:bg-bg/90 "
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}>
+        <div className="absolute top-[12px] left-[12px] bg-green-600 text-[13px] px-[9px] py-[2px] rounded-sm">
+          NEW
         </div>
-        <TooltipProvider delayDuration={50}>
-          <Tooltip open={showTooltip}>
-            <div className="absolute top-[9px] right-[9px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <TooltipTrigger asChild>
-                <button
-                  className="p-[6px] rounded-full flex items-center justify-center"
-                  onClick={handleClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}>
-                  <motion.div className="p-[6px] bg-bg rounded-full flex items-center justify-center">
-                    <AnimatePresence mode="wait">
-                      {!isFavorite ? (
-                        <motion.div
-                          key="plus"
-                          initial={{rotate: 0}}
-                          animate={{rotate: 90}}
-                          exit={{rotate: 180, opacity: 0}}
-                          transition={{duration: 0.3}}>
-                          <Plus size={16} strokeWidth={3} />
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="check"
-                          initial={{scale: 0}}
-                          animate={{scale: 1}}
-                          transition={{
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 30,
-                          }}>
-                          <Check size={16} strokeWidth={3} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                </button>
-              </TooltipTrigger>
-            </div>
-            <TooltipContent>
-              <p>{tooltipText}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <div className="py-4 flex flex-col flex-grow ">
-          <h3 className="text-lg font-bold max-[1200px]:text-[18px] max-[1200px]:mb-[6px]">
-            {software.title} ({software.year})
-          </h3>
-          <p className="text-secondary_text">PC Game</p>
+        <div className="flex justify-center items-center w-full mb-5">
+          <div className="relative w-[70px] h-[70px] rounded-md">
+            <Image
+              src={item.image}
+              alt={item.title}
+              layout="fill"
+              objectFit="cover"
+              className={`${isHovering ? "scale-105" : "scale-100"} transition-all duration-300 ease-in-out rounded-md`}
+            />
+          </div>
         </div>
-      </div>
+        <div className=" flex flex-col text-center">
+          <p className="text-white/50 text-[13px] max-[1150px]:text-[13px] ">
+            {item.section}
+          </p>
+          <h3 className="text-[19px] font-bold mb-[6px] px-1">{item.title}</h3>
+          <div className="">
+            <p className="text-secondary_text text-[13px]">
+              {item.briefDescription} hello
+            </p>
+          </div>
+        </div>
+      </Card>
     </Link>
   );
 };

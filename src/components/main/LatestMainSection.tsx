@@ -1,20 +1,24 @@
 "use client";
-import {Desctop, Game} from "@/types/postProps";
+import {LatestSectionProps, Post} from "@/types/postProps";
 import React, {useEffect, useRef, useState} from "react";
 import {motion} from "framer-motion";
 import {ChevronLeft, ChevronRight, Eye, MessageSquare} from "lucide-react";
 import Link from "next/link";
-import GameCartMainMenu from "./GameCartMainMenu";
 
 import {Navigation} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Swiper as SwiperType} from "swiper";
+
 import "swiper/css";
 import "swiper/css/navigation";
-import DesktopCartMainMenu from "./DesktopCartMainMenu";
-import SoftwareCartMainMenu from "./SoftwareCartMainMenu";
 
-const LatestSoftwareSection = ({softwareList}: {softwareList: Desctop[]}) => {
+const LatestMainSection: React.FC<LatestSectionProps> = ({
+  title,
+  linkHref,
+  itemsList,
+  breakpoints,
+  renderItemCard,
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isBeginning, setIsBeginning] = useState(true);
@@ -36,24 +40,25 @@ const LatestSoftwareSection = ({softwareList}: {softwareList: Desctop[]}) => {
   }, []);
 
   useEffect(() => {
-    if (softwareList.length > 0) {
+    if (itemsList.length > 0) {
       setIsLoading(false);
     }
-  }, [softwareList]);
+  }, [itemsList]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   return (
     <>
-      <div className="max-[700px]:px-4 max-[450px]:px-[5vw]">
+      <div className="max-[700px]:px-4 max-[450px]:px-[5vw] mt-6">
         <div className="flex justify-between items-center mb-4">
           <Link
-            href={"/games"}
-            className="flex items-center justify-center gap-2 text-white w-fit  "
+            href={linkHref}
+            className="flex items-center justify-center gap-2 text-white w-fit  hover:text-white/80 transition-colors duration-300 ease-in-out"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}>
-            <h2 className="font-semibold text-[25px] ">Latest Desktop Apps</h2>
+            <h2 className="font-semibold text-[25px] ">{title}</h2>
             <motion.div
               animate={{x: isHover ? 5 : 0}}
               transition={{type: "spring", stiffness: 100}}>
@@ -88,41 +93,12 @@ const LatestSoftwareSection = ({softwareList}: {softwareList: Desctop[]}) => {
           spaceBetween={30}
           slidesPerGroup={3}
           allowTouchMove={false}
-          breakpoints={{
-            320: {
-              slidesPerView: 1.2,
-              spaceBetween: 10,
-              allowTouchMove: true,
-              slidesPerGroup: 1,
-            },
-            700: {
-              slidesPerView: 1.2,
-              spaceBetween: 20,
-              slidesPerGroup: 1,
-              allowTouchMove: true,
-            },
-            768: {
-              slidesPerView: 2,
-              slidesPerGroup: 2,
-              spaceBetween: 30,
-            },
-
-            1100: {
-              slidesPerView: 3,
-              slidesPerGroup: 3,
-
-              spaceBetween: 20,
-            },
-            1300: {
-              slidesPerView: 4,
-              spaceBetween: 30,
-            },
-          }}
+          breakpoints={breakpoints}
           modules={[Navigation]}
           className="flex justify-center ">
-          {softwareList.map((software, index) => (
+          {itemsList.map((item, index) => (
             <SwiperSlide key={index} style={{height: "auto"}}>
-              <SoftwareCartMainMenu software={software} />
+              {renderItemCard(item)}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -131,4 +107,4 @@ const LatestSoftwareSection = ({softwareList}: {softwareList: Desctop[]}) => {
   );
 };
 
-export default LatestSoftwareSection;
+export default LatestMainSection;

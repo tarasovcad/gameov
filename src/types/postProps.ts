@@ -1,30 +1,27 @@
-export interface Game {
+export interface Post {
   title: string;
   description: string;
+  briefDescription?: string;
+  new?: boolean;
+  section?: string;
   image: string;
   year: number;
-  views: string;
-  comments: number;
-  date: string;
+  views?: string;
+  comments?: number;
+  date?: string;
 }
 
-export interface Desctop {
+export interface LatestSectionProps {
   title: string;
-  description?: string;
-  brief_description: string;
-  image: string;
-  year?: number;
-  views?: string;
-  comments?: number;
-  date?: string;
-}
-export interface Software {
-  title: string;
-  description?: string;
-  brief_description: string;
-  image: string;
-  year?: number;
-  views?: string;
-  comments?: number;
-  date?: string;
+  linkHref: string;
+  itemsList: Post[];
+  breakpoints: {
+    [width: number]: {
+      slidesPerView: number;
+      spaceBetween: number;
+      allowTouchMove?: boolean;
+      slidesPerGroup?: number;
+    };
+  };
+  renderItemCard: (item: Post) => React.ReactNode;
 }
