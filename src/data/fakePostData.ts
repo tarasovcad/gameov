@@ -5,7 +5,9 @@ export const gamesList = [
       "A fantasy MMORPG with intricate world-building and magical combat.",
     image: "/fake/4.jpg",
     year: 2023,
+    section: "PC Games",
     views: "3.1K",
+
     comments: 280,
     date: "12 Feb 2024",
   },
@@ -15,6 +17,7 @@ export const gamesList = [
       "A high-octane racing game featuring futuristic vehicles and tracks.",
     image: "/fake/5.png",
     year: 2023,
+    section: "PC Games",
     views: "1.5K",
     comments: 110,
     date: "19 Feb 2024",
@@ -24,6 +27,7 @@ export const gamesList = [
     description: "A time-bending puzzle platformer with innovative mechanics.",
     image: "/fake/6.png",
     year: 2023,
+    section: "PC Games",
     views: "2.0K",
     comments: 190,
     date: "26 Feb 2024",
@@ -34,6 +38,7 @@ export const gamesList = [
       "An environmental strategy game where players restore ecosystems.",
     image: "/fake/7.jpg",
     year: 2023,
+    section: "PC Games",
     views: "1.7K",
     comments: 140,
     date: "2 Mar 2024",
@@ -43,6 +48,7 @@ export const gamesList = [
     description: "A stealth-based tactical game set in a dark fantasy world.",
     image: "/fake/8.png",
     year: 2023,
+    section: "PC Games",
     views: "2.3K",
     comments: 210,
     date: "9 Mar 2024",
@@ -53,6 +59,7 @@ export const gamesList = [
     image: "/fake/9.jpg",
     year: 2023,
     views: "1.9K",
+    section: "PC Games",
     comments: 170,
     date: "16 Mar 2024",
   },
@@ -64,6 +71,7 @@ export const gamesList = [
     year: 2023,
     views: "1.2K",
     comments: 120,
+    section: "PC Games",
     date: "16 Jan 2024",
   },
   {
@@ -74,6 +82,7 @@ export const gamesList = [
     year: 2023,
     views: "2.5K",
     comments: 230,
+    section: "PC Games",
     date: "29 Jan 2024",
   },
   {
@@ -84,6 +93,7 @@ export const gamesList = [
     year: 2023,
     views: "1.8K",
     comments: 150,
+    section: "PC Games",
     date: "5 Feb 2024",
   },
 ];
@@ -93,7 +103,7 @@ export const desktopList = [
     description:
       "A powerful image editing software for creative professionals.",
     briefDescription: "Professional image editing and graphic design software",
-    topic: "Desktop",
+    section: "Desktop",
     image: "/fake/13.png",
     year: 2023,
     views: "1.2K",
@@ -106,7 +116,7 @@ export const desktopList = [
     briefDescription:
       "Video recording software that converts videos and audio files",
     image: "/fake/14.png",
-    topic: "Desktop",
+    section: "Desktop",
     year: 2023,
     views: "1.2K",
     comments: 120,
@@ -119,7 +129,7 @@ export const desktopList = [
     briefDescription:
       "Page design and layout software for print and digital publishing",
     image: "/fake/15.png",
-    topic: "Desktop",
+    section: "Desktop",
     year: 2023,
     views: "1.2K",
     comments: 120,
@@ -131,7 +141,7 @@ export const desktopList = [
       "Virtual reality platform that allows users to explore and interact with their own dreams in a fully immersive 3D environment.",
     briefDescription:
       "VR platform that allows users to explore with their own dream",
-    topic: "Desktop",
+    section: "Desktop",
     image: "/fake/16.png",
     year: 2023,
     views: "5.9K",
@@ -327,7 +337,7 @@ export const macOSSoftware = [
       "A powerful productivity tool that allows you to organize and manage your tasks, projects, and notes.",
     briefDescription: "Productivity tool",
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/1200px-Notion-logo.svg.png",
+      "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2021/02/Notion-logo-1.png",
     section: "Mac OS Software",
     year: 2023,
     views: "1.2K",
@@ -341,6 +351,131 @@ export const macOSSoftware = [
     briefDescription: "Collaboration tool",
     image:
       "https://microsoft-office-courses.co.uk/wp-content/uploads/2022/04/shutterstock_1741187780-min.jpg",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+];
+
+export const bestPostsList = [
+  {
+    title: "Velocity Rush",
+    description:
+      "A high-octane racing game featuring futuristic vehicles and tracks.",
+    image: "/fake/5.png",
+    year: 2023,
+    section: "PC Games",
+    views: "1.5K",
+    comments: 110,
+    date: "19 Feb 2024",
+  },
+  {
+    title: "Chronos Shift",
+    description: "A time-bending puzzle platformer with innovative mechanics.",
+    image: "/fake/6.png",
+    year: 2023,
+    section: "PC Games",
+    views: "2.0K",
+    comments: 190,
+    date: "26 Feb 2024",
+  },
+  {
+    title: "Proton VPN",
+    description:
+      "A secure and fast VPN service that encrypts your internet traffic and protects your privacy.",
+    briefDescription: "Secure and fast VPN",
+    image: "https://m.media-amazon.com/images/I/51gvJaXQh4L.png",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "Notion",
+    description:
+      "A powerful productivity tool that allows you to organize and manage your tasks, projects, and notes.",
+    briefDescription: "Productivity tool",
+    image:
+      "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2021/02/Notion-logo-1.png",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "MindMeld",
+    description:
+      "Revolutionary AI-powered brainstorming tool that connects with your thoughts to generate innovative ideas in real-time.",
+    briefDescription: "AI brainstorming assistant",
+    section: "Software",
+    image:
+      "https://static.vecteezy.com/system/resources/previews/023/623/986/non_2x/letter-a-ai-roof-abstract-logo-design-vector.jpg",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+    new: true,
+  },
+];
+
+export const mostWishedList = [
+  {
+    title: "EcoTrack",
+    description:
+      "Smart home system that optimizes energy usage, reducing your carbon footprint while saving you money on utility bills.",
+    briefDescription: "Eco-friendly home automation",
+    image: "/fake/14.png",
+    section: "Software",
+    year: 2023,
+    views: "3.5K",
+    comments: 245,
+    date: "03 Mar 2024",
+    new: true,
+  },
+  {
+    title: "Pixel Legends",
+    description: "A retro-style RPG paying homage to classic 16-bit era games.",
+    image: "/fake/9.jpg",
+    year: 2023,
+    views: "1.9K",
+    section: "PC Games",
+    comments: 170,
+    date: "16 Mar 2024",
+  },
+
+  {
+    title: "Stellar Odyssey",
+    description:
+      "An epic space exploration RPG with stunning visuals and deep storylines.",
+    image: "/fake/2.png",
+    year: 2023,
+    views: "2.5K",
+    comments: 230,
+    section: "PC Games",
+    date: "29 Jan 2024",
+  },
+  {
+    title: "Neon Nights",
+    description:
+      "A cyberpunk-themed action-adventure game set in a dystopian future.",
+    image: "/fake/3.jpg",
+    year: 2023,
+    views: "1.8K",
+    comments: 150,
+    section: "PC Games",
+    date: "5 Feb 2024",
+  },
+  {
+    title: "Notion",
+    description:
+      "A powerful productivity tool that allows you to organize and manage your tasks, projects, and notes.",
+    briefDescription: "Productivity tool",
+    image:
+      "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2021/02/Notion-logo-1.png",
     section: "Mac OS Software",
     year: 2023,
     views: "1.2K",

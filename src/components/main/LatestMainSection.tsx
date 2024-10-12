@@ -52,8 +52,7 @@ const LatestMainSection: React.FC<LatestSectionProps> = ({
 
   return (
     <>
-      <div
-        className={`max-[700px]:px-4 max-[450px]:px-[5vw]  ${!title ? "mt-0" : "mt-6"} `}>
+      <div className={`max-[700px]:px-4 max-[450px]:px-[5vw] `}>
         <div className="flex justify-between items-center mb-4">
           {title ? (
             <Link
