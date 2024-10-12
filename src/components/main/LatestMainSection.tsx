@@ -17,6 +17,7 @@ const LatestMainSection: React.FC<LatestSectionProps> = ({
   linkHref,
   itemsList,
   breakpoints,
+  whiteButtons,
   renderItemCard,
 }) => {
   const [isHover, setIsHover] = useState(false);
@@ -51,29 +52,33 @@ const LatestMainSection: React.FC<LatestSectionProps> = ({
 
   return (
     <>
-      <div className="max-[700px]:px-4 max-[450px]:px-[5vw] mt-6">
+      <div
+        className={`max-[700px]:px-4 max-[450px]:px-[5vw]  ${!title ? "mt-0" : "mt-6"} `}>
         <div className="flex justify-between items-center mb-4">
-          <Link
-            href={linkHref}
-            className="flex items-center justify-center gap-2 text-white w-fit  hover:text-white/80 transition-colors duration-300 ease-in-out"
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}>
-            <h2 className="font-semibold text-[25px] ">{title}</h2>
-            <motion.div
-              animate={{x: isHover ? 5 : 0}}
-              transition={{type: "spring", stiffness: 100}}>
-              <ChevronRight size={25} className="cursor-pointer" />
-            </motion.div>
-          </Link>
-          <div className="flex gap-2 justify-center max-[601px]:hidden">
+          {title ? (
+            <Link
+              href={linkHref}
+              className="flex items-center justify-center gap-2 text-white w-fit  hover:text-white/80 transition-colors duration-300 ease-in-out"
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}>
+              <h2 className="font-semibold text-[25px] ">{title}</h2>
+              <motion.div
+                animate={{x: isHover ? 5 : 0}}
+                transition={{type: "spring", stiffness: 100}}>
+                <ChevronRight size={25} className="cursor-pointer" />
+              </motion.div>
+            </Link>
+          ) : null}
+          <div
+            className={`flex gap-2 justify-end items-end max-[601px]:hidden ${!title ? "w-full" : ""}`}>
             <button
-              className="w-10 h-10 flex items-center justify-center p-2 bg-bg bg border border-boder rounded-full transition duration-300 ease-in-out hover:bg-[#303030] disabled:hover:bg-[#141414] disabled:bg-[#141414]"
+              className={`w-10 h-10 flex items-center justify-center p-2 bg-bg bg border border-boder rounded-full transition duration-300 ease-in-out hover:bg-[#303030] disabled:hover:bg-[#141414] disabled:bg-[#141414] ${whiteButtons ? "bg-white text-black disabled:bg-transparent disabled:hover:bg-transparent hover:bg-white  border-boder/40" : ""}`}
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={isBeginning}>
               <ChevronLeft size={16} />
             </button>
             <button
-              className="w-10 h-10 flex items-center justify-center p-2 bg-bg bg border border-boder rounded-full transition duration-300 ease-in-out hover:bg-[#303030] disabled:hover:bg-[#141414] disabled:bg-[#141414]"
+              className={`w-10 h-10 flex items-center justify-center p-2 bg-bg bg border border-boder rounded-full transition duration-300 ease-in-out hover:bg-[#303030] disabled:hover:bg-[#141414] disabled:bg-[#141414] ${whiteButtons ? "bg-white text-black disabled:bg-transparent disabled:hover:bg-transparent hover:bg-white border-boder/40" : ""}`}
               onClick={() => swiperRef.current?.slideNext()}
               disabled={isEnd}>
               <ChevronRight size={16} />

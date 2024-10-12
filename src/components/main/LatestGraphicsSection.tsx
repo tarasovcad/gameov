@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import LatestMainSection from "./LatestMainSection";
-import {softwareList} from "@/data/fakePostData";
+import {graphicsList} from "@/data/fakePostData";
 import SoftwareCartMainMenu from "./SoftwareCartMainMenu";
 
-const LatestDesktopSection = () => {
+const LatestGraphicsSection = () => {
   const defaultBreakpoints = {
     320: {
       slidesPerView: 1.2,
@@ -35,13 +35,13 @@ const LatestDesktopSection = () => {
   };
   return (
     <LatestMainSection
-      title="Latest Software"
-      linkHref="/software"
-      itemsList={softwareList}
+      title="Latest Graphics And Design"
+      linkHref="/graphics"
+      itemsList={graphicsList}
       breakpoints={defaultBreakpoints}
       renderItemCard={(item) => <SoftwareCartMainMenu item={item} />}
     />
   );
 };
 
-export default LatestDesktopSection;
+export default LatestGraphicsSection;

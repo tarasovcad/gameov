@@ -157,11 +157,13 @@ export const softwareList = [
       "Revolutionary AI-powered brainstorming tool that connects with your thoughts to generate innovative ideas in real-time.",
     briefDescription: "AI brainstorming assistant",
     section: "Software",
-    image: "/fake/13.png",
+    image:
+      "https://static.vecteezy.com/system/resources/previews/023/623/986/non_2x/letter-a-ai-roof-abstract-logo-design-vector.jpg",
     year: 2023,
     views: "1.2K",
     comments: 120,
     date: "16 Jan 2024",
+    new: true,
   },
   {
     title: "EcoTrack",
@@ -174,13 +176,15 @@ export const softwareList = [
     views: "3.5K",
     comments: 245,
     date: "03 Mar 2024",
+    new: true,
   },
   {
     title: "QuantumCode",
     description:
       "Next-generation programming language designed for quantum computers, making complex calculations accessible to developers.",
     briefDescription: "Quantum computing language",
-    image: "/fake/15.png",
+    image:
+      "https://mir-s3-cdn-cf.behance.net/projects/404/116fc5208230697.Y3JvcCw5OTksNzgyLDAsMTA4.jpg",
     section: "Software",
     year: 2024,
     views: "8.7K",
@@ -222,5 +226,125 @@ export const softwareList = [
     views: "4.3K",
     comments: 276,
     date: "28 Dec 2023",
+  },
+];
+
+export const graphicsList = [
+  {
+    title: "Adobe Photoshop 2023",
+    description:
+      "A powerful image editing software for creative professionals.",
+    briefDescription: "Professional image editing and graphic design software",
+    section: "Graphics and design",
+    image: "/fake/13.png",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+    new: true,
+  },
+  {
+    title: "Adobe After Effects 2023",
+    description:
+      "A powerful video editing software for visual effects artists.",
+    briefDescription:
+      "Page design and layout software for print and digital publishing",
+    image: "/fake/15.png",
+    section: "Graphics and design",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "Blender",
+    description:
+      "A powerful 3D modeling software for creating realistic and complex 3D objects.",
+    briefDescription: "3D modeling software",
+    image: "https://i.imgur.com/331VBhWg.jpg",
+    section: "Graphics and design",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "Illustrator",
+    description:
+      "A powerful vector graphics software for creating high-quality illustrations and logos.",
+    briefDescription: "Vector graphics software",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/1051px-Adobe_Illustrator_CC_icon.svg.png",
+    section: "Graphics and design",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "Inkscape",
+    description:
+      "A powerful vector graphics software for creating high-quality illustrations and logos.",
+    briefDescription: "Vector graphics software",
+    image: "/fake/18.png",
+    section: "Graphics and design",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+];
+export const macOSSoftware = [
+  {
+    title: "1Password",
+    description:
+      "A password manager that securely stores and manages all your passwords.",
+    briefDescription: "Password manager",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/5/5b/1Password_icon.png",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+    new: true,
+  },
+  {
+    title: "Proton VPN",
+    description:
+      "A secure and fast VPN service that encrypts your internet traffic and protects your privacy.",
+    briefDescription: "Secure and fast VPN",
+    image: "https://m.media-amazon.com/images/I/51gvJaXQh4L.png",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "Notion",
+    description:
+      "A powerful productivity tool that allows you to organize and manage your tasks, projects, and notes.",
+    briefDescription: "Productivity tool",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/1200px-Notion-logo.svg.png",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
+  },
+  {
+    title: "Microsoft Teams",
+    description:
+      "A collaboration tool that allows teams to communicate, share files, and work together on projects.",
+    briefDescription: "Collaboration tool",
+    image:
+      "https://microsoft-office-courses.co.uk/wp-content/uploads/2022/04/shutterstock_1741187780-min.jpg",
+    section: "Mac OS Software",
+    year: 2023,
+    views: "1.2K",
+    comments: 120,
+    date: "16 Jan 2024",
   },
 ];

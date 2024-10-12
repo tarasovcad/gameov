@@ -16,9 +16,11 @@ const SoftwareCartMainMenu = ({item}: {item: Post}) => {
         className="bg-bg overflow-hidden border transition-colors duration-300 ease-in-out border-border/40 hover:border-border relative flex flex-col w-full h-full px-2 py-8 hover:bg-bg/90 "
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
-        <div className="absolute top-[12px] left-[12px] bg-green-600 text-[13px] px-[9px] py-[2px] rounded-sm">
-          NEW
-        </div>
+        {item.new ? (
+          <div className="absolute top-[12px] left-[12px] bg-green-600 text-[13px] px-[9px] py-[2px] rounded-sm">
+            NEW
+          </div>
+        ) : null}
         <div className="flex justify-center items-center w-full mb-5">
           <div className="relative w-[70px] h-[70px] rounded-md">
             <Image
@@ -37,7 +39,7 @@ const SoftwareCartMainMenu = ({item}: {item: Post}) => {
           <h3 className="text-[19px] font-bold mb-[6px] px-1">{item.title}</h3>
           <div className="">
             <p className="text-secondary_text text-[13px]">
-              {item.briefDescription} hello
+              {item.briefDescription}
             </p>
           </div>
         </div>

@@ -12,9 +12,10 @@ export interface Post {
 }
 
 export interface LatestSectionProps {
-  title: string;
+  title?: string;
   linkHref: string;
   itemsList: Post[];
+  whiteButtons?: boolean;
   breakpoints: {
     [width: number]: {
       slidesPerView: number;

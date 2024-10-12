@@ -17,12 +17,7 @@ export const SidebarGeneralLinks = [
     hasArrow: true,
     link: "/software",
   },
-  {
-    title: "Desktop ",
-    src: "/sidemenu/monitor-down.svg",
-    hasArrow: false,
-    link: "/desktop",
-  },
+
   {
     title: "Graphics and design",
     src: "/sidemenu/mac-apps.svg",
@@ -32,6 +27,12 @@ export const SidebarGeneralLinks = [
   {
     title: "Mac OS Software",
     src: "/sidemenu/mac.svg",
+    hasArrow: false,
+    link: "/mac-apps",
+  },
+  {
+    title: "Blog",
+    src: "/sidemenu/book.svg",
     hasArrow: false,
     link: "/mac-apps",
   },
