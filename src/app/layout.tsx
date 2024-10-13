@@ -13,6 +13,7 @@ import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/react";
 import {noRoutes} from "@/data/WrapperRoutes";
 import LayoutWrapper from "@/providers/LayoutWrapper";
+import Footer from "@/components/footer/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,12 +40,15 @@ export default function RootLayout({
             <ThemeKeyboardShortcuts />
             {/* <LayoutWrapper> */}
             <div className="bodywrapper">
-              <Sidebar />
-              {/* responsive design for 700-0px is inside the page */}
-              <div className="flex-1 flex flex-col pr-12 max-[1100px]:pr-5 max-[700px]:p-0">
-                <NavbarServerComponent />
-                <main>{children}</main>
+              <div>
+                <Sidebar />
+                {/* responsive design for 700-0px is inside the page */}
+                <div className="flex-1 flex flex-col pr-12 max-[1100px]:pr-5 max-[700px]:p-0">
+                  <NavbarServerComponent />
+                  <main>{children}</main>
+                </div>
               </div>
+              <Footer />
             </div>
 
             {/* </LayoutWrapper> */}

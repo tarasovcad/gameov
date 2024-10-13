@@ -52,7 +52,7 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-7 max-[1000px]:hidden">
+        {/* <div className="absolute bottom-7 max-[1000px]:hidden">
           <p className="text-xs text-secondary_text font-normal leading-5 pr-5">
             {SidebarSmallLinks.map((link, index) => {
               return (
@@ -65,7 +65,7 @@ const Sidebar = () => {
               );
             })}
           </p>
-        </div>
+        </div> */}
       </div>
     </aside>
   );
