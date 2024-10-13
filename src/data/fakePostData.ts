@@ -244,7 +244,7 @@ export const graphicsList = [
     title: "Adobe Photoshop 2023",
     description:
       "A powerful image editing software for creative professionals.",
-    briefDescription: "Professional image editing and graphic design software",
+    briefDescription: "Professional image editing ",
     section: "Graphics and design",
     image: "/fake/13.png",
     year: 2023,
@@ -257,8 +257,7 @@ export const graphicsList = [
     title: "Adobe After Effects 2023",
     description:
       "A powerful video editing software for visual effects artists.",
-    briefDescription:
-      "Page design and layout software for print and digital publishing",
+    briefDescription: "Page design and layout software ",
     image: "/fake/15.png",
     section: "Graphics and design",
     year: 2023,
@@ -481,5 +480,38 @@ export const mostWishedList = [
     views: "1.2K",
     comments: 120,
     date: "16 Jan 2024",
+  },
+];
+
+export const heroSlider = [
+  {
+    image: "https://w.wallhaven.cc/full/jx/wallhaven-jxzq1y.jpg",
+    title: "Spider Man 2024",
+    date: "15 Mar 2024",
+    author: "Emma Nightshade",
+    description:
+      "A new Spider-Man game set in the future, where the Spider-Man universe is at its peak. Explore the world of Spider-Man 2024 and uncover the secrets of the Spider-Man universe. A thrilling adventure filled with action, puzzles, and a compelling storyline. Get ready to embark on an epic journey with Spider-Man 2024!",
+    link: "/games",
+    ganre: ["Adventure", "Action", "Fantasy"],
+  },
+  {
+    image: "https://w.wallhaven.cc/full/m3/wallhaven-m3k788.png",
+    title: "Red Dead Redemption 2",
+    date: "3 Sep 2023",
+    author: "Zack Neural",
+    description:
+      "Explore the world of Red Dead Redemption 2024 and embark on a thrilling adventure filled with action, puzzles, and a compelling storyline.",
+    link: "/games",
+    ganre: ["Adventure", "Action", "Multiplayer"],
+  },
+  {
+    image: "https://w.wallhaven.cc/full/yx/wallhaven-yxp3yd.jpg",
+    title: "Kind of a Dragon",
+    date: "7 Dec 2023",
+    author: "H.P. Anderson",
+    description:
+      "Descend into the abyssal trenches of the ocean in this cosmic horror adventure. As a deep-sea explorer, you'll encounter ancient entities and face mind-bending terrors that challenge your sanity.",
+    link: "/games",
+    ganre: ["Action", "Adventure", "Fantasy", "Horror"],
   },
 ];

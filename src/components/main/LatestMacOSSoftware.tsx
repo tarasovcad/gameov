@@ -35,7 +35,7 @@ const LatestMacOSSoftware = () => {
   };
   return (
     <LatestMainSection
-      title="Latest Graphics And Design"
+      title="Latest Mac OS Software"
       linkHref="/graphics"
       itemsList={macOSSoftware}
       breakpoints={defaultBreakpoints}

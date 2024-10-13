@@ -38,8 +38,7 @@ export default function RootLayout({
           <AuthProvider>
             <Toaster position="bottom-right" toastOptions={{duration: 2000}} />
             <ThemeKeyboardShortcuts />
-            {/* <LayoutWrapper> */}
-            <div className="bodywrapper">
+            <LayoutWrapper>
               <div>
                 <Sidebar />
                 {/* responsive design for 700-0px is inside the page */}
@@ -49,9 +48,7 @@ export default function RootLayout({
                 </div>
               </div>
               <Footer />
-            </div>
-
-            {/* </LayoutWrapper> */}
+            </LayoutWrapper>
           </AuthProvider>
         </CustomThemeProvider>
         <SpeedInsights />

@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className="max-[700px]:px-0 relative">
       <Hero />
-      <div className="flex flex-col gap-[60px] mb-[100px]">
+      <div className="flex flex-col gap-[60px] mb-[60px]">
         <LatestGameSection />
         <LatestDesktopSection />
         <LatestGraphicsSection />

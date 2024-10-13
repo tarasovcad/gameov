@@ -71,7 +71,7 @@ const Footer = () => {
     FaGithub: FaGithub,
   };
   return (
-    <div className="bg-bg p-[30px] py-[20px] rounded-lg text-white/80 text-sm mb-5">
+    <div className="bg-bg p-[30px] border border-border rounded-t-lg text-white/80 text-[15px]">
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-5 max-w-[400px]">
           <div className="flex items-center gap-3">
@@ -80,7 +80,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex gap-8 ">
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center max-[800px]:hidden">
             <p> Search Bar</p>
             <div className="flex gap-[2px]">
               <p className="text-right text-[10px] dark:bg-[#2c2c2c] bg-[#797979] text-white/70 px-2 py-[2px] rounded-md">
@@ -94,30 +94,33 @@ const Footer = () => {
           <DarkModeCheckbox />
         </div>
       </div>
-      <div className="flex justify-between items-center mt-8">
-        <div className="flex gap-5 ">
-          {linkList.map((item, index) => {
-            const IconComponent = iconComponents[item.icon];
-            return (
-              <Link key={index} href={item.link}>
-                <div className="rounded-xl   w-fit hover:text-white transition-colors duration-300 ease-in-out">
-                  <IconComponent size={22} />
-                </div>
-              </Link>
-            );
-          })}
+
+      <div className="flex flex-col mt-8">
+        <div className="flex justify-between items-center max-[800px]:flex-col max-[800px]:items-start">
+          <ul className="flex gap-10 max-[925px]:gap-5 max-[800px]:grid grid-cols-3 max-[800px]:gap-x-10 max-[800px]:w-full max-[800px]:mb-5 order-2 max-[800px]:order-1">
+            {listOfFooterLinks.map((link, index) => {
+              return (
+                <Link key={index} href={link.link}>
+                  <li className="hover:text-white transition-all duration-300 ease-in-out">
+                    {link.title}
+                  </li>
+                </Link>
+              );
+            })}
+          </ul>
+          <div className="flex gap-5 order-1 max-[800px]:order-2 max-[800px]:mt-5">
+            {linkList.map((item, index) => {
+              const IconComponent = iconComponents[item.icon];
+              return (
+                <Link key={index} href={item.link}>
+                  <div className="rounded-xl w-fit hover:text-white transition-colors duration-300 ease-in-out">
+                    <IconComponent size={22} />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-        <ul className="flex gap-10">
-          {listOfFooterLinks.map((link, index) => {
-            return (
-              <Link key={index} href={link.link}>
-                <li className="hover:text-white transition-all duration-300 ease-in-out">
-                  {link.title}
-                </li>
-              </Link>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );

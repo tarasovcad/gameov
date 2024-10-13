@@ -80,7 +80,6 @@ input {
 /* HERO */
 
 .hero-blur {
-  border-radius: 59px 0 0 0;
   background: url("/hero-slider/blur.png");
   backdrop-filter: blur(50px);
 }
