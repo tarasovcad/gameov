@@ -17,7 +17,7 @@ const Navbar = ({username, image, email}: any) => {
 
   return (
     <div className="relative">
-      <div className="w-full h-[65px] relative mb-5 z-50 dark:bg-backgound bg-white ">
+      <div className="w-full h-[65px] relative mb-5 z-50 dark:bg-backgound bg-[#f0f0f0] ">
         <div className="py-[12px] flex justify-between px-4 items-center max-[701px]:px-6 pr-4 h-full">
           <Logo showatNavbar={true} />
           <div className="flex gap-2 items-center min-[701px]:w-full pr-6">

@@ -26,31 +26,31 @@ const Hero = () => {
     setButtonFill(100);
   }, []);
 
-  // useEffect(() => {
-  //   const nextSlide = () => {
-  //     setCurrentSlide((prevSlide) => (prevSlide + 1) % heroSlider.length);
-  //     resetInterval();
-  //   };
+  useEffect(() => {
+    const nextSlide = () => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % heroSlider.length);
+      resetInterval();
+    };
 
-  //   const interval = setInterval(nextSlide, intervalDuration);
+    const interval = setInterval(nextSlide, intervalDuration);
 
-  //   if (shouldResetInterval) {
-  //     clearInterval(interval);
-  //     const newInterval = setInterval(nextSlide, intervalDuration);
-  //     setShouldResetInterval(false);
-  //     return () => clearInterval(newInterval);
-  //   }
+    if (shouldResetInterval) {
+      clearInterval(interval);
+      const newInterval = setInterval(nextSlide, intervalDuration);
+      setShouldResetInterval(false);
+      return () => clearInterval(newInterval);
+    }
 
-  //   return () => clearInterval(interval);
-  // }, [shouldResetInterval, resetInterval]);
+    return () => clearInterval(interval);
+  }, [shouldResetInterval, resetInterval]);
 
-  // useEffect(() => {
-  //   const fillInterval = setInterval(() => {
-  //     setButtonFill((prevFill) => Math.max(prevFill - 1, 0));
-  //   }, intervalDuration / 100);
+  useEffect(() => {
+    const fillInterval = setInterval(() => {
+      setButtonFill((prevFill) => Math.max(prevFill - 1, 0));
+    }, intervalDuration / 100);
 
-  //   return () => clearInterval(fillInterval);
-  // }, [currentSlide]);
+    return () => clearInterval(fillInterval);
+  }, [currentSlide]);
 
   const handleDotClick = (index: number) => {
     setCurrentSlide(index);
@@ -81,27 +81,27 @@ const Hero = () => {
             animate={{opacity: 1}}
             exit={{opacity: 0}}
             transition={{duration: 0.1, ease: "easeOut"}}
-            className="flex-grow min-[1200px]:min-h-[504px] max-[1200px]:aspect-[16/9]   w-full bg-cover bg-center rounded-xl flex items-end mb-5 max-[700px]:aspect-[16/10] max-[600px]:h-[480px]"
+            className="flex-grow min-[1200px]:min-h-[504px] max-[1200px]:aspect-[16/9] w-full bg-cover bg-center rounded-xl flex items-end mb-5 max-[700px]:aspect-[16/10] max-[600px]:h-[480px]  max-[700px]:mb-7"
             style={{backgroundImage: `url(${heroSlider[currentSlide].image})`}}>
             {/* BLUR */}
             <motion.div
               initial={{y: 10, opacity: 0}}
               animate={{y: 0, opacity: 1}}
               transition={{duration: 0.2, delay: 0.1}}
-              className="text-sm font-medium hero-blur flex flex-col justify-end  border border-white/20 px-10 pt-10 pb-8 relative pr-8 w-full rounded-lg rounded-tl-[59px] max-[800px]:px-8  max-[800px]:pb-6 max-[800px]:pr-6 max-[700px]:px-10">
+              className="text-sm font-medium hero-blur flex flex-col justify-end  border border-white/20 px-10 pt-10 pb-8 relative pr-8 w-full rounded-lg rounded-tl-[59px] max-[800px]:px-8  max-[800px]:pb-6 max-[800px]:pr-6 max-[700px]:px-10 max-[600px]:px-6 max-[600px]:pt-12">
               <p className="mb-1 sm:mb-2  text-white/70">
                 <span>{heroSlider[currentSlide].author}</span>
                 <span>{" • "}</span>
                 <span>{heroSlider[currentSlide].date}</span>
               </p>
               <h1
-                className={`font-semibold text-2xl mb-3 max-[860px]:mb-[19px] text-white ${poppins.className}`}>
+                className={`font-semibold text-2xl mb-3 max-[860px]:mb-[19px] max-[700px]:mb-2 text-white ${poppins.className}`}>
                 {heroSlider[currentSlide].title}
               </h1>
-              <p className="mb-4 sm:mb-4 max-[860px]:mb-[24px] text-sm sm:text-[15px] text-white/90 line-clamp-2">
+              <p className="mb-4 sm:mb-4 max-[860px]:mb-[24px] text-sm sm:text-[15px] text-white/90 line-clamp-2 2">
                 {heroSlider[currentSlide].description}
               </p>
-              <div className="flex items-end justify-between mt-3">
+              <div className="flex items-end justify-between mt-3 max-[700px]:mt-0">
                 <div className="flex items-center  gap-3 max-[450px]:flex-col max-[450px]:items-start ">
                   <motion.button
                     whileHover={{scale: 1.03}}
@@ -120,27 +120,29 @@ const Hero = () => {
                   </motion.button>
                 </div>
                 <div className="flex gap-2 max-[800px]:hidden">
-                  {heroSlider[currentSlide].ganre.map((genre, index) => (
-                    <div
-                      key={index}
-                      className="border border-white rounded-xl px-[10px] py-[2px]">
-                      {genre}
-                    </div>
-                  ))}
+                  {heroSlider[currentSlide].ganre
+                    .slice(0, 3)
+                    .map((genre, index) => (
+                      <div
+                        key={index}
+                        className="border border-white rounded-xl px-[10px] py-[2px] text-white">
+                        {genre}
+                      </div>
+                    ))}
                 </div>
               </div>
             </motion.div>
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="flex justify-center mb-5">
+      <div className="flex justify-center mb-5 max-[1000px]:mb-8 max-[700px]:mb-10">
         {heroSlider.map((_, index) => (
           <button
             key={`${index}-${key}`}
             onClick={() => handleDotClick(index)}
-            className="w-3 h-3 rounded-full mx-1 border border-white overflow-hidden relative hover:scale-110 transition-all duration-300 ease-in-out">
+            className="w-3 h-3 max-[800px]:w-[15px] max-[800px]:h-[15px] rounded-full mx-1 border dark:border-white border-black overflow-hidden relative hover:scale-110 transition-all duration-300 ease-in-out">
             <span
-              className={`absolute inset-0 bg-white transform transition-transform duration-300 ease-in-out ${
+              className={`absolute inset-0 dark:bg-white bg-black transform transition-transform duration-300 ease-in-out ${
                 currentSlide === index ? "scale-x-100" : "scale-x-0"
               }`}
               style={{

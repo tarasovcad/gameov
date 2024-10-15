@@ -11,7 +11,7 @@ const BestPostsCollection = () => {
   const [isHoverWished, setIsHoverWished] = useState(false);
   return (
     <div className=" grid grid-cols-2 gap-[20px] ">
-      <div className="bg-bg  py-[25px] px-[20px] rounded-md border-border/40 border">
+      <div className="bg-bg py-[25px] px-[20px] rounded-md border-border/40 border">
         <Link
           href={"/"}
           className="flex items-center justify-center gap-2 text-white w-fit  hover:text-white/80 transition-colors duration-300 ease-in-out"

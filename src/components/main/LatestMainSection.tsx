@@ -52,32 +52,40 @@ const LatestMainSection: React.FC<LatestSectionProps> = ({
 
   return (
     <>
-      <div className={`max-[700px]:px-4 max-[450px]:px-[5vw] `}>
+      <div className={` text-black dark:text-white`}>
         <div className="flex justify-between items-center mb-4">
           {title ? (
             <Link
               href={linkHref}
-              className="flex items-center justify-center gap-2 text-white w-fit  hover:text-white/80 transition-colors duration-300 ease-in-out"
+              className="flex items-center justify-center gap-2  w-fit  hover:text-black/70  dark:hover:text-white/80 transition-colors duration-300 ease-in-out"
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}>
-              <h2 className="font-semibold text-[25px] ">{title}</h2>
+              <h2 className="font-semibold text-[25px] max-[700px]:text-[23px] max-[600px]:text-[22px] ">
+                {title}
+              </h2>
               <motion.div
                 animate={{x: isHover ? 5 : 0}}
                 transition={{type: "spring", stiffness: 100}}>
                 <ChevronRight size={25} className="cursor-pointer" />
               </motion.div>
             </Link>
-          ) : null}
+          ) : (
+            <div className="flex justify-between items-center w-full">
+              <h2 className="dark:text-black text-white font-semibold text-[25px] max-[700px]:text-[23px] max-[600px]:text-[22px] ">
+                Popular Blogs
+              </h2>
+            </div>
+          )}
           <div
             className={`flex gap-2 justify-end items-end max-[601px]:hidden ${!title ? "w-full" : ""}`}>
             <button
-              className={`w-10 h-10 flex items-center justify-center p-2 bg-bg bg border border-boder rounded-full transition duration-300 ease-in-out hover:bg-[#303030] disabled:hover:bg-[#141414] disabled:bg-[#141414] ${whiteButtons ? "bg-white text-black disabled:bg-transparent disabled:hover:bg-transparent hover:bg-white  border-boder/40" : ""}`}
+              className={`w-10 h-10 flex items-center justify-center p-2 border border-boder  rounded-full transition duration-300 ease-in-out  ${whiteButtons ? "dark:bg-white dark:text-black dark:hover:bg-white dark:disabled:bg-[#eeeeee] dark:disabled:hover:bg-[#ebebeb] bg-bg disabled:bg-transparent  text-white" : "dark:bg-bg disabled:bg-[#eeeeee] disabled:hover:bg-[#ebebeb] dark:hover:bg-[#303030] dark:disabled:hover:bg-[#141414] dark:disabled:bg-[#141414] "}`}
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={isBeginning}>
               <ChevronLeft size={16} />
             </button>
             <button
-              className={`w-10 h-10 flex items-center justify-center p-2 bg-bg bg border border-boder rounded-full transition duration-300 ease-in-out hover:bg-[#303030] disabled:hover:bg-[#141414] disabled:bg-[#141414] ${whiteButtons ? "bg-white text-black disabled:bg-transparent disabled:hover:bg-transparent hover:bg-white border-boder/40" : ""}`}
+              className={`w-10 h-10 flex items-center justify-center p-2 border border-boder  rounded-full transition duration-300 ease-in-out  ${whiteButtons ? "dark:bg-white dark:text-black dark:hover:bg-white dark:disabled:bg-[#eeeeee] dark:disabled:hover:bg-[#ebebeb] bg-bg disabled:bg-transparent  text-white" : "dark:bg-bg disabled:bg-[#eeeeee] disabled:hover:bg-[#ebebeb] dark:hover:bg-[#303030] dark:disabled:hover:bg-[#141414] dark:disabled:bg-[#141414] "}`}
               onClick={() => swiperRef.current?.slideNext()}
               disabled={isEnd}>
               <ChevronRight size={16} />
@@ -96,10 +104,9 @@ const LatestMainSection: React.FC<LatestSectionProps> = ({
           slidesPerView={3}
           spaceBetween={30}
           slidesPerGroup={3}
-          allowTouchMove={false}
           breakpoints={breakpoints}
           modules={[Navigation]}
-          className="flex justify-center ">
+          className="flex justify-center overflow-y-visible">
           {itemsList.map((item, index) => (
             <SwiperSlide key={index} style={{height: "auto"}}>
               {renderItemCard(item)}

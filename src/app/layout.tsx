@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="bg-white  selection:bg-[#d8ff2e] selection:text-black dark:bg-backgound">
+      <body className="bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster position="bottom-right" toastOptions={{duration: 2000}} />

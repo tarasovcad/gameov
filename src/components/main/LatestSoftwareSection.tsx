@@ -1,20 +1,19 @@
 "use client";
 import React from "react";
 import LatestMainSection from "./LatestMainSection";
-import {graphicsList} from "@/data/fakePostData";
+import {softwareList} from "@/data/fakePostData";
 import BlogCart from "./BlogCart";
 import {defaultBreakpointsCart} from "@/data/defaultBreakpoints";
-
-const LatestGraphicsSection = () => {
+const LatestSoftwareSection = () => {
   return (
     <LatestMainSection
-      title="Latest Graphics And Design"
-      linkHref="/graphics"
-      itemsList={graphicsList}
+      title="Latest Software"
+      linkHref="/software"
+      itemsList={softwareList}
       breakpoints={defaultBreakpointsCart}
       renderItemCard={(item) => <BlogCart item={item} />}
     />
   );
 };
 
-export default LatestGraphicsSection;
+export default LatestSoftwareSection;
