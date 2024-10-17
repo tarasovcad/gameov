@@ -47,7 +47,7 @@ export default function RootLayout({
                   <main>{children}</main>
                 </div>
               </div>
-              <Footer />
+              {/* <Footer /> */}
             </LayoutWrapper>
           </AuthProvider>
         </CustomThemeProvider>
