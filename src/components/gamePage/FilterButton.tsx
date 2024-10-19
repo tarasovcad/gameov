@@ -33,16 +33,18 @@ const FilterButton = () => {
   }, [inputValues]);
 
   const togglePopover = (title: string) => {
-    setOpenPopovers((prev) => {
-      const allClosed = Object.keys(prev).reduce((acc, key) => {
-        acc[key] = false;
-        return acc;
-      }, {} as OpenPopovers);
-      return {
-        ...allClosed,
-        [title]: !prev[title],
-      };
-    });
+    setOpenPopovers((prev) => ({
+      ...prev,
+      [title]: !prev[title],
+    }));
+  };
+
+  const handleOptionSelect = (title: string, option: string) => {
+    handleInputChange(title, option);
+    setOpenPopovers((prev) => ({
+      ...prev,
+      [title]: false,
+    }));
   };
 
   const handleInputChange = (title: string, value: string) => {
@@ -89,6 +91,22 @@ const FilterButton = () => {
         className="absolute right-2 top-1/2 -translate-y-1/2 text-secondary_text"
       />
     );
+  };
+
+  const handleInputBlur = (title: string) => {
+    setTimeout(() => {
+      const options =
+        filterSectionGame.find((item) => item.title === title)?.options || [];
+      const value = inputValues[title] || "";
+      const exactMatch = options.some(
+        (option) => option.toLowerCase() === value.toLowerCase(),
+      );
+
+      if (!exactMatch) {
+        setInputValues((prev) => ({...prev, [title]: ""}));
+        setOpenPopovers((prev) => ({...prev, [title]: false}));
+      }
+    }, 100);
   };
 
   const handleClearInput = (title: string, e: React.MouseEvent) => {
@@ -152,10 +170,11 @@ const FilterButton = () => {
                     type="text"
                     autoFocus={false}
                     placeholder={item.title}
-                    className="rounded-md bg-[#1a1a1a] pl-3 px-2 py-[9px] w-full  placeholder:text-secondary_text font-medium border border-border"
+                    className="rounded-md bg-[#1a1a1a] pl-3 px-2 py-[9px] w-full placeholder:text-secondary_text font-medium border border-border"
                     onChange={(e) =>
                       handleInputChange(item.title, e.target.value)
                     }
+                    onBlur={() => handleInputBlur(item.title)}
                     value={inputValues[item.title] || ""}
                   />
                   {getIcon(item.title, openPopovers, inputValues)}
@@ -166,9 +185,16 @@ const FilterButton = () => {
                           {filteredOptions.map((option, index) => (
                             <button
                               key={index}
-                              onClick={() =>
-                                handleInputChange(item.title, option)
-                              }
+                              onMouseDown={(e) => {
+                                e.preventDefault();
+                                handleOptionSelect(item.title, option);
+                              }}
+                              onClick={() => {
+                                setOpenPopovers((prev) => ({
+                                  ...prev,
+                                  [item.title]: false,
+                                }));
+                              }}
                               className="transition-colors duration-200 ease-in-out hover:bg-[#1a1a1a] py-1.5 rounded-md px-2 text-start">
                               {highlightMatch(
                                 option,
