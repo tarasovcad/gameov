@@ -98,19 +98,31 @@ const FilterButton = () => {
       const options =
         filterSectionGame.find((item) => item.title === title)?.options || [];
       const value = inputValues[title] || "";
-      const exactMatch = options.some(
-        (option) => option.toLowerCase() === value.toLowerCase(),
+      const matchingOptions = options.filter((option) =>
+        option.toLowerCase().includes(value.toLowerCase()),
       );
 
-      if (!exactMatch) {
+      // If there's exactly one match, set it as the value
+      if (matchingOptions.length === 1) {
+        setInputValues((prev) => ({...prev, [title]: matchingOptions[0]}));
+      }
+
+      // If there are no matches or we've handled the single match, close the popover
+      setOpenPopovers((prev) => ({...prev, [title]: false}));
+
+      // If there's no exact match and more than one option, clear the input
+      if (
+        matchingOptions.length !== 1 &&
+        !options.some((option) => option.toLowerCase() === value.toLowerCase())
+      ) {
         setInputValues((prev) => ({...prev, [title]: ""}));
-        setOpenPopovers((prev) => ({...prev, [title]: false}));
       }
     }, 100);
   };
 
   const handleClearInput = (title: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     setInputValues((prev) => ({...prev, [title]: ""}));
     setOpenPopovers((prev) => ({...prev, [title]: false}));
   };
@@ -153,7 +165,7 @@ const FilterButton = () => {
         sideOffset={10}
         onOpenAutoFocus={(e) => e.preventDefault()}>
         <div className="text-white/90 text-[14px] flex flex-col gap-2.5 ">
-          <h2 className="px-4 text-[16px]">Filters</h2>
+          <h2 className="px-4 text-[16px] font-medium">Filters</h2>
           <div className="stroke"></div>
           <div className="flex flex-col gap-2.5 px-4">
             {filterSectionGame.map((item) => {
@@ -212,9 +224,9 @@ const FilterButton = () => {
           </div>
           <div>
             <div className="stroke"></div>
-            <div className="flex gap-2.5 items-center justify-between mt-3 text-sm px-4">
+            <div className="flex gap-2.5 items-center justify-between mt-4 text-sm px-4">
               <button
-                className=" py-2 rounded-md flex items-center gap-2 text-secondary_text transition-colors duration-300 ease-in-out hover:text-white"
+                className=" py-2 rounded-md flex items-center gap-1.5 text-secondary_text transition-colors duration-300 ease-in-out hover:text-white font-semibold"
                 onClick={() => setInputValues({})}>
                 <X size={16} /> Reset All
               </button>

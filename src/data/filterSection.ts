@@ -116,3 +116,13 @@ export const filterSectionGame = [
     options: ["x86", "x64", "ARM", "ARM64", "PowerPC", "MIPS", "Universal"],
   },
 ];
+
+export const sortBySection = {
+  options: [
+    "Newest",
+    "Oldest",
+    "Most popular",
+    "Least popular",
+    "Alphabetical",
+  ],
+};
