@@ -46,7 +46,7 @@ export default function RootLayout({
             <Toaster position="bottom-right" toastOptions={{duration: 2000}} />
             <ThemeKeyboardShortcuts />
             <LayoutWrapper>
-              <div>
+              <div className="">
                 <Sidebar />
                 {/* responsive design for 700-0px is inside the page */}
                 <div className="flex-1 flex flex-col pr-12 max-[1100px]:pr-5 max-[700px]:p-0">
@@ -54,7 +54,9 @@ export default function RootLayout({
                   <main>{children}</main>
                 </div>
               </div>
-              {/* <Footer /> */}
+              <div className="pr-12 max-[1100px]:pr-5 max-[700px]:p-0 max-[700px]:pr-4 max-[450px]:pr-[3.5vw] pl-12 max-[1100px]:pl-5  max-[700px]:pl-4 max-[450px]:pl-[3.5vw]">
+                <Footer />
+              </div>
             </LayoutWrapper>
           </AuthProvider>
         </CustomThemeProvider>

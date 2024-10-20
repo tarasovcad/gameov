@@ -1,4 +1,9 @@
 export const defaultBreakpointsGameCart = {
+  0: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    slidesPerGroup: 1,
+  },
   320: {
     slidesPerView: 1.2,
     spaceBetween: 10,
@@ -28,8 +33,8 @@ export const defaultBreakpointsGameCart = {
 export const defaultBreakpointsCart = {
   0: {
     slidesPerView: 1.2,
+    spaceBetween: 10,
     slidesPerGroup: 1,
-    spaceBetween: 20,
   },
   600: {
     slidesPerView: 2,
@@ -68,6 +73,11 @@ export const defaultBreakpointsCart = {
   },
 };
 export const defaultBreakpointsPopularBlogs = {
+  0: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    slidesPerGroup: 1,
+  },
   320: {
     slidesPerView: 1.2,
     spaceBetween: 10,

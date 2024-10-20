@@ -20,7 +20,7 @@ const BlogGameCart = ({
         key={item.title}
         className={`bg-white dark:bg-bg overflow-hidden border transition-colors duration-300 ease-in-out border-border/40 dark:hover:border-border hover:border-border relative group flex flex-col w-full h-full dark:hover:bg-bg/90 hover:bg-white/60 ${!gridView ? "flex-row items-center " : ""}`}>
         <div
-          className={`aspect-[16/9] min-[1300px]:h-44 relative w-full max-[1129px]:aspect-[23/10] max-[1000px]:aspect-[23/9] max-[769px]:aspect-[23/8] max-[701px]:aspect-[10/3] overflow-hidden max-[600px]:aspect-[16/7]  ${!gridView ? "w-1/3 h-full max-[850px]:w-1/3 max-[650px]:w-1/2 max-[850px]:h-full max-[850px]:aspect-auto " : ""}`}>
+          className={`aspect-[16/9] min-[1300px]:h-44 relative w-full max-[1129px]:aspect-[23/10] max-[1000px]:aspect-[23/9] max-[769px]:aspect-[23/8] max-[701px]:aspect-[10/3] overflow-hidden max-[600px]:aspect-[16/7]  ${!gridView ? "w-[40%] h-full max-[850px]:w-1/3 max-[650px]:w-1/2 max-[850px]:h-full max-[850px]:aspect-auto " : ""}`}>
           <Image
             src={item.image}
             alt={item.title}

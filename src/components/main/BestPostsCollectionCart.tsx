@@ -51,7 +51,7 @@ const BestPostsCollectionCart = ({item}: {item: Post}) => {
           <span className="flex items-center text-[12px] text-[#888888] mb-2">
             {item.section}
           </span>
-          <h3 className="text-[18px] font-bold  max-[1200px]:text-[18px] max-[1200px]:mb-[6px]">
+          <h3 className="text-[18px] font-bold  max-[1200px]:text-[18px] max-[1200px]:mb-[6px] line-clamp-1">
             {item.title}
           </h3>
           <div className="flex-grow">

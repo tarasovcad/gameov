@@ -71,7 +71,7 @@ const Footer = () => {
     FaGithub: FaGithub,
   };
   return (
-    <div className="bg-bg p-[30px] border border-border rounded-t-lg text-white/80 text-[15px]">
+    <div className="bg-bg p-[30px] border border-border rounded-t-lg text-white/80 text-[15px] mt-[60px]">
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-5 max-w-[400px]">
           <div className="flex items-center gap-3">

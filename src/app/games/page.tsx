@@ -9,6 +9,7 @@ import {layoutGridMoveVertical} from "@lucide/lab";
 import FilterButton from "@/components/gamePage/FilterButton";
 import SortByButton from "@/components/gamePage/SortByButton";
 import {AnimatePresence, motion} from "framer-motion";
+import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 const GamesPage = () => {
   const doubledGamesList = [...gamesList, ...gamesList];
   const [gridView, setGridView] = useState(true);
@@ -23,7 +24,7 @@ const GamesPage = () => {
           setGridView(false);
           break;
         default:
-          setGridView(true);
+          // setGridView(true);
           break;
       }
     };
@@ -102,6 +103,7 @@ const GamesPage = () => {
           ))}
         </motion.div>
       </AnimatePresence>
+      <PaginationGamePage />
     </div>
   );
 };

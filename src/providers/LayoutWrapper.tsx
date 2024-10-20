@@ -10,7 +10,7 @@ export default function LayoutWrapper({children}: {children: React.ReactNode}) {
 
   return (
     <div
-      className={`${shouldUseWrapper ? "bodywrapper" : ""} bg-[#f0f0f0] dark:bg-backgound`}>
+      className={`${shouldUseWrapper ? "bodywrapper" : ""} bg-[#f0f0f0]  dark:bg-backgound`}>
       {children}
     </div>
   );
