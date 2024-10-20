@@ -154,8 +154,9 @@ const FilterButton = () => {
   return (
     <Popover open={popoverVisible} onOpenChange={setPopoverVisible}>
       <PopoverTrigger asChild>
-        <button className="flex items-center gap-2.5 rounded-md bg-bg py-[6px] px-5 border border-border hover:bg-border/50 transition-colors duration-300 ease-in-out">
-          <Filter size={18} /> Filter
+        <button className="flex items-center gap-2.5 rounded-md bg-bg py-[6px] px-5 border border-border hover:bg-border/50 transition-colors duration-300 ease-in-out max-[730px]:px-3">
+          <Filter size={18} />{" "}
+          <span className="max-[730px]:hidden">Filter</span>
         </button>
       </PopoverTrigger>
       <PopoverContent

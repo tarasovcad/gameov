@@ -2,7 +2,7 @@ export const gamesList = [
   {
     title: "Mystic Realms",
     description:
-      "A fantasy MMORPG with intricate world-building and magical combat.",
+      "A fantasy MMORPG with intricate world-building and magical combat. New to the game? Start with the tutorial to learn the basics. Don't forget to explore the vast landscapes and encounters to discover the hidden secrets of the game.",
     image: "/fake/4.jpg",
     year: 2023,
     section: "PC Games",
@@ -14,7 +14,7 @@ export const gamesList = [
   {
     title: "Velocity Rush",
     description:
-      "A high-octane racing game featuring futuristic vehicles and tracks.",
+      "A high-octane racing game featuring futuristic vehicles and tracks. Experience the thrill of speed and adrenaline as you navigate through the challenging tracks and battle against other drivers. Unleash your inner driver and push the limits of your car to become the ultimate racer.",
     image: "/fake/5.png",
     year: 2023,
     section: "PC Games",
@@ -24,7 +24,8 @@ export const gamesList = [
   },
   {
     title: "Chronos Shift",
-    description: "A time-bending puzzle platformer with innovative mechanics.",
+    description:
+      "A time-bending puzzle platformer with innovative mechanics. Explore the mysterious world of Chronos Shift and embark on a thrilling journey filled with puzzles, secrets, and a captivating storyline. Get ready to experience the ultimate time-bending adventure!",
     image: "/fake/6.png",
     year: 2023,
     section: "PC Games",
@@ -35,7 +36,7 @@ export const gamesList = [
   {
     title: "Eco Warriors",
     description:
-      "An environmental strategy game where players restore ecosystems.",
+      "An environmental strategy game where players restore ecosystems. Food and resources are scarce, and the only way to survive is to protect them. Join the fight against pollution and climate change, and make a difference in the world. Eco Warriors is a game that will challenge you to think outside the box and take action.",
     image: "/fake/7.jpg",
     year: 2023,
     section: "PC Games",
@@ -45,7 +46,8 @@ export const gamesList = [
   },
   {
     title: "Shadow Tactics",
-    description: "A stealth-based tactical game set in a dark fantasy world.",
+    description:
+      "A stealth-based tactical game set in a dark fantasy world. World with a dark and mysterious history, where magic and technology coexist. Explore the world of Shadow Tactics and embark on a thrilling adventure filled with stealth, magic, and a captivating storyline. Get ready to experience the ultimate tactical game!",
     image: "/fake/8.png",
     year: 2023,
     section: "PC Games",

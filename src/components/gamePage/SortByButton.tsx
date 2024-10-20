@@ -10,8 +10,9 @@ const SortByButton = () => {
   return (
     <Popover open={popoverVisible} onOpenChange={setPopoverVisible}>
       <PopoverTrigger asChild>
-        <button className="flex items-center gap-2.5 rounded-md bg-bg py-[6px] px-5 border border-border hover:bg-border/50 transition-colors duration-300 ease-in-out">
-          <ArrowDownUp size={18} /> Sort By
+        <button className="flex items-center gap-2.5 rounded-md bg-bg py-[6px] px-5 border border-border hover:bg-border/50 transition-colors duration-300 ease-in-out max-[730px]:px-[12px] ">
+          <ArrowDownUp size={18} />{" "}
+          <span className="max-[730px]:hidden">Sort By</span>
         </button>
       </PopoverTrigger>
       <PopoverContent
