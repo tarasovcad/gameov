@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {ArrowDownUp} from "lucide-react";
 import {sortBySection} from "@/data/filterSection";
@@ -7,6 +7,24 @@ import {sortBySection} from "@/data/filterSection";
 const SortByButton = () => {
   const [popoverVisible, setPopoverVisible] = useState(false);
   const [sortInput, setSortInput] = useState("Newest");
+  const [alignItems, setAlignItems] = useState<"start" | "center" | "end">(
+    "center",
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 730) {
+        setAlignItems("end");
+      } else {
+        setAlignItems("center");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <Popover open={popoverVisible} onOpenChange={setPopoverVisible}>
       <PopoverTrigger asChild>
@@ -18,6 +36,8 @@ const SortByButton = () => {
       <PopoverContent
         className="w-[225px] bg-bg rounded-lg p-0 py-4"
         sideOffset={10}
+        align={alignItems}
+        alignOffset={alignItems === "center" ? 0 : -52}
         onOpenAutoFocus={(e) => e.preventDefault()}>
         <div className="text-white/90 text-[14px] flex flex-col gap-2 ">
           <h2 className="px-4 text-[16px] font-medium">Sort By</h2>

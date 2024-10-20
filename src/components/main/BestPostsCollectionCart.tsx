@@ -23,7 +23,7 @@ const BestPostsCollectionCart = ({item}: {item: Post}) => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
         {listOfSmallIconImages.includes(section || "") ? (
-          <div className="flex justify-center items-center  relative w-full sm:w-56 flex-shrink-0 bg-[#252525] rounded-md">
+          <div className="flex justify-center items-center relative w-1/2 flex-shrink-0 bg-[#252525] rounded-md">
             <div className="relative w-[75px] h-[75px] rounded-md">
               <Image
                 src={item.image}
@@ -35,7 +35,7 @@ const BestPostsCollectionCart = ({item}: {item: Post}) => {
             </div>
           </div>
         ) : (
-          <div className="w-full sm:w-56 h-72 sm:h-auto relative flex-shrink-0 overflow-hidden rounded-md">
+          <div className="w-1/2 max-h-[140px] relative flex-shrink-0 overflow-hidden rounded-md max-[850px]:w-1/2 ">
             <Image
               src={item.image}
               alt={item.title}
@@ -52,14 +52,14 @@ const BestPostsCollectionCart = ({item}: {item: Post}) => {
             {item.section}
           </span>
           <h3 className="text-[18px] font-bold  max-[1200px]:text-[18px] max-[1200px]:mb-[6px]">
-            {item.title} ({item.year})
+            {item.title}
           </h3>
           <div className="flex-grow">
             <p className="text-secondary_text mb-7 text-[13px] max-[1150px]:text-[13px] max-[1150px]:mb-[20px] line-clamp-2">
               {item.description}
             </p>
           </div>
-          <div className="flex justify-between text-sm text-secondary_text mt-auto ">
+          <div className="flex justify-between text-sm text-secondary_text mt-auto max-[1360px]:hidden max-[850px]:max-[850px]:flex max-[500px]:hidden">
             <div className="flex items-center text-[13px]">
               <span className="mr-3 flex items-center">
                 <Eye size={16} className="mr-1" /> {item.views}

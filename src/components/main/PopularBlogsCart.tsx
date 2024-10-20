@@ -13,7 +13,8 @@ const PopularBlogsCart = ({item}: {item: Post}) => {
       <Card
         key={item.title}
         className="bg-bg dark:bg-white overflow-hidden border transition-colors duration-300 ease-in-out border-border/40 hover:border-border dark:hover:border-border relative group flex flex-col w-full h-full hover:bg-bg/90 dark:hover:bg-white/60 ">
-        <div className="aspect-[16/9] min-[1330px]:h-44 relative w-full max-[1159px]:aspect-[23/10] max-[1030px]:aspect-[23/9]  max-[789px]:aspect-[23/8] max-[731px]:aspect-[10/3] overflow-hidden max-[630px]:aspect-[16/7]">
+        <div
+          className={`aspect-[16/9] min-[1300px]:h-44 relative w-full max-[1129px]:aspect-[23/10] max-[1000px]:aspect-[23/9] max-[769px]:aspect-[23/8] max-[701px]:aspect-[10/3] overflow-hidden max-[600px]:aspect-[16/7] `}>
           <Image
             src={item.image}
             alt={item.title}
@@ -24,11 +25,11 @@ const PopularBlogsCart = ({item}: {item: Post}) => {
         </div>
         <FavoriteTooltip reverseStyle={true} />
         <div className="p-4 flex flex-col flex-grow ">
-          <h3 className="text-[#F8FAFC] dark:text-[#292929] text-xl font-bold mb-2 max-[1200px]:text-[18px] max-[1200px]:mb-[6px]">
-            {item.title} ({item.year})
+          <h3 className="text-[#F8FAFC] dark:text-[#292929] text-xl font-bold mb-2 max-[1200px]:text-[18px] max-[1200px]:mb-[6px] max-[650px]:line-clamp-1">
+            {item.title}
           </h3>
           <div className="flex-grow">
-            <p className="text-secondary_text dark:text-[#464646] mb-6 text-sm max-[1150px]:text-[13px] max-[1150px]:mb-[20px]">
+            <p className="text-secondary_text line-clamp-2 dark:text-[#464646] mb-6 text-sm max-[1150px]:text-[13px] max-[1150px]:mb-[20px]">
               {item.description}
             </p>
           </div>

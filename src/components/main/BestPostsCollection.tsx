@@ -10,7 +10,7 @@ const BestPostsCollection = () => {
   const [isHoverDownloaded, setIsHoverDownloaded] = useState(false);
   const [isHoverWished, setIsHoverWished] = useState(false);
   return (
-    <div className=" grid grid-cols-2 gap-[20px] ">
+    <div className=" grid grid-cols-2 gap-[20px] max-[1200px]:gap-[15px] max-[850px]:grid-cols-1 ">
       <div className="bg-bg py-[25px] px-[20px] rounded-md border-border/40 border">
         <Link
           href={"/"}

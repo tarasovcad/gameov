@@ -383,7 +383,7 @@ export const bestPostsList = [
     date: "26 Feb 2024",
   },
   {
-    title: "Proton VPN",
+    title: "Proton VPN at USA Today",
     description:
       "A secure and fast VPN service that encrypts your internet traffic and protects your privacy.",
     briefDescription: "Secure and fast VPN",

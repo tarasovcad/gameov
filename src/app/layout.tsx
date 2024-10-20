@@ -14,7 +14,7 @@ import {Analytics} from "@vercel/analytics/react";
 import {noRoutes} from "@/data/WrapperRoutes";
 import LayoutWrapper from "@/providers/LayoutWrapper";
 import Footer from "@/components/footer/Footer";
-
+import PlausibleProvider from "next-plausible";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -33,6 +33,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
+      <head>
+        <PlausibleProvider
+          domain="gameov.vercel.app"
+          trackOutboundLinks={true}
+          enabled
+          trackLocalhost></PlausibleProvider>
+      </head>
       <body className="bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound">
         <CustomThemeProvider>
           <AuthProvider>
