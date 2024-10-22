@@ -50,41 +50,41 @@ const accordionItems = [
 
 const Post = () => {
   return (
-    <div className="p-4 max-[1100px]:p-2 max-[1200px]:pr-6">
-      <div className="flex flex-col gap-1 mb-4">
+    <div className=" pt-3">
+      <div className="flex flex-col gap-[1px] mb-4">
         <h1 className="text-[40px] font-extrabold">Black Myth: Wukong</h1>
-        <p className="text-sm text-white/50 font-medium">
+        <p className="text-sm text-secondary_text font-medium">
           Olivia Rhye • 20 Jan 2022
         </p>
       </div>
       <div className="flex justify-between gap-4">
-        <div className="w-full flex flex-col">
+        <div className="w-full flex-1 flex-col">
           <PostImageSlider />
           <div className="flex flex-col gap-5">
-            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121]">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-border/40">
               <PostText />
             </div>
-            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121] hidden max-[1200px]:block">
-              <h2 className="text-[22px] font-semibold mb-4 mt-1 border-b border-[#212121] pb-4">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-border/40 hidden max-[1200px]:block">
+              <h2 className="text-[22px] font-semibold mb-4 mt-1 border-b border-border/40 pb-4">
                 Product Information
               </h2>
               <PostSidebarAtSmallScreen />
             </div>
-            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121] hidden max-[1200px]:block">
-              <h2 className="text-[22px] font-semibold mb-6 mt-1 border-b border-[#212121] pb-4 ">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-border/40 hidden max-[1200px]:block">
+              <h2 className="text-[22px] font-semibold mb-6 mt-1 border-b border-border/40 pb-4 ">
                 Tags
               </h2>
               <PostTags />
             </div>
-            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121]">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-border/40">
               <h2 className="text-[22px] font-semibold mb-4 mt-1">FAQ</h2>
               <PostAccordion items={accordionItems} />
             </div>
-            <div className="w-full rounded-[12px] p-6 pb-5 bg-[#181818] border border-[#212121]">
+            <div className="w-full rounded-[12px] p-6 pb-5 bg-[#181818] border border-border/40">
               <PostDownload />
             </div>
-            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-[#212121] hidden max-[1200px]:block">
-              <h2 className="text-[22px] font-semibold mb-6 mt-1 border-b border-[#212121] pb-4 ">
+            <div className="w-full rounded-[12px] p-6 bg-[#181818] border border-border/40 hidden max-[1200px]:block">
+              <h2 className="text-[22px] font-semibold mb-6 mt-1 border-b border-border/40 pb-4 ">
                 You may also like
               </h2>
               <PostSimilarPostsForSmallScreen />

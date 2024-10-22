@@ -32,10 +32,10 @@ const PostOtherVersions = () => {
     <div>
       <div className="flex flex-col gap-4">
         <h2 className="text-[22px] font-semibold ">Previous versions</h2>
-        <div className="border border-[#4e4e4e] rounded-[12px] text-white/70">
+        <div className="border border-border/60 rounded-[12px] text-white/60">
           <Table>
-            <TableHeader className="border-b border-[#4e4e4e] text-[15px]">
-              <TableRow className="border-b border-[#4e4e4e]">
+            <TableHeader className="border-b border-border/60 text-[15px]">
+              <TableRow className="border-b border-border/60">
                 <TableHead className="w-[155px]">Date</TableHead>
                 <TableHead>Additional info</TableHead>
                 <TableHead>Size</TableHead>
@@ -46,7 +46,7 @@ const PostOtherVersions = () => {
               {listOfVersions.map((version) => (
                 <TableRow
                   key={version.date}
-                  className="border-b border-[#4e4e4e]">
+                  className="border-b border-border/60">
                   <TableCell className="font-medium">{version.date}</TableCell>
                   <TableCell>{version.additionalInfo}</TableCell>
                   <TableCell>{version.size}</TableCell>
@@ -54,7 +54,7 @@ const PostOtherVersions = () => {
                   <TableCell className="text-right ">
                     <Link
                       href={version.link}
-                      className="cursor-pointer hover:underline hover:text-white">
+                      className="cursor-pointer text-white/80 hover:underline hover:text-white">
                       Download
                     </Link>
                   </TableCell>

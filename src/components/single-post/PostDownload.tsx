@@ -28,11 +28,11 @@ const PostDownload = () => {
       </div>
       <div className="w-full border-t border-t-[#2E2E2E] font-medium text-sm flex flex-col gap-6">
         <div className="mt-6">
-          <h2 className="text-[15px] font-semibold mb-2">
+          <h2 className="text-[16px] font-semibold mb-2">
             How To Install Grand Theft Auto V For Free
           </h2>
 
-          <ul className="text-[#A3A3A3]">
+          <ul className="text-secondary_text">
             <li>1. Download The Game.</li>
             <li>2. Extract with WinRAR</li>
             <li>3. Run the game</li>

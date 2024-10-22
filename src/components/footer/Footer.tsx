@@ -1,3 +1,4 @@
+"use client";
 import {Instagram} from "iconsax-react";
 import {Github} from "lucide-react";
 import Image from "next/image";
@@ -7,7 +8,13 @@ import {IconType} from "react-icons";
 import {FaGithub, FaTelegramPlane, FaInstagram} from "react-icons/fa";
 import {FaTiktok} from "react-icons/fa";
 import DarkModeCheckbox from "../ui/DarkModeCheckbox";
+import {usePathname} from "next/navigation";
+import {noRoutes} from "@/data/WrapperRoutes";
 const Footer = () => {
+  const pathname = usePathname();
+  if (noRoutes.includes(pathname as string)) {
+    return null;
+  }
   const linkList = [
     {
       title: "Instagram",

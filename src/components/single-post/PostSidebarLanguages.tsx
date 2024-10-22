@@ -1,6 +1,6 @@
 "use client";
 import {ChevronUp, ChevronDown} from "lucide-react";
-import React, {useState} from "react";
+import React, {useState, useMemo} from "react";
 import {motion, AnimatePresence} from "framer-motion";
 
 const PostSidebarLanguages = ({value}: {value: string}) => {
@@ -10,8 +10,13 @@ const PostSidebarLanguages = ({value}: {value: string}) => {
     setIsExpanded(!isExpanded);
   };
 
-  const threeLanguages = value.split(",").slice(0, 3).join(", ");
-  const fullLanguages = value.split(",").slice(3).join(", ");
+  const {threeLanguages, fullLanguages, showExpand} = useMemo(() => {
+    const languages = value.split(",").map((lang) => lang.trim());
+    const threeLanguages = languages.slice(0, 3).join(", ");
+    const fullLanguages = languages.slice(3).join(", ");
+    const showExpand = languages.length > 3;
+    return {threeLanguages, fullLanguages, showExpand};
+  }, [value]);
 
   const contentVariants = {
     expanded: {
@@ -51,6 +56,10 @@ const PostSidebarLanguages = ({value}: {value: string}) => {
       },
     },
   };
+
+  if (!showExpand) {
+    return <div className="text-[#A3A3A3] text-[14px]">{value}</div>;
+  }
 
   return (
     <div className="text-[#A3A3A3] text-[14px] pr-6 relative">

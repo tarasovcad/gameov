@@ -10,8 +10,8 @@ const PostDescription = () => {
   const descriptionText = (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[26px] font-bold">Role Playing</h1>
-        <p className="text-[16px] text-white/50 font-normal ">
+        <h1 className="text-[24px] font-bold">Role Playing</h1>
+        <p className="text-[14px] mt-[3px] text-white/50 font-normal ">
           If you like role-playing adventures, then you will like our next offer
           regarding an attempt to send you to a fabulous world. This time you
           have to take on the role of a hero who must unite the strongest heroes
@@ -25,8 +25,8 @@ const PostDescription = () => {
       </div>
 
       <div>
-        <h1 className="text-[26px] font-bold">Party Adventure</h1>
-        <p className="text-[16px] text-white/50 font-normal ">
+        <h1 className="text-[24px] font-bold">Party Adventure</h1>
+        <p className="text-[14px] text-white/50 font-normal ">
           The main advantage of your adventure will be that you will have to put
           a lot of effort into achieving a good result. And to do this, you will
           need to manage a whole group of heroes, each of whom will have not
@@ -41,8 +41,8 @@ const PostDescription = () => {
         </p>
       </div>
       <div>
-        <h1 className="text-[26px] font-bold">The best of board games</h1>
-        <p className="text-[16px] text-white/50 font-normal ">
+        <h1 className="text-[24px] font-bold">The best of board games</h1>
+        <p className="text-[14px] text-white/50 font-normal ">
           Another interesting advantage of the game is that it was created
           taking into account the opinions of fans. And those, in turn, tried to
           bring the rules and format of board games to the game. Therefore, we
@@ -55,7 +55,7 @@ const PostDescription = () => {
         </p>
       </div>
       <div>
-        <p className="text-[16px] text-white/50 font-normal ">
+        <p className="text-[14px] text-white/50 font-normal ">
           This role-playing game shows that sometimes developers can be
           condescending and listen carefully to the opinions of the players. It
           will be enough just to collect your thoughts and try to achieve a
@@ -102,13 +102,13 @@ const PostDescription = () => {
         whileHover={{scale: 1.05}}
         whileTap={{scale: 0.95}}>
         {isCollapsed ? (
-          <div className="flex items-center gap-2">
-            <ChevronUp />
+          <div className="flex items-center gap-2 text-sm">
+            <ChevronUp size={20} />
             <p>Show more</p>
           </div>
         ) : (
-          <div className="flex items-center gap-2">
-            <ChevronDown />
+          <div className="flex items-center gap-2 text-sm">
+            <ChevronDown size={20} />
             <p>Show less</p>
           </div>
         )}

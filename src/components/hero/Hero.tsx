@@ -6,13 +6,6 @@ import {motion, AnimatePresence} from "framer-motion";
 import {useSwipeable} from "react-swipeable";
 import {heroSlider} from "@/data/fakePostData";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-poppins",
-  weight: ["600"],
-});
-
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [key, setKey] = useState(0);
@@ -95,7 +88,7 @@ const Hero = () => {
                 <span>{heroSlider[currentSlide].date}</span>
               </p>
               <h1
-                className={`font-semibold text-2xl mb-3 max-[860px]:mb-[19px] max-[700px]:mb-2 text-white ${poppins.className}`}>
+                className={`font-semibold text-2xl mb-3 max-[860px]:mb-[19px] max-[700px]:mb-2 text-white `}>
                 {heroSlider[currentSlide].title}
               </h1>
               <p className="mb-4 sm:mb-4 max-[860px]:mb-[24px] text-sm sm:text-[15px] text-white/90 line-clamp-2 2">

@@ -1,41 +1,35 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 import Image from "next/image";
 import {ChevronLeft, ChevronRight} from "lucide-react";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation, Pagination, Thumbs} from "swiper/modules";
 import {AnimatePresence, motion} from "framer-motion";
+import {Swiper as SwiperType} from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/thumbs";
+
 const PostImageSlider = () => {
   const images = [
     "/post.jpg",
     "/post2.png",
-    // "/post3.jpg",
-    // "/post4.jpg",
-    // "/post5.jpg",
-    // "/post6.jpg",
-    // "/post7.jpg",
-    // "/post8.jpg",
-    // "/post9.jpg",
-    // "/post10.jpg",
-    // "/post.jpg",
-    // "/post2.png",
-    // "/post3.jpg",
-    // "/post4.jpg",
+    "/post3.jpg",
+    "/post4.jpg",
+    "/post5.jpg",
+    "/post6.jpg",
+    "/post7.jpg",
+    "/post8.jpg",
+    "/post9.jpg",
+    "/post10.jpg",
   ];
 
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
-    );
-  };
+  const swiperRef = useRef<SwiperType | null>(null);
 
   const buttonVariants = {
     left: {
@@ -49,32 +43,33 @@ const PostImageSlider = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div
-        className="relative w-full h-[500px] overflow-hidden"
+        className="relative w-full aspect-[754/470] overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>
-        <div
-          className="flex transition-transform duration-300 ease-in-out h-full"
-          style={{
-            width: `${images.length * 100}%`,
-            transform: `translateX(-${currentIndex * (100 / images.length)}%)`,
-          }}>
-          {/* MAIN SLIDER */}
+        <Swiper
+          spaceBetween={10}
+          navigation
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          className="!h-full !w-full rounded-xl">
           {images.map((src, index) => (
-            <div key={index} className="relative w-full h-full">
-              <Image
-                src={src}
-                alt={`Image ${index + 1}`}
-                fill
-                sizes="100vw"
-                style={{objectFit: "cover"}}
-                unoptimized
-                className="rounded-2xl"
-              />
-            </div>
+            <SwiperSlide key={index} className="!h-full !w-full">
+              <div className="relative w-full h-full">
+                <Image
+                  src={src}
+                  alt={`Image ${index + 1}`}
+                  fill
+                  sizes="100vw"
+                  style={{objectFit: "cover"}}
+                  className="rounded-xl"
+                />
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
         <AnimatePresence>
           {isHovered && (
@@ -85,8 +80,8 @@ const PostImageSlider = () => {
                 exit="hidden"
                 variants={buttonVariants.left}
                 transition={{duration: 0.3}}
-                onClick={goToPrevious}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10">
+                onClick={() => swiperRef.current?.slidePrev()}
+                className="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10">
                 <ChevronLeft />
               </motion.button>
               <motion.button
@@ -95,40 +90,28 @@ const PostImageSlider = () => {
                 exit="hidden"
                 variants={buttonVariants.right}
                 transition={{duration: 0.3}}
-                onClick={goToNext}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                onClick={() => swiperRef.current?.slideNext()}
+                className="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10">
                 <ChevronRight />
               </motion.button>
             </>
           )}
         </AnimatePresence>
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full z-10">
-          {currentIndex + 1} / {images.length}
-        </div>
       </div>
 
-      {/* THUMBNAIL SLIDER CONTAINER */}
-      <div className="w-full flex items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-[22px] mt-4 sm:mt-[22px]">
-        <button className="cursor-pointer w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300">
+      {/* THUMBNAIL SLIDER */}
+      <div className=" flex items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-[22px] mt-4 sm:mt-[22px]">
+        <button className="swiper-button-prev cursor-pointer w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300">
           <ChevronLeft />
         </button>
 
-        <div className="flex gap-2">
-          {/* THUMBNAIL SLIDER */}
-          {images.map((src, index) => (
-            <div
-              key={index}
-              className={`relative w-[94px] h-[54px] ${
-                index === currentIndex
-                  ? "rounded-[5px] outline outline-white outline-2"
-                  : ""
-              }`}>
+        <div className=" flex gap-2  justify-center">
+          {images.slice(0, 2).map((src, index) => (
+            <div className="relative w-[94px] h-[54px]" key={index}>
               <Image
-                onClick={() => setCurrentIndex(index)}
                 src={src}
-                alt={`Image ${currentIndex + 1}`}
-                width={94}
-                height={54}
+                alt={`Thumbnail ${index + 1}`}
+                fill
                 style={{objectFit: "cover"}}
                 unoptimized
                 className="cursor-pointer rounded-[5px]"

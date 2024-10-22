@@ -58,18 +58,20 @@ const PostMinRequirements = () => {
     <div className="">
       <div className="flex flex-col gap-4 mb-20">
         <h2 className="text-[22px] font-semibold ">Minimum requirementss</h2>
-        <div className="text-white/70 mt-4">
+        <div className=" mt-4">
           <div className="w-full grid grid-cols-2">
             {listOfMinRequirements.map((item, index) => (
               <div
                 key={index}
-                className={`flex flex-col gap-2 border-t border-[#4e4e4e] pt-4 pb-5 px-4 ${
+                className={`flex flex-col gap-2 border-t border-border/60 pt-4 pb-5 px-4 ${
                   index === listOfMinRequirements.length - 2 ? "border-b" : ""
                 }`}>
-                <p className="text-[15px] font-semibold text-white text-base">
+                <p className="text-[15px] font-semibold text-base">
                   {item.title}
                 </p>
-                <p className="text-[15px] text-white/70">{item.description}</p>
+                <p className="text-[15px] text-secondary_text">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
@@ -79,18 +81,20 @@ const PostMinRequirements = () => {
         <h2 className="text-[22px] font-semibold ">
           Recommended requirementss
         </h2>
-        <div className="text-white/70 mt-4">
+        <div className=" mt-4">
           <div className="w-full grid grid-cols-2">
             {listOfMaxRequirements.map((item, index) => (
               <div
                 key={index}
-                className={`flex flex-col gap-2 border-t border-[#4e4e4e] pt-4 pb-5 px-4 ${
+                className={`flex flex-col gap-2 border-t border-borde/60 pt-4 pb-5 px-4 ${
                   index === listOfMaxRequirements.length - 2 ? "border-b" : ""
                 }`}>
                 <p className="text-[15px] font-semibold text-white text-base">
                   {item.title}
                 </p>
-                <p className="text-[15px] text-white/70">{item.description}</p>
+                <p className="text-[15px] text-secondary_text">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>

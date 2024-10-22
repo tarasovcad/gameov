@@ -26,12 +26,12 @@ const Tab = ({text, selected, setSelected, customID}: TabProps) => {
     <button
       onClick={() => setSelected(text)}
       className="
-        relative rounded-md px-2 py-4 pt-2 text-sm font-medium text-gray-500 transition-colors duration-300 
+        relative rounded-md px-2 py-4 pt-2 text-sm font-medium transition-colors duration-300 
       ">
       <span
         ref={textRef}
         className={`relative z-10 duration-300 ease-in-out transition-colors text-base ${
-          selected ? "text-white" : "text-white/50"
+          selected ? "text-white" : "text-secondary_text"
         }`}>
         {text}
       </span>
@@ -66,7 +66,7 @@ const PostTabs = ({center, customID, onTabChange}: LineTabProps) => {
   return (
     <div
       className={cn(
-        "mb-8 flex flex-wrap items-center gap-2 border-b border-[#2E2E2E]",
+        "mb-8 flex flex-wrap items-center gap-2 border-b border-border/40",
         center && "justify-center",
       )}>
       {tabs.map((tab) => (
