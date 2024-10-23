@@ -2,7 +2,7 @@
 
 import {usePathname} from "next/navigation";
 
-const noWrapperRoutes = ["/signin", "/signup"];
+const noWrapperRoutes = ["/signin", "/signup", "/admin-dashboard"];
 
 export default function LayoutWrapper({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
@@ -10,7 +10,7 @@ export default function LayoutWrapper({children}: {children: React.ReactNode}) {
 
   return (
     <div
-      className={`${shouldUseWrapper ? "bodywrapper" : ""} bg-[#f0f0f0]  dark:bg-backgound`}>
+      className={`${shouldUseWrapper ? "bodywrapper pr-12 max-[1100px]:pr-5 max-[700px]:p-0" : ""} bg-[#f0f0f0]  dark:bg-backgound`}>
       {children}
     </div>
   );

@@ -49,7 +49,7 @@ export default function RootLayout({
               <div className="">
                 <Sidebar />
                 {/* responsive design for 700-0px is inside the page */}
-                <div className="flex-1 flex flex-col pr-12 max-[1100px]:pr-5 max-[700px]:p-0">
+                <div className="flex-1 flex flex-col ">
                   <NavbarServerComponent />
                   <main>{children}</main>
                 </div>
