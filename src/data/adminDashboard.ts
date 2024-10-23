@@ -1,26 +1,37 @@
+import {Layer} from "iconsax-react";
 import {
   AudioWaveform,
   BadgeCheck,
   Bell,
+  Bookmark,
   BookOpen,
   Bot,
+  ChartPie,
   ChevronRight,
   ChevronsUpDown,
+  CircleHelp,
   Command,
   CreditCard,
+  File,
   Folder,
   Forward,
   Frame,
   GalleryVerticalEnd,
+  House,
+  Layers,
   LogOut,
   Map,
+  MessageSquare,
   MoreHorizontal,
   PieChart,
   Plus,
+  Settings,
   Settings2,
   Sparkles,
   SquareTerminal,
+  StickyNote,
   Trash2,
+  Users,
 } from "lucide-react";
 
 export const adminDashboardData = {
@@ -29,109 +40,22 @@ export const adminDashboardData = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
+  websites: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      name: "Gameov",
+      logo: "/logo.svg",
     },
     {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
+      name: "Gasp Games",
+      logo: "/svg/fake-logo.svg",
     },
   ],
   navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
+    {title: "Dashboard", link: "#", icon: House},
+    {title: "Posts", link: "#", icon: File},
+    {title: "Categories", link: "#", icon: Layers},
+
+    {title: "Analytics", link: "#", icon: ChartPie},
   ],
   projects: [
     {
@@ -149,5 +73,14 @@ export const adminDashboardData = {
       url: "#",
       icon: Map,
     },
+  ],
+  teamManagement: [
+    {title: "Teams", link: "#", icon: StickyNote},
+    {title: "Comments", link: "#", icon: MessageSquare},
+    {title: "Users", link: "#", icon: Users},
+  ],
+  other: [
+    {title: "Settings", link: "#", icon: Settings},
+    {title: "Help & Center", link: "#", icon: CircleHelp},
   ],
 };

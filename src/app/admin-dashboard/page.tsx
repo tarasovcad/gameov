@@ -4,10 +4,10 @@ import React from "react";
 
 const AdminPage = () => {
   return (
-    <div className="mx-auto max-w-[1920px] bg-[#1A1A1C] ">
+    <div className=" bg-[#1A1A1C] ">
       <SidebarProvider className="">
         <AdminSidebar />
-        <div className=" w-full   ">
+        <div className=" ">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam,
           soluta.
         </div>
