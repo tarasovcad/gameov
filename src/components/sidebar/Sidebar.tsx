@@ -10,7 +10,7 @@ import {usePathname} from "next/navigation";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  if (noRoutes.includes(pathname as string)) {
+  if (noRoutes.includes(pathname) || pathname.startsWith("/admin-dashboard")) {
     return null;
   }
   return (

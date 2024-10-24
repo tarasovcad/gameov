@@ -1,85 +1,28 @@
-"use client";
-import React from "react";
-import {
-  AudioWaveform,
-  BadgeCheck,
-  Bell,
-  BookOpen,
-  Bot,
-  ChevronRight,
-  ChevronsUpDown,
-  Command,
-  CreditCard,
-  Folder,
-  Forward,
-  Frame,
-  GalleryVerticalEnd,
-  LogOut,
-  Map,
-  MoreHorizontal,
-  PieChart,
-  Plus,
-  Settings2,
-  Sparkles,
-  SquareTerminal,
-  Trash2,
-} from "lucide-react";
+import React, {useState} from "react";
 
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {Separator} from "@/components/ui/separator";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInset,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarProvider,
   SidebarRail,
-  SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {adminDashboardData} from "@/data/adminDashboard";
 import SidebarWebsite from "./sidebar/SidebarWebsite";
 import SidebarInput from "./sidebar/SidebarInput";
 import SidebarDropdownMenuFooter from "./sidebar/SidebarDropdownMenuFooter";
-// This is sample data.
+import Link from "next/link";
 
 const AdminSidebar = () => {
   return (
-    <Sidebar collapsible="icon" className="bg-[#151517]">
+    <Sidebar
+      collapsible="icon"
+      className="bg-[#151517] border-l border-border/60">
       <SidebarWebsite />
-
       <SidebarContent>
         <SidebarGroup>
           <SidebarInput />
@@ -88,16 +31,17 @@ const AdminSidebar = () => {
           <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
           <SidebarMenu>
             {adminDashboardData.navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <Link href={item.link} key={item.title}>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip={item.title}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </Link>
             ))}
           </SidebarMenu>
         </SidebarGroup>
-
         <SidebarGroup>
           <SidebarGroupLabel>Team Managment</SidebarGroupLabel>
           <SidebarMenu>

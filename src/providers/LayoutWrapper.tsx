@@ -6,7 +6,9 @@ const noWrapperRoutes = ["/signin", "/signup", "/admin-dashboard"];
 
 export default function LayoutWrapper({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
-  const shouldUseWrapper = !noWrapperRoutes.includes(pathname);
+  const shouldUseWrapper =
+    !noWrapperRoutes.includes(pathname) &&
+    !pathname.startsWith("/admin-dashboard");
 
   return (
     <div

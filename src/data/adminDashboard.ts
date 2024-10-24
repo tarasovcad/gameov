@@ -36,9 +36,9 @@ import {
 
 export const adminDashboardData = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Maksym Tarasov",
+    email: "tarasovcad@gmail.com",
+    avatar: "/sign-up6.jpg",
   },
   websites: [
     {
@@ -51,28 +51,10 @@ export const adminDashboardData = {
     },
   ],
   navMain: [
-    {title: "Dashboard", link: "#", icon: House},
-    {title: "Posts", link: "#", icon: File},
+    {title: "Dashboard", link: "/admin-dashboard/dashboard", icon: House},
+    {title: "Posts", link: "/admin-dashboard/posts", icon: File},
     {title: "Categories", link: "#", icon: Layers},
-
     {title: "Analytics", link: "#", icon: ChartPie},
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
   ],
   teamManagement: [
     {title: "Teams", link: "#", icon: StickyNote},

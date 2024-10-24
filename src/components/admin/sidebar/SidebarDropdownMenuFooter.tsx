@@ -13,9 +13,12 @@ import {
 import {adminDashboardData} from "@/data/adminDashboard";
 import {
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import {
   BadgeCheck,
@@ -29,6 +32,19 @@ import {
 const SidebarDropdownMenuFooter = () => {
   return (
     <SidebarFooter>
+      <SidebarGroup className="p-0">
+        <SidebarMenu>
+          {adminDashboardData.other.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton tooltip={item.title}>
+                {item.icon && <item.icon />}
+                <span>{item.title}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroup>
+      <SidebarSeparator />
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>

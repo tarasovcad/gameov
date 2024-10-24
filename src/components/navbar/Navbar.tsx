@@ -11,7 +11,7 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 const Navbar = ({username, image, email}: any) => {
   const pathname = usePathname();
-  if (noRoutes.includes(pathname as string)) {
+  if (noRoutes.includes(pathname) || pathname.startsWith("/admin-dashboard")) {
     return null;
   }
 

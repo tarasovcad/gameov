@@ -1,19 +1,5 @@
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import {SidebarProvider} from "@/components/ui/sidebar";
-import React from "react";
+import {redirect} from "next/navigation";
 
-const AdminPage = () => {
-  return (
-    <div className=" bg-[#1A1A1C] ">
-      <SidebarProvider className="">
-        <AdminSidebar />
-        <div className=" ">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam,
-          soluta.
-        </div>
-      </SidebarProvider>
-    </div>
-  );
-};
-
-export default AdminPage;
+export default function AdminPage() {
+  redirect("/admin-dashboard/dashboard");
+}
