@@ -5,8 +5,10 @@ import {InputLabel} from "@/components/ui/InputLabel";
 import {Textarea} from "@/components/ui/textarea";
 import React, {useState} from "react";
 import {DatePickerWithPresets} from "@/components/ui/datepicker";
+import TagInput from "@/components/admin/TagInput";
 const Page = () => {
   const [date, setDate] = useState<Date>(new Date());
+  const [genres, setGenres] = useState<string[]>([]);
   return (
     <div>
       <div className="flex justify-between ">
@@ -50,6 +52,10 @@ const Page = () => {
             placeholder="Download Link"
             className="rounded-sm bg-[#171718]"
           />
+        </div>
+        <div className="flex flex-col gap-3">
+          <InputLabel label="Tags" />
+          <TagInput tags={genres} setTags={setGenres} />
         </div>
       </form>
     </div>
