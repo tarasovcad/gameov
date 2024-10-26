@@ -1,7 +1,7 @@
-import React from "react";
+import React, {ReactNode} from "react";
 
 interface InputLabelProps {
-  label: string;
+  label: ReactNode;
   className?: string;
 }
 

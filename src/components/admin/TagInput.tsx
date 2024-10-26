@@ -5,47 +5,23 @@ import {X} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {AnimatePresence, motion} from "framer-motion";
 
-const gameGenres = [
-  "Action",
-  "Adventure",
-  "RPG",
-  "Simulation",
-  "Strategy",
-  "Puzzle",
-  "Sports",
-  "Racing",
-  "Indie",
-  "Horror",
-  "Fighting",
-  "Shooter",
-  "Survival",
-  "Platformer",
-  "MMORPG",
-  "Casual",
-  "Battle Royale",
-  "Tactical",
-  "Open World",
-  "Roguelike",
-  "Music",
-  "Rhythm",
-  "Interactive Fiction",
-  "Visual Novel",
-  "Text Adventure",
-  "Card Game",
-  "Board Game",
-  "Trivia",
-  "Educational",
-  "Sandbox",
-];
-
 interface TagInputProps {
   tags: string[];
   setTags: (tags: string[]) => void;
+  suggestions: string[];
+  placeholder?: string;
+  className?: string;
 }
 
-export default function TagInput({tags, setTags}: TagInputProps) {
+export default function TagInput({
+  tags,
+  setTags,
+  suggestions,
+  placeholder = "Add tag",
+  className,
+}: TagInputProps) {
   const [inputValue, setInputValue] = useState("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
@@ -69,16 +45,17 @@ export default function TagInput({tags, setTags}: TagInputProps) {
 
   useEffect(() => {
     if (inputValue.trim()) {
-      const filteredSuggestions = gameGenres.filter((genre) => {
-        const genreLower = genre.toLowerCase();
+      const filteredSuggestions = suggestions.filter((suggestion) => {
+        const suggestionLower = suggestion.toLowerCase();
         const inputLower = inputValue.toLowerCase();
         const tagsLower = tags.map((tag) => tag.toLowerCase());
 
         return (
-          genreLower.includes(inputLower) && !tagsLower.includes(genreLower)
+          suggestionLower.includes(inputLower) &&
+          !tagsLower.includes(suggestionLower)
         );
       });
-      setSuggestions(filteredSuggestions);
+      setFilteredSuggestions(filteredSuggestions);
       setShowSuggestions(true);
 
       if (filteredSuggestions.length === 1) {
@@ -87,16 +64,15 @@ export default function TagInput({tags, setTags}: TagInputProps) {
         setSelectedSuggestionIndex(-1);
       }
     } else {
-      setSuggestions([]);
+      setFilteredSuggestions([]);
       setShowSuggestions(false);
     }
-  }, [inputValue, tags]);
+  }, [inputValue, tags, suggestions]);
 
-  const handleInvalidInput = (type: string) => {
+  const handleInvalidInput = () => {
     setIsInvalid(true);
     setInputValue("");
 
-    // Reset invalid state after 1.5 seconds
     setTimeout(() => {
       setIsInvalid(false);
     }, 2000);
@@ -109,33 +85,33 @@ export default function TagInput({tags, setTags}: TagInputProps) {
 
       // Check for duplicate first
       if (tags.includes(trimmedValue)) {
-        handleInvalidInput("duplicate");
+        handleInvalidInput();
         return;
       }
 
-      if (suggestions.length === 1) {
-        addTag(suggestions[0]);
+      if (filteredSuggestions.length === 1) {
+        addTag(filteredSuggestions[0]);
       } else if (
         selectedSuggestionIndex >= 0 &&
-        suggestions[selectedSuggestionIndex]
+        filteredSuggestions[selectedSuggestionIndex]
       ) {
-        addTag(suggestions[selectedSuggestionIndex]);
+        addTag(filteredSuggestions[selectedSuggestionIndex]);
       } else if (trimmedValue !== "") {
         // Check if the input value exists in gameGenres
-        const exists = gameGenres.some(
-          (genre) => genre.toLowerCase() === trimmedValue,
+        const exists = suggestions.some(
+          (suggestion) => suggestion.toLowerCase() === trimmedValue,
         );
 
         if (exists) {
           addTag(trimmedValue);
         } else {
-          handleInvalidInput("nonexistent");
+          handleInvalidInput();
         }
       }
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedSuggestionIndex((prev) =>
-        prev < suggestions.length - 1 ? prev + 1 : prev,
+        prev < filteredSuggestions.length - 1 ? prev + 1 : prev,
       );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -151,7 +127,7 @@ export default function TagInput({tags, setTags}: TagInputProps) {
   const addTag = (value: string) => {
     const trimmedValue = value.trim().toLowerCase();
     if (tags.includes(trimmedValue)) {
-      handleInvalidInput("duplicate");
+      handleInvalidInput();
       return;
     }
     setTags([...tags, trimmedValue]);
@@ -198,7 +174,7 @@ export default function TagInput({tags, setTags}: TagInputProps) {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => setShowSuggestions(true)}
-          placeholder={tags.length === 0 ? "Add genre" : ""}
+          placeholder={tags.length === 0 ? placeholder : ""}
           className={`rounded-sm bg-transparent flex-1 border-none  ${
             tags.length === 0
               ? "focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -207,13 +183,13 @@ export default function TagInput({tags, setTags}: TagInputProps) {
         />
       </div>
 
-      {showSuggestions && suggestions.length > 0 && (
+      {showSuggestions && filteredSuggestions.length > 0 && (
         <motion.div
           initial={{opacity: 0, y: -10}}
           animate={{opacity: 1, y: 0}}
           exit={{opacity: 0, y: -10}}
           className="absolute z-10 w-full mt-1 bg-white dark:bg-bg border border-border/40 rounded-md shadow-lg max-h-60 overflow-auto">
-          {suggestions.map((suggestion, index) => (
+          {filteredSuggestions.map((suggestion, index) => (
             <div
               key={suggestion}
               onClick={() => addTag(suggestion)}
