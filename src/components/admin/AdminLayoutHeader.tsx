@@ -5,8 +5,24 @@ import {Separator} from "../ui/separator";
 import {usePathname} from "next/navigation";
 
 const AdminLayoutHeader = () => {
+  const listOfDifferentTitles = [
+    {
+      path: "/admin-dashboard/posts",
+      title: "Create a new post",
+    },
+  ];
+
   const pathname = usePathname();
+
   const formatTitle = (path: string): string => {
+    const mathcingTitle = listOfDifferentTitles.find(
+      (title) => title.path === path,
+    );
+
+    if (mathcingTitle) {
+      return mathcingTitle.title;
+    }
+
     const segment = path
       .replace("/admin-dashboard", "")
       .split("/")
@@ -17,6 +33,7 @@ const AdminLayoutHeader = () => {
 
     return segment.charAt(0).toUpperCase() + segment.slice(1);
   };
+
   return (
     <header className="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-border/60">
       <div className="flex items-center gap-2 px-4">

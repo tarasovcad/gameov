@@ -1,7 +1,6 @@
 import AdminMainMenu from "@/components/admin/AdminMainMenu";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import React from "react";
-import {headers} from "next/headers";
 import {
   SidebarInset,
   SidebarProvider,
@@ -11,7 +10,6 @@ import {Separator} from "@/components/ui/separator";
 import AdminLayoutHeader from "@/components/admin/AdminLayoutHeader";
 
 const layout = ({children}: {children: React.ReactNode}) => {
-  const headersList = headers();
   return (
     <div className="bg">
       <SidebarProvider>

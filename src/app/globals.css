@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -60,7 +59,6 @@
   }
 }
 
-
 @layer base {
   * {
     @apply border-border;
@@ -68,4 +66,29 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.ProseMirror {
+  > * + * {
+    margin-top: 0.5em;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+.ProseMirror-focused {
+  outline: none;
 }

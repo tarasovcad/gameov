@@ -30,6 +30,7 @@ import {
   Sparkles,
   SquareTerminal,
   StickyNote,
+  Tags,
   Trash2,
   Users,
 } from "lucide-react";
@@ -55,6 +56,7 @@ export const adminDashboardData = {
     {title: "Posts", link: "/admin-dashboard/posts", icon: File},
     {title: "Categories", link: "#", icon: Layers},
     {title: "Analytics", link: "#", icon: ChartPie},
+    {title: "Tags", link: "#", icon: Tags},
   ],
   teamManagement: [
     {title: "Teams", link: "#", icon: StickyNote},

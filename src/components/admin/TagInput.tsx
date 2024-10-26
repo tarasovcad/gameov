@@ -1,9 +1,42 @@
 "use client";
 
+import React, {useState, KeyboardEvent, useEffect, useRef} from "react";
 import {X} from "lucide-react";
-import {useState, KeyboardEvent} from "react";
-import {Input} from "../ui/input";
+import {Input} from "@/components/ui/input";
 import {AnimatePresence, motion} from "framer-motion";
+
+const gameGenres = [
+  "Action",
+  "Adventure",
+  "RPG",
+  "Simulation",
+  "Strategy",
+  "Puzzle",
+  "Sports",
+  "Racing",
+  "Indie",
+  "Horror",
+  "Fighting",
+  "Shooter",
+  "Survival",
+  "Platformer",
+  "MMORPG",
+  "Casual",
+  "Battle Royale",
+  "Tactical",
+  "Open World",
+  "Roguelike",
+  "Music",
+  "Rhythm",
+  "Interactive Fiction",
+  "Visual Novel",
+  "Text Adventure",
+  "Card Game",
+  "Board Game",
+  "Trivia",
+  "Educational",
+  "Sandbox",
+];
 
 interface TagInputProps {
   tags: string[];
@@ -12,61 +45,151 @@ interface TagInputProps {
 
 export default function TagInput({tags, setTags}: TagInputProps) {
   const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (inputValue.trim()) {
+      const filteredSuggestions = gameGenres.filter((genre) => {
+        const genreLower = genre.toLowerCase();
+        const inputLower = inputValue.toLowerCase();
+        const tagsLower = tags.map((tag) => tag.toLowerCase());
+
+        return (
+          genreLower.includes(inputLower) && !tagsLower.includes(genreLower)
+        );
+      });
+      setSuggestions(filteredSuggestions);
+      setShowSuggestions(true);
+
+      if (filteredSuggestions.length === 1) {
+        setSelectedSuggestionIndex(0);
+      } else {
+        setSelectedSuggestionIndex(-1);
+      }
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [inputValue, tags]);
+
+  const handleInvalidInput = (type: string) => {
+    setIsInvalid(true);
+    setInputValue("");
+
+    // Reset invalid state after 1.5 seconds
+    setTimeout(() => {
+      setIsInvalid(false);
+    }, 2000);
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim() !== "") {
+    if (e.key === "Enter") {
       e.preventDefault();
       const trimmedValue = inputValue.trim().toLowerCase();
 
-      if (!tags.includes(trimmedValue)) {
-        setTags([...tags, trimmedValue]);
+      // Check for duplicate first
+      if (tags.includes(trimmedValue)) {
+        handleInvalidInput("duplicate");
+        return;
       }
-      setInputValue("");
-    }
 
-    if (e.key === "Backspace" && inputValue === "" && tags.length > 0) {
+      if (suggestions.length === 1) {
+        addTag(suggestions[0]);
+      } else if (
+        selectedSuggestionIndex >= 0 &&
+        suggestions[selectedSuggestionIndex]
+      ) {
+        addTag(suggestions[selectedSuggestionIndex]);
+      } else if (trimmedValue !== "") {
+        // Check if the input value exists in gameGenres
+        const exists = gameGenres.some(
+          (genre) => genre.toLowerCase() === trimmedValue,
+        );
+
+        if (exists) {
+          addTag(trimmedValue);
+        } else {
+          handleInvalidInput("nonexistent");
+        }
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedSuggestionIndex((prev) =>
+        prev < suggestions.length - 1 ? prev + 1 : prev,
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedSuggestionIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    } else if (e.key === "Backspace" && inputValue === "" && tags.length > 0) {
       e.preventDefault();
       removeTag(tags[tags.length - 1]);
+    } else if (e.key === "Escape") {
+      setShowSuggestions(false);
     }
   };
 
-  const handleBlur = () => {
-    if (inputValue.trim() !== "") {
-      const trimmedValue = inputValue.trim().toLowerCase();
-      if (!tags.includes(trimmedValue)) {
-        setTags([...tags, trimmedValue]);
-      }
-      setInputValue("");
+  const addTag = (value: string) => {
+    const trimmedValue = value.trim().toLowerCase();
+    if (tags.includes(trimmedValue)) {
+      handleInvalidInput("duplicate");
+      return;
     }
+    setTags([...tags, trimmedValue]);
+    setInputValue("");
+    setShowSuggestions(false);
   };
 
   const removeTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const getBorderColor = () => {
+    if (!isInvalid) return "border-input";
+    return "border-red-500";
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full relative" ref={containerRef}>
       <div
-        className={`flex items-center flex-wrap gap-1 py-1  bg-[#171718] rounded-sm border border-input ${tags.length === 0 ? "" : "px-2"}`}>
+        className={`flex items-center flex-wrap gap-1 py-1 bg-[#171718] rounded-sm border transition-colors duration-200 
+          ${getBorderColor()} 
+          ${tags.length === 0 ? "" : "px-2"}`}>
         <AnimatePresence>
-          {tags.map((tag, index) => (
-            <motion.span
+          {tags.map((tag) => (
+            <motion.button
+              type="button"
+              onClick={() => removeTag(tag)}
               key={tag}
               initial={{opacity: 0, scale: 0.8}}
               animate={{opacity: 1, scale: 1}}
               exit={{opacity: 0, scale: 0.8}}
-              transition={{
-                duration: 0.2,
-              }}
-              className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+              transition={{duration: 0.2}}
+              className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm cursor-pointer">
               {tag}
-              <button
-                type="button"
-                onClick={() => removeTag(tag)}
-                className="hover:text-blue-600">
+              <span className="hover:text-blue-600">
                 <X size={14} />
-              </button>
-            </motion.span>
+              </span>
+            </motion.button>
           ))}
         </AnimatePresence>
         <Input
@@ -74,15 +197,35 @@ export default function TagInput({tags, setTags}: TagInputProps) {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          onBlur={handleBlur}
+          onFocus={() => setShowSuggestions(true)}
           placeholder={tags.length === 0 ? "Add genre" : ""}
           className={`rounded-sm bg-transparent flex-1 border-none  ${
             tags.length === 0
               ? "focus-visible:ring-2 focus-visible:ring-offset-2"
               : "focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-transparent focus:shadow-none"
-          }`}
+          } ${isInvalid ? "focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-transparent focus:shadow-none" : ""}`}
         />
       </div>
+
+      {showSuggestions && suggestions.length > 0 && (
+        <motion.div
+          initial={{opacity: 0, y: -10}}
+          animate={{opacity: 1, y: 0}}
+          exit={{opacity: 0, y: -10}}
+          className="absolute z-10 w-full mt-1 bg-white dark:bg-bg border border-border/40 rounded-md shadow-lg max-h-60 overflow-auto">
+          {suggestions.map((suggestion, index) => (
+            <div
+              key={suggestion}
+              onClick={() => addTag(suggestion)}
+              onMouseEnter={() => setSelectedSuggestionIndex(index)}
+              className={`px-3 py-2 cursor-pointer ${
+                index === selectedSuggestionIndex ? "bg-white text-black" : ""
+              }`}>
+              {suggestion}
+            </div>
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 }
