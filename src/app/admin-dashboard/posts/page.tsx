@@ -55,7 +55,7 @@ const Page = () => {
   return (
     <div className="max-w-[700px] w-full mb-[100px]">
       <div className="flex justify-between ">
-        <h1 className="text-3xl font-bold">Create a Post</h1>
+        <h1 className="text-2xl font-bold">Create a Post</h1>
         <div className="flex gap-2">
           <Button variant="ghost" className="rounded-sm px-5">
             <CircleX />
@@ -71,16 +71,16 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <form action="" className=" mt-10 flex flex-col gap-6">
+
+      <form action="" className="mt-8 flex flex-col gap-6">
         <div className="flex flex-col gap-3">
           <CustomInputLabel label="Title" />
-
           <Input placeholder="Title " className="rounded-sm bg-[#171718]" />
         </div>
-        {/* <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <CustomInputLabel label="Description" />
           <EditorInput />
-        </div> */}
+        </div>
         <div className="flex flex-col gap-3">
           <CustomInputLabel label="Slug" />
           <div className="flex gap-3">

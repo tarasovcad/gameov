@@ -1,4 +1,4 @@
-import {Image, ImageIcon, Trash2Icon} from "lucide-react";
+import {ImageIcon, Trash2Icon} from "lucide-react";
 import {
   Table,
   TableBody,
@@ -10,6 +10,9 @@ import {
 import React, {useCallback, useRef, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {ImageDropZoneProps, ImageFile} from "@/types/types";
+import {toast} from "sonner";
+import Image from "next/image";
+import {motion, AnimatePresence} from "framer-motion";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
 const ALLOWED_FILE_TYPES = [
@@ -84,10 +87,7 @@ const ImageDropZone = ({setImages, images}: ImageDropZoneProps) => {
   const handleFiles = useCallback(
     (files: FileList) => {
       if (images.length + files.length > MAX_IMAGES) {
-        // toast({
-
-        //   title: `You can only upload up to ${MAX_IMAGES} images`,
-        // });
+        toast.error(`You can only upload up to ${MAX_IMAGES} images`);
         return;
       }
 
@@ -96,11 +96,9 @@ const ImageDropZone = ({setImages, images}: ImageDropZoneProps) => {
       Array.from(files).forEach((file) => {
         const error = validateFile(file);
         if (error) {
-          //   toast({
-
-          //     title: `Error uploading ${file.name}`,
-          //     description: error,
-          //   });
+          toast.error("Error uploading image", {
+            description: error,
+          });
           return;
         }
 
@@ -182,7 +180,7 @@ const ImageDropZone = ({setImages, images}: ImageDropZoneProps) => {
         />
         <div className="text-secondary_text text-sm font-medium text-center">
           <div className="flex items-center gap-4">
-            <Image size={22} />
+            <ImageIcon size={22} />
             <div>
               <button
                 className="text-blue-500 cursor-pointer "
@@ -206,34 +204,51 @@ const ImageDropZone = ({setImages, images}: ImageDropZoneProps) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {images.map((image) => (
-              <TableRow key={image.id}>
-                <TableCell>
-                  <div className="w-[60px] h-[60px] bg-muted flex items-center justify-center overflow-hidden rounded">
-                    <img
-                      src={URL.createObjectURL(image.file)}
-                      alt={image.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </TableCell>
-                <TableCell className="font-medium">{image.title}</TableCell>
-                <TableCell>{formatSize(image.size)}</TableCell>
-                <TableCell className=" text-right items-center">
-                  <Button
-                    onClick={() => handleResize(image.id)}
-                    variant="secondary"
-                    className="mr-2 px-7">
-                    Resize
-                  </Button>
-                  <button
-                    className="bg-red-500 hover:bg-red-800 transition-colors duration-300 ease-in-out p-2.5 rounded-md"
-                    onClick={() => handleDelete(image.id)}>
-                    <Trash2Icon className="w-4 h-4" />
-                  </button>
-                </TableCell>
-              </TableRow>
-            ))}
+            <AnimatePresence mode="popLayout">
+              {images.map((image) => (
+                <motion.tr
+                  key={image.id}
+                  initial={{opacity: 0, y: 20}}
+                  animate={{opacity: 1, y: 0}}
+                  exit={{opacity: 0, y: -20}}
+                  transition={{duration: 0.3}}
+                  className="border-b transition-colors  data-[state=selected]:bg-muted">
+                  <TableCell>
+                    <motion.div
+                      initial={{scale: 0.8}}
+                      animate={{scale: 1}}
+                      className="w-[60px] h-[60px] bg-muted flex items-center justify-center overflow-hidden rounded relative">
+                      <Image
+                        src={URL.createObjectURL(image.file)}
+                        alt={image.title}
+                        className="w-full h-full object-cover"
+                        fill
+                      />
+                    </motion.div>
+                  </TableCell>
+                  <TableCell className="font-medium">{image.title}</TableCell>
+                  <TableCell>{formatSize(image.size)}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex items-center justify-end gap-2 h-full">
+                      <Button
+                        onClick={() => handleResize(image.id)}
+                        variant="secondary"
+                        className="px-7">
+                        Resize
+                      </Button>
+                      <button
+                        className="bg-red-500 hover:bg-red-800 transition-colors duration-300 ease-in-out p-2.5 rounded-md"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDelete(image.id);
+                        }}>
+                        <Trash2Icon className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </TableCell>
+                </motion.tr>
+              ))}
+            </AnimatePresence>
           </TableBody>
         </Table>
       )}
