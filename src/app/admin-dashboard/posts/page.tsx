@@ -1,7 +1,7 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {DatePickerWithPresets} from "@/components/ui/datepicker";
 import TagInput from "@/components/admin/TagInput";
 import {DateInput} from "@nextui-org/date-input";
@@ -23,8 +23,26 @@ import AccordionPostInuts from "@/components/admin/posts/AccordionPostInuts";
 import DropZone from "@/components/ui/DropZone";
 import ImageDropZone from "@/components/admin/posts/ImageDropZone";
 import {ImageFile} from "@/types/types";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {
+  CreatePostData,
+  createPostSchema,
+} from "@/validation/adminDashboardCreatePost";
+import {toast} from "sonner";
+
+export const ErrorMessage = ({error}: any) => {
+  return (
+    <span className="text-[12px] text-[#F31260] absolute -bottom-6 ">
+      {error && error.message}
+    </span>
+  );
+};
 
 const Page = () => {
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [slug, setSlug] = useState<string>("");
   const [date, setDate] = useState<Date>(new Date());
   const [tags, setTags] = useState<string[]>([]);
   const [platform, setPlatform] = useState<string[]>([]);
@@ -52,8 +70,80 @@ const Page = () => {
       ],
     });
 
+  const {
+    register,
+    handleSubmit,
+    setError,
+    watch,
+    setValue,
+    trigger,
+    formState: {errors, dirtyFields, touchedFields},
+  } = useForm<CreatePostData>({
+    resolver: zodResolver(createPostSchema),
+    defaultValues: {
+      date: new Date(),
+      tags: [],
+    },
+  });
+  const updateTimeout = useRef<NodeJS.Timeout>();
+
+  const handleDateChange = async (newDate: Date) => {
+    setDate(newDate);
+    setValue("date", newDate, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+    await trigger("date");
+  };
+
+  const handleEditorChange = useCallback(
+    (value: string) => {
+      setDescription(value);
+
+      if (updateTimeout.current) {
+        clearTimeout(updateTimeout.current);
+      }
+
+      updateTimeout.current = setTimeout(() => {
+        setValue("description", value, {
+          shouldValidate: true,
+          shouldDirty: true,
+          shouldTouch: true,
+        });
+      }, 200);
+    },
+    [setValue],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (updateTimeout.current) {
+        clearTimeout(updateTimeout.current);
+      }
+    };
+  }, []);
+
+  const onSubmit = async (data: CreatePostData) => {
+    console.log(data);
+    toast.success("Post created successfully");
+  };
+
+  const generateSlug = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const slug = title.replace(/\s+/g, "-").toLowerCase();
+    setSlug(slug);
+    setValue("slug", slug, {
+      shouldValidate: false,
+      shouldDirty: true,
+      shouldTouch: false,
+    });
+  };
+
   return (
-    <div className="max-w-[700px] w-full mb-[100px]">
+    <form
+      className="max-w-[700px] w-full mb-[100px]"
+      onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-between ">
         <h1 className="text-2xl font-bold">Create a Post</h1>
         <div className="flex gap-2">
@@ -65,52 +155,104 @@ const Page = () => {
             <FilePen size={20} />
             Save as Draft
           </Button>
-          <Button variant="default" className="rounded-sm px-5 gap-1.5">
+          <Button
+            type="submit"
+            variant="default"
+            className="rounded-sm px-5 gap-1.5">
             <Save size={20} />
             Create Post
           </Button>
         </div>
       </div>
 
-      <form action="" className="mt-8 flex flex-col gap-6">
+      <div className="mt-8 flex flex-col gap-9">
         <div className="flex flex-col gap-3">
           <CustomInputLabel label="Title" />
-          <Input placeholder="Title " className="rounded-sm bg-[#171718]" />
-        </div>
-        <div className="flex flex-col gap-3">
-          <CustomInputLabel label="Description" />
-          <EditorInput />
-        </div>
-        <div className="flex flex-col gap-3">
-          <CustomInputLabel label="Slug" />
-          <div className="flex gap-3">
-            <Input placeholder="Slug" className="rounded-sm bg-[#171718]" />
-            <Button variant="default" className="rounded-sm text-[13px] px-5">
-              Generate
-            </Button>
+          <div className="relative ">
+            <Input
+              placeholder="Title "
+              className={`rounded-sm bg-[#171718] ${errors.title && "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none  focus:shadow-none"}`}
+              value={title}
+              {...register("title")}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <ErrorMessage error={errors.title} />
           </div>
         </div>
         <div className="flex flex-col gap-3">
+          <CustomInputLabel label="Description" />
+          <div className="relative">
+            <EditorInput
+              onChange={handleEditorChange}
+              initialContent={description}
+              error={errors.description}
+            />
+            <ErrorMessage error={errors.description} />
+          </div>
+        </div>
+        <div className="flex flex-col gap-3">
+          <CustomInputLabel label="Slug" />
+          <div className="relative">
+            <div className="flex gap-3">
+              <Input
+                placeholder="Slug "
+                className={`rounded-sm bg-[#171718] ${errors.slug && "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none  focus:shadow-none"}`}
+                value={slug}
+                {...register("slug")}
+                onChange={(e) => setSlug(e.target.value)}
+              />
+              <Button
+                variant="default"
+                className="rounded-sm text-[13px] px-5"
+                onClick={generateSlug}>
+                Generate
+              </Button>
+            </div>
+            <ErrorMessage error={errors.slug} />
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 relative">
           <CustomInputLabel label="Date" />
-          <div className="flex gap-3">
-            <DatePickerWithPresets date={date} setDate={setDate} />
+          <div className="relative">
+            <DatePickerWithPresets
+              date={date}
+              setDate={handleDateChange}
+              register={register("date")}
+              error={errors.date}
+            />
+            <ErrorMessage error={errors.date} />
           </div>
         </div>
         <div className="flex flex-col gap-3">
           <CustomInputLabel label="Download Link" />
-          <Input
-            placeholder="Download Link"
-            className="rounded-sm bg-[#171718]"
-          />
+          <div className="relative ">
+            <Input
+              placeholder="Title "
+              className={`rounded-sm bg-[#171718] ${errors.downloadLink && "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none  focus:shadow-none"}`}
+              {...register("downloadLink")}
+            />
+            <ErrorMessage error={errors.downloadLink} />
+          </div>
         </div>
         <div className="flex flex-col gap-3">
           <CustomInputLabel label="Tags" />
-          <TagInput
-            tags={tags}
-            setTags={setTags}
-            suggestions={gameGenres}
-            placeholder="Tags"
-          />
+          <div className="relative">
+            <TagInput
+              tags={tags}
+              setTags={(newTags) => {
+                setTags(newTags);
+                setValue("tags", newTags, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                  shouldTouch: true,
+                });
+              }}
+              error={errors.tags}
+              suggestions={gameGenres}
+              placeholder="Tags"
+            />
+            <ErrorMessage error={errors.tags} />
+          </div>
         </div>
         <div className="flex flex-col gap-3 ">
           <CustomInputLabel label="App version" required={false} />
@@ -179,8 +321,8 @@ const Page = () => {
           <CustomInputLabel label="Images" />
           <ImageDropZone images={images} setImages={setImages} />
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

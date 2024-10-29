@@ -1,12 +1,24 @@
 "use client";
 
-import {useEditor, EditorContent} from "@tiptap/react";
+import {useEditor, EditorContent, Editor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import {Button} from "@/components/ui/button";
 import Placeholder from "@tiptap/extension-placeholder";
+import {FieldError} from "react-hook-form";
+import {useCallback} from "react";
 
-const EditorInput = () => {
+interface EditorInputProps {
+  onChange: (value: string) => void;
+  initialContent?: string;
+  error?: FieldError;
+}
+
+const EditorInput = ({
+  onChange,
+  initialContent = "",
+  error,
+}: EditorInputProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -15,14 +27,23 @@ const EditorInput = () => {
         placeholder: "Description",
       }),
     ],
-    content: "",
+    content: initialContent,
 
     editorProps: {
       attributes: {
-        class:
-          "min-h-[100px] w-full rounded-sm rounded-sm bg-[#171718]  p-4 focus:outline-none border border-input",
+        class: `min-h-[100px] w-full rounded-sm rounded-sm bg-[#171718] p-4 focus:outline-none border ${
+          error
+            ? "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0"
+            : "border-input"
+        }`,
       },
     },
+    onUpdate: useCallback(
+      ({editor}: {editor: Editor}) => {
+        onChange(editor.getHTML());
+      },
+      [onChange],
+    ),
   });
 
   if (!editor) {
@@ -30,7 +51,7 @@ const EditorInput = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full">
       <div className="flex gap-2 flex-wrap">
         <Button
           type="button"
@@ -93,7 +114,9 @@ const EditorInput = () => {
           Underline
         </Button>
       </div>
-      <EditorContent editor={editor} />
+      <div className="relative w-full">
+        <EditorContent editor={editor} className="editor-content" />
+      </div>
     </div>
   );
 };

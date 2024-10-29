@@ -11,6 +11,7 @@ interface TagInputProps {
   suggestions: string[];
   placeholder?: string;
   className?: string;
+  error?: any;
 }
 
 export default function TagInput({
@@ -19,6 +20,7 @@ export default function TagInput({
   suggestions,
   placeholder = "Add tag",
   className,
+  error,
 }: TagInputProps) {
   const [inputValue, setInputValue] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
@@ -139,16 +141,11 @@ export default function TagInput({
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  const getBorderColor = () => {
-    if (!isInvalid) return "border-input";
-    return "border-red-500";
-  };
-
   return (
     <div className="w-full relative" ref={containerRef}>
       <div
         className={`flex items-center flex-wrap gap-1 py-1 bg-[#171718] rounded-sm border transition-colors duration-200 
-          ${getBorderColor()} 
+          ${error || isInvalid ? "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none  focus:shadow-none" : "border-input"}
           ${tags.length === 0 ? "" : "px-2"}`}>
         <AnimatePresence>
           {tags.map((tag) => (
@@ -179,7 +176,7 @@ export default function TagInput({
             tags.length === 0
               ? "focus-visible:ring-2 focus-visible:ring-offset-2"
               : "focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-transparent focus:shadow-none"
-          } ${isInvalid ? "focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-transparent focus:shadow-none" : ""}`}
+          } ${isInvalid || error ? "focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:border-transparent focus:shadow-none" : ""}`}
         />
       </div>
 
