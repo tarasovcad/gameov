@@ -67,6 +67,7 @@ const DropZone = ({
   const handleFiles = useCallback(
     (files: FileList) => {
       const selectedFile = files[0];
+      console.log(selectedFile, "selectedFile");
       const fileType = selectedFile.type;
       const fileExtension =
         "." + selectedFile.name.split(".").pop()?.toLowerCase();

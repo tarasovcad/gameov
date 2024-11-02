@@ -2,6 +2,7 @@ export default async function uploadFileToS3(
   fileName: string,
   fileType: string,
   fileData: string,
+  folder: "users" | "posts",
 ) {
   try {
     const response = await fetch("/api/upload", {
@@ -15,6 +16,7 @@ export default async function uploadFileToS3(
           type: fileType,
           data: fileData,
         },
+        folder: folder,
       }),
     });
 

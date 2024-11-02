@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import {InputLabel} from "../ui/InputLabel";
 import DropZone from "../ui/DropZone";
 import ProfileButton from "../ui/ProfileButton";
-import toast from "react-hot-toast";
 import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
 import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
 import Loader from "../ui/Loader";
@@ -13,6 +12,7 @@ import {updateUserDescription} from "@/app/actions/profile/updateUserDescription
 import DescriptionInput from "./DescriptionInput";
 import {useProfileProvider} from "@/providers/ProfileProvider";
 import {updateUserBackgoundPicture} from "@/app/actions/profile/updateUserBackgoundPicture";
+import {toast} from "sonner";
 
 export default function UserAccountFormSubmit({
   email,
@@ -61,10 +61,18 @@ export default function UserAccountFormSubmit({
     }
     if (file) {
       try {
+        console.log(file, "file");
         const result = await readFileAsDataURL(file);
+        console.log(result, "result");
         if (typeof result === "string") {
           const base64Data = result?.split(",")[1];
-          const s3Url = await uploadFileToS3(file.name, file.type, base64Data);
+          const s3Url = await uploadFileToS3(
+            file.name,
+            file.type,
+            base64Data,
+            "users",
+          );
+          console.log(s3Url);
           try {
             await updateUserImage(email, s3Url);
             toast.success("User image updated");

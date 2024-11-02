@@ -13,7 +13,9 @@ export interface ImageFile {
 }
 
 export interface ImageDropZoneProps {
-  setImages: Dispatch<SetStateAction<ImageFile[]>>;
+  setImages: (
+    images: ImageFile[] | ((prev: ImageFile[]) => ImageFile[]),
+  ) => void;
   images: ImageFile[];
   error?: FieldError;
 }

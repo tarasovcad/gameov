@@ -29,7 +29,10 @@ import {
 import {toast} from "sonner";
 import ErrorMessage from "@/components/admin/posts/ErrorMessage";
 import ImageDropZone from "@/components/admin/posts/ImageDropZone";
-
+import {useSession} from "next-auth/react";
+import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
+import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
+import Loader from "@/components/ui/Loader";
 const Page = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -43,7 +46,8 @@ const Page = () => {
   const [faqList, setFaqList] = useState<FAQList>(initialFaqList);
   const [images, setImages] = useState<ImageFile[]>([]);
   const [isMounted, setIsMounted] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const {data: session} = useSession();
   const [systemRequirements, setSystemRequirements] =
     useState<SystemRequiments>({
       minSystemRequirement: [
@@ -69,7 +73,8 @@ const Page = () => {
     handleSubmit,
     setValue,
     trigger,
-    formState: {errors},
+
+    formState: {errors, isValid},
   } = useForm<CreatePostData>({
     resolver: zodResolver(createPostSchema),
     defaultValues: {
@@ -92,7 +97,27 @@ const Page = () => {
     await trigger("date");
   };
 
-  const saveFormData = useCallback(
+  const handleImagesChange = useCallback(
+    (
+      newImagesOrUpdater: ImageFile[] | ((prev: ImageFile[]) => ImageFile[]),
+    ) => {
+      const newImages =
+        typeof newImagesOrUpdater === "function"
+          ? newImagesOrUpdater(images)
+          : newImagesOrUpdater;
+
+      setImages(newImages);
+      setValue("images", newImages, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      trigger("images");
+    },
+    [setValue, trigger, images],
+  );
+
+  const saveFormData = useCallback(() => {
     debounce(() => {
       const formData = {
         title,
@@ -108,21 +133,20 @@ const Page = () => {
         systemRequirements,
       };
       localStorage.setItem("postFormDataGameov", JSON.stringify(formData));
-    }, 1000),
-    [
-      title,
-      description,
-      slug,
-      date,
-      downloadLink,
-      tags,
-      interfaceLanguage,
-      voiceLanguage,
-      platform,
-      faqList,
-      systemRequirements,
-    ],
-  );
+    }, 1000)();
+  }, [
+    title,
+    description,
+    slug,
+    date,
+    downloadLink,
+    tags,
+    interfaceLanguage,
+    voiceLanguage,
+    platform,
+    faqList,
+    systemRequirements,
+  ]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -168,8 +192,7 @@ const Page = () => {
     saveFormData,
   ]);
 
-  const clearForm = (e: React.FormEvent) => {
-    e.preventDefault();
+  const clearForm = (showTooltip: boolean = false) => {
     setTitle("");
     setDescription("");
     setSlug("");
@@ -207,8 +230,11 @@ const Page = () => {
     setValue("tags", []);
     setValue("images", []);
     localStorage.removeItem("postFormDataGameov");
-    toast.success("Form cleared successfully");
+    if (showTooltip) {
+      toast.success("Form cleared");
+    }
   };
+
   const handleEditorChange = useCallback(
     (value: string) => {
       setDescription(value);
@@ -244,12 +270,34 @@ const Page = () => {
     });
   }, [images, setValue]);
 
-  const onSubmit = async (data: CreatePostData) => {
-    console.log(data);
-    toast.success("Post created successfully");
-    // submiting images to AWS s3 ...
-    console.log(images, "submitting images to AWS s3 ...");
-    // submiting post data to server using GraphQl and Prisma Orm
+  const onSubmit = async () => {
+    setIsLoading(true);
+    const startTime = performance.now();
+    try {
+      const author = session?.user?.email;
+      if (author) {
+        const images = await uploadImages();
+        console.log("Images uploaded:", images);
+
+        // await new Promise((resolve) => setTimeout(resolve, 500));
+        const endTime = performance.now();
+        const timeElapsed = endTime - startTime;
+        console.log(
+          `Form submission took ${timeElapsed.toFixed(2)} milliseconds`,
+        );
+        toast.success(
+          `Form submission took ${timeElapsed.toFixed(2)} milliseconds`,
+        );
+
+        setIsLoading(false);
+        toast.success("Post created successfully");
+        // clearForm();
+      } else {
+        console.log("No author found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const generateSlug = async (e: React.MouseEvent) => {
@@ -263,17 +311,62 @@ const Page = () => {
     });
   };
 
+  const uploadImages = async () => {
+    if (images.length === 0) {
+      toast.error("Please upload at least one image");
+      return;
+    }
+    try {
+      images.map(async (imageFile) => {
+        try {
+          const result = await readFileAsDataURL(imageFile.file);
+
+          if (typeof result === "string") {
+            const base64Data = result.split(",")[1];
+
+            // Upload to S3
+            const s3Url = await uploadFileToS3(
+              imageFile.file.name,
+              imageFile.file.type,
+              base64Data,
+              "posts",
+            );
+
+            return s3Url;
+          }
+          toast.error("Something went wrong. Please try again.");
+          return null;
+        } catch (err) {
+          console.error("Error processing image:", err);
+          toast.error("Something went wrong. Please try again.");
+          return null;
+        }
+      });
+    } catch (err) {
+      console.error("Error in uploadImages:", err);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <form
       className="max-w-[700px] w-full mb-[100px]"
-      onSubmit={handleSubmit(onSubmit)}>
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(onSubmit)();
+      }}>
+      {isLoading && <Loader />}
+
       <div className="flex justify-between ">
         <h1 className="text-2xl font-bold">Create a Post</h1>
         <div className="flex gap-2">
           <Button
             variant="ghost"
             className="rounded-sm px-5"
-            onClick={clearForm}>
+            onClick={(e) => {
+              e.preventDefault();
+              clearForm(true);
+            }}>
             <CircleX />
             Clear
           </Button>
@@ -282,10 +375,15 @@ const Page = () => {
             Save as Draft
           </Button>
           <Button
+            // disabled={isValid ? false : true}
             type="submit"
             variant="default"
             className="rounded-sm px-5 gap-1.5">
-            <Save size={20} />
+            {isLoading ? (
+              <Loader2 className="animate-spin" size={20} />
+            ) : (
+              <Save size={20} />
+            )}
             Create Post
           </Button>
         </div>
@@ -458,14 +556,10 @@ const Page = () => {
               <div className="relative">
                 <ImageDropZone
                   images={images}
-                  setImages={setImages}
+                  setImages={handleImagesChange}
                   error={errors.images as FieldError}
                 />
-                {errors.images && (
-                  <span className="text-[#F31260] text-sm">
-                    {errors.images.message}
-                  </span>
-                )}
+                <ErrorMessage error={errors.images} />
               </div>
             </div>
           </div>

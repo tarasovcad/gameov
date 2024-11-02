@@ -110,11 +110,11 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
           file,
           title: file.name,
           size: file.size,
-          dimensions, // Add this to your ImageFile type
+          dimensions,
         });
       }
 
-      setImages((prev) => [...prev, ...newImages]);
+      setImages([...images, ...newImages]);
     },
     [images, setImages],
   );
@@ -158,9 +158,9 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
   };
 
   const handleDelete = (id: number) => {
-    setImages((prev) => prev.filter((image) => image.id !== id));
+    const filteredImages = images.filter((image) => image.id !== id);
+    setImages(filteredImages);
   };
-
   const getImageDimensions = (
     file: File,
   ): Promise<{width: number; height: number}> => {
@@ -244,6 +244,7 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
           ref={fileInputRef}
           onChange={handleFileChange}
           className="hidden"
+          multiple
           accept=".jpeg,.png,.svg,.heif,.jpg"
         />
         <div className="text-secondary_text text-sm font-medium text-center">
@@ -314,7 +315,7 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
                       <Button
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                           e.preventDefault();
-                          handleResize(image.id, e);
+                          handleResize(image.id);
                         }}
                         variant="secondary"
                         className="px-7">
