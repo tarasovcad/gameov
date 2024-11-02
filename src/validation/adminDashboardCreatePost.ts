@@ -21,6 +21,17 @@ export const createPostSchema = z.object({
     required_error: "Date is required",
   }),
   tags: z.array(z.string()).min(1, "At least one tag is required"),
+  images: z
+    .array(
+      z.object({
+        id: z.number(),
+        file: z.instanceof(File),
+        title: z.string(),
+        size: z.number(),
+      }),
+    )
+    .min(1, "At least one image is required")
+    .max(10, "Maximum 10 images allowed"),
 });
 
 export type CreatePostData = z.infer<typeof createPostSchema>;

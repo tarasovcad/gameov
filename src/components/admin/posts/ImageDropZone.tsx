@@ -33,7 +33,7 @@ const ALLOWED_FILE_EXTENSIONS = [
 const MAX_NAME_LENGTH = 50;
 const MAX_IMAGES = 10;
 
-const ImageDropZone = ({setImages, images}: ImageDropZoneProps) => {
+const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
@@ -164,8 +164,12 @@ const ImageDropZone = ({setImages, images}: ImageDropZoneProps) => {
   return (
     <div className="flex flex-col gap-[10px] mt-1">
       <div
-        className={`w-full border border-border border-dashed p-5 py-6 rounded-md ${
-          isDragging ? "border-white bg-[#222222] " : "border-[#535353]"
+        className={`w-full border border-dashed p-5 py-6 rounded-md ${
+          isDragging
+            ? "border-white bg-[#222222]"
+            : error
+              ? "border-[#F31260]"
+              : "border-[#535353]"
         }`}
         onDragEnter={handleDragIn}
         onDragLeave={handleDragOut}
