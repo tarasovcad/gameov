@@ -19,7 +19,6 @@ import {
   voiceLanguageList,
 } from "@/data/postData";
 import AccordionPostInuts from "@/components/admin/posts/AccordionPostInuts";
-import ImageDropZone from "@/components/admin/posts/ImageDropZone";
 import {ImageFile} from "@/types/types";
 import {FieldError, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -29,6 +28,7 @@ import {
 } from "@/validation/adminDashboardCreatePost";
 import {toast} from "sonner";
 import ErrorMessage from "@/components/admin/posts/ErrorMessage";
+import ImageDropZone from "@/components/admin/posts/ImageDropZone";
 
 const Page = () => {
   const [title, setTitle] = useState<string>("");

@@ -157,10 +157,6 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  const handleResize = (id: number) => {
-    console.log(id);
-  };
-
   const handleDelete = (id: number) => {
     setImages((prev) => prev.filter((image) => image.id !== id));
   };
@@ -181,6 +177,52 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
         URL.revokeObjectURL(img.src);
       };
     });
+  };
+
+  const handleResize = async (id: number) => {
+    try {
+      const image = images.find((img) => img.id === id);
+      if (!image) return;
+
+      const formData = new FormData();
+      formData.append("image", image.file);
+
+      const response = await fetch("/api/optimize-image", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Failed to optimize image");
+
+      const optimizedBlob = await response.blob();
+      const optimizedFile = new File(
+        [optimizedBlob],
+        image.file.name.replace(/\.[^/.]+$/, ".webp"),
+        {
+          type: "image/webp",
+        },
+      );
+
+      const dimensions = await getImageDimensions(optimizedFile);
+
+      setImages((prev) =>
+        prev.map((img) =>
+          img.id === id
+            ? {
+                ...img,
+                file: optimizedFile,
+                size: optimizedFile.size,
+                dimensions,
+              }
+            : img,
+        ),
+      );
+
+      toast.success("Image optimized successfully");
+    } catch (error) {
+      toast.error("Failed to optimize image");
+      console.error(error);
+    }
   };
 
   return (
@@ -247,7 +289,7 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
                       className="w-[60px] h-[60px] bg-muted flex items-center justify-center overflow-hidden rounded relative">
                       <ImageViewerWrapper>
                         <a
-                          data-fancybox="gallery" // Add the same group name for all images
+                          data-fancybox="gallery"
                           href={URL.createObjectURL(image.file)}
                           className="w-full h-full">
                           <Image
@@ -270,7 +312,10 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2 h-full">
                       <Button
-                        onClick={() => handleResize(image.id)}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                          e.preventDefault();
+                          handleResize(image.id, e);
+                        }}
                         variant="secondary"
                         className="px-7">
                         Resize
