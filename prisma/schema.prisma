@@ -28,6 +28,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   Profile       Profile?
+  posts         Post[]
 }
 
 model Profile {
@@ -81,4 +82,33 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Post {
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
+  title              String
+  description        String
+  slug               String     @unique
+  date               DateTime
+  downloadLink       String
+  tags               String[]
+  appVersion         String?
+  platforms          String[]
+  publisher          String?
+  releasedDate       DateTime?
+  interfaceLanguages String[]
+  voiceLanguages     String[]
+  systemRequirements Json
+  faqList            Json
+  images             String[]
+  author             User       @relation(fields: [authorId], references: [id])
+  authorId           String     @db.ObjectId
+  status             PostStatus @default(DRAFT)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
 }

@@ -13,6 +13,7 @@ import {ImageDropZoneProps, ImageFile} from "@/types/types";
 import {toast} from "sonner";
 import Image from "next/image";
 import {motion, AnimatePresence} from "framer-motion";
+import ImageViewerWrapper from "@/providers/ImageViewerWrapper";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
 const ALLOWED_FILE_TYPES = [
@@ -85,7 +86,7 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
   };
 
   const handleFiles = useCallback(
-    (files: FileList) => {
+    async (files: FileList) => {
       if (images.length + files.length > MAX_IMAGES) {
         toast.error(`You can only upload up to ${MAX_IMAGES} images`);
         return;
@@ -93,22 +94,25 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
 
       const newImages: ImageFile[] = [];
 
-      Array.from(files).forEach((file) => {
+      for (const file of Array.from(files)) {
         const error = validateFile(file);
         if (error) {
           toast.error("Error uploading image", {
             description: error,
           });
-          return;
+          continue;
         }
+
+        const dimensions = await getImageDimensions(file);
 
         newImages.push({
           id: Date.now() + Math.random(),
           file,
           title: file.name,
           size: file.size,
+          dimensions, // Add this to your ImageFile type
         });
-      });
+      }
 
       setImages((prev) => [...prev, ...newImages]);
     },
@@ -161,6 +165,24 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
     setImages((prev) => prev.filter((image) => image.id !== id));
   };
 
+  const getImageDimensions = (
+    file: File,
+  ): Promise<{width: number; height: number}> => {
+    return new Promise((resolve) => {
+      if (typeof window === "undefined") {
+        resolve({width: 0, height: 0});
+        return;
+      }
+
+      const img = new window.Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        resolve({width: img.width, height: img.height});
+        URL.revokeObjectURL(img.src);
+      };
+    });
+  };
+
   return (
     <div className="flex flex-col gap-[10px] mt-1">
       <div
@@ -204,6 +226,7 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
               <TableHead className="w-[100px]">Preview</TableHead>
               <TableHead>File Name</TableHead>
               <TableHead>Size</TableHead>
+              <TableHead>Dimensions</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -222,16 +245,28 @@ const ImageDropZone = ({setImages, images, error}: ImageDropZoneProps) => {
                       initial={{scale: 0.8}}
                       animate={{scale: 1}}
                       className="w-[60px] h-[60px] bg-muted flex items-center justify-center overflow-hidden rounded relative">
-                      <Image
-                        src={URL.createObjectURL(image.file)}
-                        alt={image.title}
-                        className="w-full h-full object-cover"
-                        fill
-                      />
+                      <ImageViewerWrapper>
+                        <a
+                          data-fancybox="gallery" // Add the same group name for all images
+                          href={URL.createObjectURL(image.file)}
+                          className="w-full h-full">
+                          <Image
+                            src={URL.createObjectURL(image.file)}
+                            alt={image.title}
+                            className="w-full h-full object-cover"
+                            fill
+                          />
+                        </a>
+                      </ImageViewerWrapper>
                     </motion.div>
                   </TableCell>
                   <TableCell className="font-medium">{image.title}</TableCell>
                   <TableCell>{formatSize(image.size)}</TableCell>
+                  <TableCell>
+                    {image.dimensions
+                      ? `${image.dimensions.width} × ${image.dimensions.height}`
+                      : "Loading..."}
+                  </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2 h-full">
                       <Button

@@ -6,6 +6,10 @@ export interface ImageFile {
   file: File;
   title: string;
   size: number;
+  dimensions?: {
+    width: number;
+    height: number;
+  };
 }
 
 export interface ImageDropZoneProps {

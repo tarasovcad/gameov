@@ -105,7 +105,6 @@ const Page = () => {
         voiceLanguage,
         platform,
         faqList,
-        images,
         systemRequirements,
       };
       localStorage.setItem("postFormDataGameov", JSON.stringify(formData));
@@ -121,7 +120,6 @@ const Page = () => {
       voiceLanguage,
       platform,
       faqList,
-      images,
       systemRequirements,
     ],
   );
@@ -144,7 +142,6 @@ const Page = () => {
       setVoiceLanguage(parsed.voiceLanguage || []);
       setPlatform(parsed.platform || []);
       setFaqList(parsed.faqList || initialFaqList);
-      setImages(parsed.images || []);
       setSystemRequirements(
         parsed.systemRequirements || {
           minSystemRequirement: [],
@@ -167,7 +164,6 @@ const Page = () => {
     voiceLanguage,
     platform,
     faqList,
-    images,
     systemRequirements,
     saveFormData,
   ]);
@@ -251,6 +247,9 @@ const Page = () => {
   const onSubmit = async (data: CreatePostData) => {
     console.log(data);
     toast.success("Post created successfully");
+    // submiting images to AWS s3 ...
+    console.log(images, "submitting images to AWS s3 ...");
+    // submiting post data to server using GraphQl and Prisma Orm
   };
 
   const generateSlug = async (e: React.MouseEvent) => {
