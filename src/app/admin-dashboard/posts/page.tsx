@@ -28,15 +28,7 @@ import {
   createPostSchema,
 } from "@/validation/adminDashboardCreatePost";
 import {toast} from "sonner";
-import Loader from "@/components/ui/Loader";
-
-export const ErrorMessage = ({error}: any) => {
-  return (
-    <span className="text-[12px] text-[#F31260] absolute -bottom-6 ">
-      {error && error.message}
-    </span>
-  );
-};
+import ErrorMessage from "@/components/admin/posts/ErrorMessage";
 
 const Page = () => {
   const [title, setTitle] = useState<string>("");
