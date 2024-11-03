@@ -11,11 +11,11 @@ import ThemeKeyboardShortcuts from "@/lib/ThemeKeyboardShortcuts";
 import NavbarServerComponent from "@/components/navbar/NavbarServerComponent";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/react";
-import {noRoutes} from "@/data/WrapperRoutes";
 import LayoutWrapper from "@/providers/LayoutWrapper";
 import Footer from "@/components/footer/Footer";
 import PlausibleProvider from "next-plausible";
 import {Toaster} from "@/components/ui/sonner";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],

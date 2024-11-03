@@ -17,7 +17,7 @@ import SidebarInput from "./sidebar/SidebarInput";
 import SidebarDropdownMenuFooter from "./sidebar/SidebarDropdownMenuFooter";
 import Link from "next/link";
 
-const AdminSidebar = () => {
+const AdminSidebar = async () => {
   return (
     <Sidebar
       collapsible="icon"

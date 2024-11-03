@@ -28,8 +28,13 @@ import {
   LogOut,
   Sparkles,
 } from "lucide-react";
+import {useSession} from "next-auth/react";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/auth";
 
-const SidebarDropdownMenuFooter = () => {
+const SidebarDropdownMenuFooter = async () => {
+  const data = await getServerSession(authOptions);
+  const {user} = data || {};
   return (
     <SidebarFooter>
       <SidebarGroup className="p-0">
@@ -54,18 +59,16 @@ const SidebarDropdownMenuFooter = () => {
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={adminDashboardData.user.avatar}
-                    alt={adminDashboardData.user.name}
+                    src={user?.image ?? ""}
+                    alt={user?.name ?? "User Picture"}
                   />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
-                    {adminDashboardData.user.name}
+                    {(user?.name || user?.username) ?? ""}
                   </span>
-                  <span className="truncate text-xs">
-                    {adminDashboardData.user.email}
-                  </span>
+                  <span className="truncate text-xs">{user?.email ?? ""}</span>
                 </div>
                 <ChevronsUpDown className="ml-auto size-4" />
               </SidebarMenuButton>
@@ -79,17 +82,17 @@ const SidebarDropdownMenuFooter = () => {
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
                     <AvatarImage
-                      src={adminDashboardData.user.avatar}
-                      alt={adminDashboardData.user.name}
+                      src={user?.image ?? ""}
+                      alt={user?.name ?? "User Picture"}
                     />
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">
-                      {adminDashboardData.user.name}
+                      {(user?.name || user?.username) ?? ""}
                     </span>
                     <span className="truncate text-xs">
-                      {adminDashboardData.user.email}
+                      {user?.email ?? ""}
                     </span>
                   </div>
                 </div>
