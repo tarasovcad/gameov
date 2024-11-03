@@ -33,6 +33,7 @@ import {useSession} from "next-auth/react";
 import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
 import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
 import Loader from "@/components/ui/Loader";
+import {Editor} from "@tiptap/react";
 const Page = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -48,6 +49,8 @@ const Page = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {data: session} = useSession();
+  const [editorRef, setEditorRef] = useState<Editor | null>(null);
+
   const [systemRequirements, setSystemRequirements] =
     useState<SystemRequiments>({
       minSystemRequirement: [
@@ -162,6 +165,16 @@ const Page = () => {
       setDate(new Date(parsed.date) || new Date());
       setDownloadLink(parsed.downloadLink || "");
       setTags(parsed.tags || []);
+      setValue("tags", parsed.tags || [], {
+        shouldValidate: false,
+        shouldDirty: false,
+        shouldTouch: false,
+      });
+      setValue("description", parsed.description || "", {
+        shouldValidate: false,
+        shouldDirty: false,
+        shouldTouch: false,
+      });
       setInterfaceLanguage(parsed.interfaceLanguage || []);
       setVoiceLanguage(parsed.voiceLanguage || []);
       setPlatform(parsed.platform || []);
@@ -192,9 +205,16 @@ const Page = () => {
     saveFormData,
   ]);
 
+  const handleEditorReset = (editor: Editor | null) => {
+    setEditorRef(editor);
+  };
+
   const clearForm = (showTooltip: boolean = false) => {
     setTitle("");
     setDescription("");
+    if (editorRef) {
+      editorRef.commands.setContent("");
+    }
     setSlug("");
     setDate(new Date());
     setDownloadLink("");
@@ -275,27 +295,65 @@ const Page = () => {
     const startTime = performance.now();
     try {
       const author = session?.user?.email;
-      if (author) {
-        const images = await uploadImages();
-        console.log("Images uploaded:", images);
-
-        // await new Promise((resolve) => setTimeout(resolve, 500));
-        const endTime = performance.now();
-        const timeElapsed = endTime - startTime;
-        console.log(
-          `Form submission took ${timeElapsed.toFixed(2)} milliseconds`,
-        );
-        toast.success(
-          `Form submission took ${timeElapsed.toFixed(2)} milliseconds`,
-        );
-
+      if (!author) {
+        toast.error("No author found");
         setIsLoading(false);
-        toast.success("Post created successfully");
-        // clearForm();
-      } else {
-        console.log("No author found");
+        return;
       }
+
+      const images = await uploadImages();
+
+      const postData = {
+        title,
+        description,
+        slug,
+        date,
+        downloadLink,
+        tags,
+        interfaceLanguages: interfaceLanguage,
+        voiceLanguages: voiceLanguage,
+        platforms: platform,
+        faqList,
+        systemRequirements,
+        images,
+        author: author,
+      };
+
+      console.log("Sending post data:", postData);
+
+      const response = await fetch("/api/create-post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 409) {
+        toast.error(data.message);
+        setIsLoading(false);
+        return;
+      }
+
+      if (!response.ok) {
+        setIsLoading(false);
+        toast.error("Failed to create post");
+      }
+
+      const endTime = performance.now();
+      const timeElapsed = endTime - startTime;
+      toast.success(
+        `Form submission took ${(timeElapsed / 1000).toFixed(2)} seconds`,
+      );
+
+      setIsLoading(false);
+      toast.success("Post created successfully");
+      // clearForm();
     } catch (error) {
+      setIsLoading(false);
+      toast.error("Failed to create post");
       console.log(error);
     }
   };
@@ -314,37 +372,43 @@ const Page = () => {
   const uploadImages = async () => {
     if (images.length === 0) {
       toast.error("Please upload at least one image");
-      return;
+      return [];
     }
+
     try {
-      images.map(async (imageFile) => {
-        try {
-          const result = await readFileAsDataURL(imageFile.file);
+      const uploadedUrls = await Promise.all(
+        images.map(async (imageFile) => {
+          try {
+            const result = await readFileAsDataURL(imageFile.file);
 
-          if (typeof result === "string") {
-            const base64Data = result.split(",")[1];
+            if (typeof result === "string") {
+              const base64Data = result.split(",")[1];
 
-            // Upload to S3
-            const s3Url = await uploadFileToS3(
-              imageFile.file.name,
-              imageFile.file.type,
-              base64Data,
-              "posts",
-            );
+              // Upload to S3
+              const s3Url = await uploadFileToS3(
+                imageFile.file.name,
+                imageFile.file.type,
+                base64Data,
+                "posts",
+              );
 
-            return s3Url;
+              return s3Url;
+            }
+            toast.error("Something went wrong. Please try again.");
+            return null;
+          } catch (err) {
+            console.error("Error processing image:", err);
+            toast.error("Something went wrong. Please try again.");
+            return null;
           }
-          toast.error("Something went wrong. Please try again.");
-          return null;
-        } catch (err) {
-          console.error("Error processing image:", err);
-          toast.error("Something went wrong. Please try again.");
-          return null;
-        }
-      });
+        }),
+      );
+
+      return uploadedUrls.filter((url) => url !== null);
     } catch (err) {
       console.error("Error in uploadImages:", err);
       toast.error("Something went wrong. Please try again.");
+      return [];
     }
   };
 
@@ -418,6 +482,7 @@ const Page = () => {
                   onChange={handleEditorChange}
                   initialContent={description}
                   error={errors.description}
+                  onReset={handleEditorReset}
                 />
                 <ErrorMessage error={errors.description} />
               </div>

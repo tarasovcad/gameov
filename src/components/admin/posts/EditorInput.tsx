@@ -6,18 +6,20 @@ import Underline from "@tiptap/extension-underline";
 import {Button} from "@/components/ui/button";
 import Placeholder from "@tiptap/extension-placeholder";
 import {FieldError} from "react-hook-form";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 
 interface EditorInputProps {
   onChange: (value: string) => void;
   initialContent?: string;
   error?: FieldError;
+  onReset?: (editor: Editor | null) => void;
 }
 
 const EditorInput = ({
   onChange,
   initialContent = "",
   error,
+  onReset,
 }: EditorInputProps) => {
   const editor = useEditor({
     extensions: [
@@ -45,6 +47,12 @@ const EditorInput = ({
       [onChange],
     ),
   });
+
+  useEffect(() => {
+    if (onReset) {
+      onReset(editor);
+    }
+  }, [editor, onReset]);
 
   if (!editor) {
     return null;
