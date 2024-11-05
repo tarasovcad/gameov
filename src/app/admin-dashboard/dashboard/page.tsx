@@ -1,48 +1,8 @@
+import {GET_POSTS} from "@/app/graphql/queries/posts";
 import {getClient} from "@/lib/apollo-client";
-import {gql} from "@apollo/client";
+import {Post, PostsData} from "@/types/singlePost";
+
 import Image from "next/image";
-
-const GET_POSTS = gql`
-  query GetPosts {
-    posts {
-      id
-      title
-      description
-      slug
-      date
-      downloadLink
-      tags
-      appVersion
-      platforms
-      publisher
-      releasedDate
-      images
-      status
-      createdAt
-    }
-  }
-`;
-
-interface Post {
-  id: string;
-  title: string;
-  description: string;
-  slug: string;
-  date: string;
-  downloadLink: string;
-  tags: string[];
-  appVersion: string;
-  platforms: string[];
-  publisher: string;
-  releasedDate: string;
-  images: string[];
-  status: string;
-  createdAt: string;
-}
-
-interface PostsData {
-  posts: Post[];
-}
 
 export default async function PostsList() {
   const start = performance.now();

@@ -3,9 +3,10 @@ import {Eye, MessageSquare} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {Card} from "@/components/ui/card";
-import {Post} from "@/types/postProps";
+
 import FavoriteTooltip from "./FavoriteTooltip";
 import {useState} from "react";
+import {Post} from "@/types/singlePost";
 
 const BlogGameCart = ({
   item,
@@ -22,8 +23,8 @@ const BlogGameCart = ({
         <div
           className={`aspect-[16/9] min-[1300px]:h-44 relative w-full max-[1129px]:aspect-[23/10] max-[1000px]:aspect-[23/9] max-[769px]:aspect-[23/8] max-[701px]:aspect-[10/3] overflow-hidden max-[600px]:aspect-[16/7]  ${!gridView ? "w-[40%] h-full max-[850px]:w-1/3 max-[650px]:w-1/2 max-[850px]:h-full max-[850px]:aspect-auto " : ""}`}>
           <Image
-            src={item.image}
-            alt={item.title}
+            src={item.images[0]}
+            alt={item.title + " image"}
             layout="fill"
             objectFit="cover"
             className="transition-all duration-300 ease-in-out group-hover:scale-100 group-hover:opacity-100 scale-105 dark:opacity-80 opacity-90"
@@ -52,10 +53,12 @@ const BlogGameCart = ({
             className={`flex justify-between text-sm  dark:text-secondary_text text-[#5E5E5E] mt-auto  ${!gridView ? " max-[850px]:text-[13px]" : ""}`}>
             <div className="flex items-center ">
               <span className="mr-3 flex items-center">
-                <Eye size={16} className="mr-1" /> {item.views}
+                <Eye size={16} className="mr-1" />
+                {/* {item.views} */}
               </span>
               <span className="flex items-center">
-                <MessageSquare size={16} className="mr-1" /> {item.comments}
+                <MessageSquare size={16} className="mr-1" />
+                {/* {item.comments} */}
               </span>
             </div>
             <span className="flex items-center">{item.date}</span>

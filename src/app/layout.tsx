@@ -33,7 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.className} bg-backgound`}
+      suppressHydrationWarning>
       <head>
         <PlausibleProvider
           domain="gameov.vercel.app"
