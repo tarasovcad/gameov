@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     }
 
     const user = await db.user.findUnique({
-      where: {email: author},
+      where: {email: author.email},
     });
 
     if (!user) {
@@ -51,8 +51,14 @@ export async function POST(req: Request) {
         images: images || [],
         systemRequirements,
         status: "PUBLISHED",
-        authorId: user.id,
+        author: {
+          connect: {
+            id: user.id,
+          },
+        },
+        authorUserName: user.username,
       },
+      include: {author: true},
     });
     return NextResponse.json(
       {message: "Post created successfully", post},

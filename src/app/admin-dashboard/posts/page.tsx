@@ -294,7 +294,7 @@ const Page = () => {
     setIsLoading(true);
     const startTime = performance.now();
     try {
-      const author = session?.user?.email;
+      const author = session?.user;
       if (!author) {
         toast.error("No author found");
         setIsLoading(false);

@@ -103,6 +103,7 @@ model Post {
   images             String[]
   author             User       @relation(fields: [authorId], references: [id])
   authorId           String     @db.ObjectId
+  authorUserName     String?
   status             PostStatus @default(DRAFT)
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
