@@ -91,22 +91,40 @@ const PaginationGamePage = ({pageInfo}: PaginationGamePageProps) => {
   return (
     <div className="mt-[40px]">
       <Pagination>
-        <PaginationContent>
-          <PaginationItem>
+        <PaginationContent className="flex flex-col items-center gap-4 sm:flex-row sm:gap-2 sm:justify-center">
+          <PaginationItem className="hidden sm:block order-1">
             <PaginationPrevious
-              href={hasPreviousPage ? createPageURL(currentPage - 1) : "#"}
+              href={hasPreviousPage ? createPageURL(currentPage - 1) : ""}
               className={`hover:bg-bg ${!hasPreviousPage ? "pointer-events-none opacity-50" : ""}`}
             />
           </PaginationItem>
 
-          {renderPageNumbers()}
+          <div className="flex flex-wrap gap-2 justify-center order-1 sm:order-2">
+            {renderPageNumbers()}
+          </div>
 
-          <PaginationItem>
+          <PaginationItem className="hidden sm:block order-3">
             <PaginationNext
               href={hasNextPage ? createPageURL(currentPage + 1) : "#"}
               className={`hover:bg-bg ${!hasNextPage ? "pointer-events-none opacity-50" : ""}`}
             />
           </PaginationItem>
+
+          {/* Mobile navigation buttons */}
+          <div className="flex gap-2 order-2 sm:hidden">
+            <PaginationItem>
+              <PaginationPrevious
+                href={hasPreviousPage ? createPageURL(currentPage - 1) : ""}
+                className={`hover:bg-bg ${!hasPreviousPage ? "pointer-events-none opacity-50" : ""}`}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                href={hasNextPage ? createPageURL(currentPage + 1) : "#"}
+                className={`hover:bg-bg ${!hasNextPage ? "pointer-events-none opacity-50" : ""}`}
+              />
+            </PaginationItem>
+          </div>
         </PaginationContent>
       </Pagination>
     </div>

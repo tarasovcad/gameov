@@ -13,7 +13,7 @@ import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/react";
 import LayoutWrapper from "@/providers/LayoutWrapper";
 import Footer from "@/components/footer/Footer";
-import PlausibleProvider from "next-plausible";
+
 import {Toaster} from "@/components/ui/sonner";
 
 const inter = Inter({
@@ -37,14 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.className} bg-backgound`}
       suppressHydrationWarning>
-      <head>
-        <PlausibleProvider
-          domain="gameov.vercel.app"
-          trackOutboundLinks={true}
-          enabled
-          trackLocalhost></PlausibleProvider>
-      </head>
-      <body className="max-w-[1920px] mx-auto bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound  min-h-screen flex flex-col">
+      <body className=" mx-auto bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound  min-h-screen flex flex-col">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster richColors={true} position="bottom-right" closeButton />

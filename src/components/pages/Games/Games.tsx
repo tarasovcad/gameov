@@ -1,7 +1,6 @@
 "use client";
 
 import BlogGameCart from "@/components/main/BlogGameCart";
-import {gamesList} from "@/data/fakePostData";
 import React, {useEffect, useState} from "react";
 import {LayoutGrid} from "lucide-react";
 import {Icon} from "lucide-react";
@@ -13,6 +12,7 @@ import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 import {PostsData} from "@/types/singlePost";
 const GamesPage = ({data}: {data: PostsData}) => {
   const [gridView, setGridView] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   const containerVariants = {
     hidden: {opacity: 0},
@@ -32,6 +32,20 @@ const GamesPage = ({data}: {data: PostsData}) => {
     }),
     exit: {opacity: 0, scale: 0.9, transition: {duration: 0.2}},
   };
+
+  useEffect(() => {
+    setIsClient(true);
+    const savedGridView = localStorage.getItem("gridViewGameov");
+    if (savedGridView !== null) {
+      setGridView(JSON.parse(savedGridView));
+    }
+  }, []);
+
+  const handleGridViewChange = (isGrid: boolean) => {
+    setGridView(isGrid);
+    localStorage.setItem("gridViewGameov", JSON.stringify(isGrid));
+  };
+
   return (
     <div className="max-[700px]:px-4 max-[450px]:px-[3.5vw] pt-3">
       <div className="flex justify-between items-center mb-5 max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-4">
@@ -56,7 +70,7 @@ const GamesPage = ({data}: {data: PostsData}) => {
                 className={`rounded-lg p-2.5 h-full transition-colors duration-300 ease-in-out hover:text-white/90 ${
                   gridView ? "text-white" : "text-white/60"
                 }`}
-                onClick={() => setGridView(true)}>
+                onClick={() => handleGridViewChange(true)}>
                 <LayoutGrid size={19} />
               </button>
 
@@ -64,7 +78,7 @@ const GamesPage = ({data}: {data: PostsData}) => {
                 className={`rounded-lg p-2.5 h-full transition-colors duration-300 ease-in-out hover:text-white/90 ${
                   !gridView ? "text-white" : "text-white/60"
                 }`}
-                onClick={() => setGridView(false)}>
+                onClick={() => handleGridViewChange(false)}>
                 <Icon iconNode={layoutGridMoveVertical} size={19} />
               </button>
             </div>
