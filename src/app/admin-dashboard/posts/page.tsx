@@ -34,9 +34,11 @@ import {readFileAsDataURL} from "@/functions/readFileAsDataURL";
 import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
 import Loader from "@/components/ui/Loader";
 import {Editor} from "@tiptap/react";
+import {Textarea} from "@/components/ui/textarea";
 const Page = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [cardDescription, setCardDescription] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const [date, setDate] = useState<Date>(new Date());
   const [downloadLink, setDownloadLink] = useState<string>("");
@@ -50,6 +52,9 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {data: session} = useSession();
   const [editorRef, setEditorRef] = useState<Editor | null>(null);
+  //  ---
+  const [appVersion, setAppVersion] = useState<string>("");
+  const [publisher, setPublisher] = useState<string>("");
 
   const [systemRequirements, setSystemRequirements] =
     useState<SystemRequiments>({
@@ -125,6 +130,7 @@ const Page = () => {
       const formData = {
         title,
         description,
+        cardDescription,
         slug,
         date,
         downloadLink,
@@ -134,12 +140,16 @@ const Page = () => {
         platform,
         faqList,
         systemRequirements,
+        appVersion,
+        publisher,
+        // releasedDate,
       };
       localStorage.setItem("postFormDataGameov", JSON.stringify(formData));
     }, 1000)();
   }, [
     title,
     description,
+    cardDescription,
     slug,
     date,
     downloadLink,
@@ -149,6 +159,9 @@ const Page = () => {
     platform,
     faqList,
     systemRequirements,
+    appVersion,
+    publisher,
+    // releasedDate,
   ]);
 
   useEffect(() => {
@@ -161,10 +174,24 @@ const Page = () => {
       const parsed = JSON.parse(savedData);
       setTitle(parsed.title || "");
       setDescription(parsed.description || "");
+      setCardDescription(parsed.cardDescription || "");
       setSlug(parsed.slug || "");
       setDate(new Date(parsed.date) || new Date());
       setDownloadLink(parsed.downloadLink || "");
       setTags(parsed.tags || []);
+      setInterfaceLanguage(parsed.interfaceLanguage || []);
+      setVoiceLanguage(parsed.voiceLanguage || []);
+      setPlatform(parsed.platform || []);
+      setFaqList(parsed.faqList || initialFaqList);
+      setAppVersion(parsed.appVersion || "");
+      setPublisher(parsed.publisher || "");
+      // setReleasedDate(new Date(parsed.releasedDate) || new Date());
+      setSystemRequirements(
+        parsed.systemRequirements || {
+          minSystemRequirement: [],
+          recommendedSystemRequirement: [],
+        },
+      );
       setValue("tags", parsed.tags || [], {
         shouldValidate: false,
         shouldDirty: false,
@@ -175,18 +202,13 @@ const Page = () => {
         shouldDirty: false,
         shouldTouch: false,
       });
-      setInterfaceLanguage(parsed.interfaceLanguage || []);
-      setVoiceLanguage(parsed.voiceLanguage || []);
-      setPlatform(parsed.platform || []);
-      setFaqList(parsed.faqList || initialFaqList);
-      setSystemRequirements(
-        parsed.systemRequirements || {
-          minSystemRequirement: [],
-          recommendedSystemRequirement: [],
-        },
-      );
+      setValue("descriptionCard", parsed.descriptionCard || "", {
+        shouldValidate: false,
+        shouldDirty: false,
+        shouldTouch: false,
+      });
     }
-  }, []);
+  }, [setValue]);
 
   useEffect(() => {
     saveFormData();
@@ -212,6 +234,7 @@ const Page = () => {
   const clearForm = (showTooltip: boolean = false) => {
     setTitle("");
     setDescription("");
+    setCardDescription("");
     if (editorRef) {
       editorRef.commands.setContent("");
     }
@@ -224,6 +247,9 @@ const Page = () => {
     setPlatform([]);
     setFaqList(initialFaqList);
     setImages([]);
+    setAppVersion("");
+    setPublisher("");
+    // setReleasedDate(new Date());
     setSystemRequirements({
       minSystemRequirement: [
         {OS: ""},
@@ -302,10 +328,10 @@ const Page = () => {
       }
 
       const images = await uploadImages();
-
       const postData = {
         title,
         description,
+        cardDescription,
         slug,
         date,
         downloadLink,
@@ -315,12 +341,12 @@ const Page = () => {
         platforms: platform,
         faqList,
         systemRequirements,
+        appVersion,
+        publisher,
+        // releasedDate,
         images,
         author: author,
       };
-
-      console.log("Sending post data:", postData);
-
       const response = await fetch("/api/create-post", {
         method: "POST",
         headers: {
@@ -488,6 +514,19 @@ const Page = () => {
               </div>
             </div>
             <div className="flex flex-col gap-3">
+              <CustomInputLabel label="Card Description" />
+              <div className="relative">
+                <Textarea
+                  placeholder="Description for card"
+                  className={`rounded-sm bg-[#171718] ${errors.descriptionCard && "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none  focus:shadow-none "}`}
+                  value={cardDescription}
+                  {...register("descriptionCard")}
+                  onChange={(e) => setCardDescription(e.target.value)}
+                />
+                <ErrorMessage error={errors.descriptionCard} />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
               <CustomInputLabel label="Slug" />
               <div className="relative">
                 <div className="flex gap-3">
@@ -559,6 +598,8 @@ const Page = () => {
                 <Input
                   placeholder="16.124.0"
                   className="rounded-sm bg-[#171718] pl-5"
+                  value={appVersion}
+                  onChange={(e) => setAppVersion(e.target.value)}
                 />
                 <span className="text-[15px] absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-3.5 text-muted-foreground">
                   v
@@ -579,6 +620,8 @@ const Page = () => {
               <Input
                 placeholder="Publisher of app"
                 className="rounded-sm bg-[#171718]"
+                value={publisher}
+                onChange={(e) => setPublisher(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-3">

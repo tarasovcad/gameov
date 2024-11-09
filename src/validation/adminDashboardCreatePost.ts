@@ -32,6 +32,7 @@ export const createPostSchema = z.object({
     )
     .min(1, "At least one image is required")
     .max(10, "Maximum 10 images allowed"),
+  descriptionCard: z.string().min(1, "Description card is required"),
 });
 
 export type CreatePostData = z.infer<typeof createPostSchema>;

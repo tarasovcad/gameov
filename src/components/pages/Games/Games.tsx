@@ -12,31 +12,27 @@ import {AnimatePresence, motion} from "framer-motion";
 import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 import {PostsData} from "@/types/singlePost";
 const GamesPage = ({data}: {data: PostsData}) => {
-  const doubledGamesList = [...gamesList, ...gamesList];
   const [gridView, setGridView] = useState(true);
 
-  const {slug} = data.posts[0];
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     switch (true) {
+  //       // case window.innerWidth < 550:
+  //       //   setGridView(true);
+  //       //   break;
+  //       case window.innerWidth > 550 && window.innerWidth < 851:
+  //         setGridView(false);
+  //         break;
+  //       default:
+  //         // setGridView(true);
+  //         break;
+  //     }
+  //   };
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
 
-  console.log(data.posts);
-  useEffect(() => {
-    const handleResize = () => {
-      switch (true) {
-        case window.innerWidth < 550:
-          setGridView(true);
-          break;
-        case window.innerWidth > 550 && window.innerWidth < 851:
-          setGridView(false);
-          break;
-        default:
-          // setGridView(true);
-          break;
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   const containerVariants = {
     hidden: {opacity: 0},
@@ -59,17 +55,17 @@ const GamesPage = ({data}: {data: PostsData}) => {
   };
   return (
     <div className="max-[700px]:px-4 max-[450px]:px-[3.5vw] pt-3">
-      <div className="flex justify-between items-center mb-5">
-        <div className="flex gap-3">
-          <h2 className="font-semibold text-[32px] max-[1100px]:text-[30px] max-[850px]:text-[28px] max-[700px]:text-[25px] ">
+      <div className="flex justify-between items-center mb-5 max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-4">
+        <div className="flex gap-3 ">
+          <h2 className="font-semibold text-[32px] max-[1100px]:text-[30px] max-[850px]:text-[28px] ">
             All Games{" "}
             <span className="text-secondary_text ml-2 max-[730px]:ml-1">
               4014
             </span>
           </h2>
         </div>
-        <div className="flex gap-4 text-white/90 min-h-[40px] text-[15px] max-[800px]:gap-3 max-[730px]:gap-2">
-          <div className="bg-transparent rounded-lg border border-border min-h-[40px] max-[850px]:hidden">
+        <div className="flex gap-4 text-white/90 min-h-[45px] text-[15px] max-[800px]:gap-3 max-[730px]:gap-2">
+          <div className="bg-transparent rounded-lg border border-border min-h-[40px] max-[80px]:hidden">
             <button
               className={` rounded-lg p-2.5 h-full  transition-colors duration-300 ease-in-out hover:text-white/90 ${gridView ? "bg-bg text-white" : "text-white/60"}`}
               onClick={() => setGridView(true)}>
@@ -93,8 +89,8 @@ const GamesPage = ({data}: {data: PostsData}) => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className={`grid gap-5 mt-5 max-[1250px]:gap-4 max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1  ${
-            !gridView ? "!grid-cols-1" : "grid-cols-3"
+          className={`grid  mt-5  max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1  ${
+            !gridView ? "!grid-cols-1" : "grid-cols-3 gap-5 "
           } `}>
           {data.posts.map((item, index) => (
             <motion.div
@@ -102,12 +98,17 @@ const GamesPage = ({data}: {data: PostsData}) => {
               custom={index}
               variants={cardVariants}
               layout>
-              <BlogGameCart item={item} gridView={gridView} />
+              <BlogGameCart
+                item={item}
+                gridView={gridView}
+                totalItems={data.posts.length}
+                index={index}
+              />
             </motion.div>
           ))}
         </motion.div>
       </AnimatePresence>
-      <PaginationGamePage />
+      {/* <PaginationGamePage /> */}
     </div>
   );
 };

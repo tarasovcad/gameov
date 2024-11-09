@@ -14,12 +14,12 @@ const Home = () => {
       <Hero />
       <div className="flex flex-col gap-[60px]  max-[700px]:px-4 max-[450px]:px-[3.5vw] ">
         <LatestGameSection />
-        <LatestSoftwareSection />
+        {/* <LatestSoftwareSection />
         <LatestGraphicsSection />
         <PopularBlogSection />
         <LatestMacOSSoftware />
         <BestPostsCollection />
-        <FooterSection />
+        <FooterSection /> */}
       </div>
     </div>
   );

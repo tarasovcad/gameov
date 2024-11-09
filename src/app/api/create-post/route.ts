@@ -7,6 +7,7 @@ export async function POST(req: Request) {
     const {
       title,
       description,
+      cardDescription,
       slug,
       date,
       downloadLink,
@@ -18,6 +19,9 @@ export async function POST(req: Request) {
       systemRequirements,
       images,
       author,
+      appVersion,
+      publisher,
+      // releaseDate,
     } = body;
 
     const slugExists = await db.post.findUnique({
@@ -40,6 +44,7 @@ export async function POST(req: Request) {
       data: {
         title,
         description,
+        cardDescription,
         slug,
         date,
         downloadLink,
@@ -48,6 +53,8 @@ export async function POST(req: Request) {
         voiceLanguages,
         platforms,
         faqList,
+        appVersion,
+        publisher,
         images: images || [],
         systemRequirements,
         status: "PUBLISHED",

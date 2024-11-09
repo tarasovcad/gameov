@@ -1,70 +1,115 @@
-"use client";
 import {Eye, MessageSquare} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import {Card} from "@/components/ui/card";
-
+import {format} from "date-fns";
 import FavoriteTooltip from "./FavoriteTooltip";
-import {useState} from "react";
 import {Post} from "@/types/singlePost";
-
 const BlogGameCart = ({
   item,
   gridView = true,
+  totalItems = 1,
+  index = 0,
 }: {
   item: Post;
   gridView?: boolean;
+  totalItems?: number;
+  index?: number;
 }) => {
+  const formatDate = (timestamp: string | number) => {
+    try {
+      const date =
+        typeof timestamp === "string" ? parseInt(timestamp) : timestamp;
+      return format(new Date(date), "dd MMM yyyy");
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return "Invalid date";
+    }
+  };
+
+  const generateRandomNumber = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+
+  const isFirst = index === 0;
+  const isLast = index === totalItems - 1;
+
   return (
-    <Link href={"/games/" + item.title}>
-      <Card
+    <Link href={item.slug || ""}>
+      <div
         key={item.title}
-        className={`bg-white dark:bg-bg overflow-hidden border transition-colors duration-300 ease-in-out border-border/40 dark:hover:border-border hover:border-border relative group flex flex-col w-full h-full dark:hover:bg-bg/90 hover:bg-white/60 ${!gridView ? "flex-row items-center " : ""}`}>
+        className={`bg-white dark:bg-bg overflow-hidden  transition-colors duration-300 ease-in-out   relative group 
+
+        ${
+          gridView
+            ? "flex flex-col w-full h-full border-border/40 border rounded-lg "
+            : "flex flex-row items-center gap-4 p-4 h-[85px] border-b border-x border-border/40    "
+        } 
+        ${isFirst ? "rounded-t-lg border-t" : ""} 
+        ${isLast ? "rounded-b-lg" : ""}
+        
+        dark:hover:bg-bg/80 hover:bg-white/60`}>
         <div
-          className={`aspect-[16/9] min-[1300px]:h-44 relative w-full max-[1129px]:aspect-[23/10] max-[1000px]:aspect-[23/9] max-[769px]:aspect-[23/8] max-[701px]:aspect-[10/3] overflow-hidden max-[600px]:aspect-[16/7]  ${!gridView ? "w-[40%] h-full max-[850px]:w-1/3 max-[650px]:w-1/2 max-[850px]:h-full max-[850px]:aspect-auto " : ""}`}>
+          className={`relative ${
+            gridView
+              ? "aspect-[339/176] w-full max-[850px]:aspect-auto max-[850px]:h-[200px] overflow-hidden "
+              : "h-full aspect-square "
+          }`}>
           <Image
             src={item.images[0]}
             alt={item.title + " image"}
-            layout="fill"
+            fill
             objectFit="cover"
-            className="transition-all duration-300 ease-in-out group-hover:scale-100 group-hover:opacity-100 scale-105 dark:opacity-80 opacity-90"
+            className={`transition-all duration-300 ease-in-out 
+            ${
+              gridView
+                ? "group-hover:scale-100 group-hover:opacity-100 scale-105"
+                : "object-cover rounded-md group-hover:scale-105 scale-100"
+            } dark:opacity-80 opacity-90`}
           />
         </div>
-        <FavoriteTooltip />
+
+        {gridView && <FavoriteTooltip />}
+
         <div
-          className={`p-4 flex flex-col flex-grow  ${!gridView ? "w-2/3 py-6 " : ""}`}>
-          <h3
-            className={`dark:text-[#F8FAFC] text-xl font-bold mb-2 max-[1200px]:text-[18px] max-[1200px]:mb-[6px] text-[#292929] ${
-              !gridView
-                ? "max-[850px]:!text-[19px] max-[650px]:line-clamp-1"
-                : ""
-            }`}>
-            {item.title}
-          </h3>
-          <div className="flex-grow">
-            <p
-              className={`dark:text-secondary_text line-clamp-2 text-[#464646] mb-6 text-sm max-[1150px]:text-[13px] max-[1150px]:mb-[20px] ${
-                !gridView ? "max-[850px]:mb-2" : ""
+          className={`${gridView ? "p-4 flex flex-col flex-grow" : "flex flex-grow justify-between items-center"}`}>
+          <div className={`${!gridView && "flex-grow"}`}>
+            <h3
+              className={`dark:text-[#F8FAFC] font-bold text-[#292929]
+              ${
+                gridView
+                  ? "text-xl mb-2 max-[1200px]:text-[18px] max-[1200px]:mb-[6px]"
+                  : "text-lg mb-0 font-semibold !text-[16px] line-clamp-1"
               }`}>
-              {item.description}
-            </p>
+              {item.title}
+            </h3>
+
+            {gridView && (
+              <p className="dark:text-secondary_text line-clamp-2 text-[#464646] mb-6 text-sm max-[1150px]:text-[13px] max-[1150px]:mb-[20px]">
+                {item.cardDescription}
+              </p>
+            )}
           </div>
+
           <div
-            className={`flex justify-between text-sm  dark:text-secondary_text text-[#5E5E5E] mt-auto  ${!gridView ? " max-[850px]:text-[13px]" : ""}`}>
-            <div className="flex items-center ">
-              <span className="mr-3 flex items-center">
+            className={`flex ${gridView ? "justify-between" : "gap-8"} text-sm dark:text-secondary_text text-[#5E5E5E] ${gridView ? "mt-auto" : "pl-3 "}`}>
+            <div
+              className={`flex items-center ${gridView ? "" : "max-[450px]:hidden"}`}>
+              <span className="mr-3 flex items-center" suppressHydrationWarning>
                 <Eye size={16} className="mr-1" />
-                {/* {item.views} */}
+                {generateRandomNumber(1, 1000)}
               </span>
-              <span className="flex items-center">
+              <span className="flex items-center" suppressHydrationWarning>
                 <MessageSquare size={16} className="mr-1" />
-                {/* {item.comments} */}
+                {generateRandomNumber(1, 100)}
               </span>
             </div>
-            <span className="flex items-center">{item.date}</span>
+            <span
+              className={`flex items-center  ${!gridView ? "max-[745px]:hidden" : ""}`}>
+              {formatDate(item.date)}
+            </span>
           </div>
         </div>
-      </Card>
+      </div>
     </Link>
   );
 };

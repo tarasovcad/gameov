@@ -39,9 +39,11 @@ export const typeDefs = gql`
     platforms: [String!]!
     publisher: String
     releasedDate: String
+    authorUserName: String
     interfaceLanguages: [String!]!
     voiceLanguages: [String!]!
     systemRequirements: SystemRequirements!
+    cardDescription: String!
     faqList: [FaqItem!]!
     images: [String!]!
     author: User!
