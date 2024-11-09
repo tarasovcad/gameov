@@ -53,8 +53,21 @@ export const typeDefs = gql`
     updatedAt: String!
   }
 
+  type PageInfo {
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    totalPages: Int!
+    totalPosts: Int!
+    currentPage: Int!
+  }
+
+  type PostConnection {
+    edges: [Post!]!
+    pageInfo: PageInfo!
+  }
+
   type Query {
-    posts(status: PostStatus): [Post!]!
+    posts(page: Int, limit: Int, status: PostStatus): PostConnection!
     post(slug: String!): Post
   }
 `;

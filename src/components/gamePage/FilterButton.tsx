@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {filterSectionGame} from "@/data/filterSection";
 import {ScrollArea} from "../ui/scroll-area";
+import {motion} from "framer-motion";
 
 interface OpenPopovers {
   [key: string]: boolean;
@@ -154,10 +155,12 @@ const FilterButton = () => {
   return (
     <Popover open={popoverVisible} onOpenChange={setPopoverVisible}>
       <PopoverTrigger asChild>
-        <button className="flex items-center gap-2.5 rounded-md bg-bg py-[6px] px-5 border border-border hover:bg-border/50 transition-colors duration-300 ease-in-out max-[730px]:px-3">
+        <motion.button
+          whileTap={{scale: 0.96}}
+          className="flex items-center gap-2.5 rounded-md bg-bg py-[6px] px-5 border border-border hover:bg-border/50 transition-colors duration-300 ease-in-out max-[730px]:px-3">
           <Filter size={18} />{" "}
           <span className="max-[730px]:hidden">Filter</span>
-        </button>
+        </motion.button>
       </PopoverTrigger>
       <PopoverContent
         className="w-[300px] bg-bg rounded-lg p-0 py-4"

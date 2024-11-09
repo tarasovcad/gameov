@@ -7,13 +7,29 @@ import {getClient} from "@/lib/apollo-client";
 import {PostsData} from "@/types/singlePost";
 import React from "react";
 
-const Page = async () => {
+interface PageProps {
+  searchParams: {
+    page?: string;
+  };
+}
+
+const Page = async ({searchParams}: PageProps) => {
   const start = performance.now();
 
+  const currentPage = Number(searchParams.page) || 1;
+
+  const pageSize = 2; // Can be reduces to optimize performance if needed
+
   const client = getClient();
+
   const {data} = await client.query<PostsData>({
     query: GET_POSTS_FOR_GAME_LIST_PAGE,
     fetchPolicy: "cache-first",
+    variables: {
+      page: currentPage,
+      limit: pageSize,
+      status: "PUBLISHED",
+    },
     context: {
       fetchOptions: {
         next: {revalidate: 30},
@@ -24,9 +40,9 @@ const Page = async () => {
   const end = performance.now();
   const fetchTime = end - start;
 
-  setTimeout(() => {
+  if (process.env.NODE_ENV === "development") {
     console.log(`Fetched in ${fetchTime} ms`);
-  }, 1000);
+  }
 
   return <GamesPage data={data} />;
 };

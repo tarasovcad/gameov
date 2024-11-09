@@ -19,5 +19,14 @@ export interface Post {
 }
 
 export interface PostsData {
-  posts: Post[];
+  posts: {
+    edges: Post[];
+    pageInfo: {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      totalPages: number;
+      totalPosts: number;
+      currentPage: number;
+    };
+  };
 }

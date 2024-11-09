@@ -14,32 +14,11 @@ import {PostsData} from "@/types/singlePost";
 const GamesPage = ({data}: {data: PostsData}) => {
   const [gridView, setGridView] = useState(true);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     switch (true) {
-  //       // case window.innerWidth < 550:
-  //       //   setGridView(true);
-  //       //   break;
-  //       case window.innerWidth > 550 && window.innerWidth < 851:
-  //         setGridView(false);
-  //         break;
-  //       default:
-  //         // setGridView(true);
-  //         break;
-  //     }
-  //   };
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   const containerVariants = {
     hidden: {opacity: 0},
     visible: {opacity: 1},
     exit: {opacity: 0},
   };
-
   const cardVariants = {
     hidden: {opacity: 0, scale: 0.6},
     visible: (i: number) => ({
@@ -60,22 +39,35 @@ const GamesPage = ({data}: {data: PostsData}) => {
           <h2 className="font-semibold text-[32px] max-[1100px]:text-[30px] max-[850px]:text-[28px] ">
             All Games{" "}
             <span className="text-secondary_text ml-2 max-[730px]:ml-1">
-              {data.posts.length}
+              {data.posts.pageInfo.totalPosts}
             </span>
           </h2>
         </div>
         <div className="flex gap-4 text-white/90 min-h-[45px] text-[15px] max-[800px]:gap-3 max-[730px]:gap-2">
-          <div className="bg-transparent rounded-lg border border-border min-h-[40px] max-[80px]:hidden">
-            <button
-              className={` rounded-lg p-2.5 h-full  transition-colors duration-300 ease-in-out hover:text-white/90 ${gridView ? "bg-bg text-white" : "text-white/60"}`}
-              onClick={() => setGridView(true)}>
-              <LayoutGrid size={19} />
-            </button>
-            <button
-              className={` rounded-lg p-2.5 h-full  transition-colors duration-300 ease-in-out hover:text-white/90 ${!gridView ? "bg-bg text-white" : "text-white/60"}`}
-              onClick={() => setGridView(false)}>
-              <Icon iconNode={layoutGridMoveVertical} size={19} />
-            </button>
+          <div className="bg-transparent rounded-lg border border-border min-h-[40px] max-[80px]:hidden relative">
+            <div
+              className={`absolute top-0 h-full w-1/2 bg-bg rounded-lg transition-transform duration-300 ease-in-out ${
+                gridView ? "translate-x-0" : "translate-x-full"
+              }`}
+            />
+
+            <div className="relative flex">
+              <button
+                className={`rounded-lg p-2.5 h-full transition-colors duration-300 ease-in-out hover:text-white/90 ${
+                  gridView ? "text-white" : "text-white/60"
+                }`}
+                onClick={() => setGridView(true)}>
+                <LayoutGrid size={19} />
+              </button>
+
+              <button
+                className={`rounded-lg p-2.5 h-full transition-colors duration-300 ease-in-out hover:text-white/90 ${
+                  !gridView ? "text-white" : "text-white/60"
+                }`}
+                onClick={() => setGridView(false)}>
+                <Icon iconNode={layoutGridMoveVertical} size={19} />
+              </button>
+            </div>
           </div>
           <SortByButton />
           <FilterButton />
@@ -92,7 +84,7 @@ const GamesPage = ({data}: {data: PostsData}) => {
           className={`grid  mt-5  max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1  ${
             !gridView ? "!grid-cols-1" : "grid-cols-3 gap-5 "
           } `}>
-          {data.posts.map((item, index) => (
+          {data.posts.edges.map((item, index) => (
             <motion.div
               key={item.slug + index}
               custom={index}
@@ -101,14 +93,14 @@ const GamesPage = ({data}: {data: PostsData}) => {
               <BlogGameCart
                 item={item}
                 gridView={gridView}
-                totalItems={data.posts.length}
+                totalItems={data.posts.edges.length}
                 index={index}
               />
             </motion.div>
           ))}
         </motion.div>
       </AnimatePresence>
-      <PaginationGamePage />
+      <PaginationGamePage pageInfo={data.posts.pageInfo} />
     </div>
   );
 };
