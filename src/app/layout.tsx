@@ -44,24 +44,24 @@ export default function RootLayout({
           enabled
           trackLocalhost></PlausibleProvider>
       </head>
-      <body className="bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound">
+      <body className="max-w-[1920px] mx-auto bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound  min-h-screen flex flex-col">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster richColors={true} position="bottom-right" closeButton />
             <ThemeKeyboardShortcuts />
-            <LayoutWrapper>
-              <div className="">
+            <LayoutWrapper className="flex-grow flex flex-col">
+              <div className="flex-grow">
                 <Sidebar />
                 {/* responsive design for 700-0px is inside the page */}
                 <div className="flex-1 flex flex-col ">
                   <NavbarServerComponent />
-                  <main>{children}</main>
+                  <div className="max-w-[1440px] mx-auto w-full">
+                    <main>{children}</main>
+                  </div>
                 </div>
               </div>
-              <div className="pr-12 max-[1100px]:pr-5 max-[700px]:p-0 max-[700px]:pr-4 max-[450px]:pr-[3.5vw] pl-12 max-[1100px]:pl-5  max-[700px]:pl-4 max-[450px]:pl-[3.5vw]">
-                <Footer />
-              </div>
             </LayoutWrapper>
+            <Footer />
           </AuthProvider>
         </CustomThemeProvider>
         <SpeedInsights />

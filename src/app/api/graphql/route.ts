@@ -1,4 +1,4 @@
-import {typeDefs} from "@/app/graphql/schema";
+import {typeDefs} from "@/graphql/schema";
 import {resolvers} from "@/lib/graphql/resolvers";
 
 import {ApolloServer} from "@apollo/server";

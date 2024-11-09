@@ -2,10 +2,10 @@ export const dynamic = "force-dynamic";
 export const revalidate = 30;
 
 import GamesPage from "@/components/pages/Games/Games";
+import {GET_POSTS_FOR_GAME_LIST_PAGE} from "@/graphql/queries/posts";
 import {getClient} from "@/lib/apollo-client";
 import {PostsData} from "@/types/singlePost";
 import React from "react";
-import {GET_POSTS_FOR_GAME_LIST_PAGE} from "../graphql/queries/posts";
 
 const Page = async () => {
   const start = performance.now();
@@ -25,7 +25,7 @@ const Page = async () => {
   const fetchTime = end - start;
 
   setTimeout(() => {
-    console.log(`Fetched in ${fetchTime / 1000} seconds`);
+    console.log(`Fetched in ${fetchTime} ms`);
   }, 1000);
 
   return <GamesPage data={data} />;

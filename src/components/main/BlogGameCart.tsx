@@ -4,6 +4,8 @@ import Image from "next/image";
 import {format} from "date-fns";
 import FavoriteTooltip from "./FavoriteTooltip";
 import {Post} from "@/types/singlePost";
+import {useState} from "react";
+import ImageWithFallback from "@/errorBoundaries/ImageWithFallback";
 const BlogGameCart = ({
   item,
   gridView = true,
@@ -32,17 +34,16 @@ const BlogGameCart = ({
 
   const isFirst = index === 0;
   const isLast = index === totalItems - 1;
-
+  const [imageError, setImageError] = useState(false);
   return (
     <Link href={item.slug || ""}>
       <div
         key={item.title}
         className={`bg-white dark:bg-bg overflow-hidden  transition-colors duration-300 ease-in-out   relative group 
-
         ${
           gridView
             ? "flex flex-col w-full h-full border-border/40 border rounded-lg "
-            : "flex flex-row items-center gap-4 p-4 h-[85px] border-b border-x border-border/40    "
+            : "flex flex-row items-center gap-4 p-4 h-[80px] border-b border-x border-border/40    "
         } 
         ${isFirst ? "rounded-t-lg border-t" : ""} 
         ${isLast ? "rounded-b-lg" : ""}
@@ -54,17 +55,17 @@ const BlogGameCart = ({
               ? "aspect-[339/176] w-full max-[850px]:aspect-auto max-[850px]:h-[200px] overflow-hidden "
               : "h-full aspect-square "
           }`}>
-          <Image
+          <ImageWithFallback
             src={item.images[0]}
             alt={item.title + " image"}
-            fill
-            objectFit="cover"
-            className={`transition-all duration-300 ease-in-out 
-            ${
+            // fallbackSrc="/custom-fallback.svg"
+            className={`transition-all duration-300 ease-in-out object-cover ${
               gridView
                 ? "group-hover:scale-100 group-hover:opacity-100 scale-105"
                 : "object-cover rounded-md group-hover:scale-105 scale-100"
             } dark:opacity-80 opacity-90`}
+            fill
+            priority
           />
         </div>
 
@@ -78,7 +79,7 @@ const BlogGameCart = ({
               ${
                 gridView
                   ? "text-xl mb-2 max-[1200px]:text-[18px] max-[1200px]:mb-[6px]"
-                  : "text-lg mb-0 font-semibold !text-[16px] line-clamp-1"
+                  : "text-lg mb-0 font-semibold !text-[15px] line-clamp-1"
               }`}>
               {item.title}
             </h3>

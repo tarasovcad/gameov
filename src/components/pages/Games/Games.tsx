@@ -60,7 +60,7 @@ const GamesPage = ({data}: {data: PostsData}) => {
           <h2 className="font-semibold text-[32px] max-[1100px]:text-[30px] max-[850px]:text-[28px] ">
             All Games{" "}
             <span className="text-secondary_text ml-2 max-[730px]:ml-1">
-              4014
+              {data.posts.length}
             </span>
           </h2>
         </div>
@@ -108,7 +108,7 @@ const GamesPage = ({data}: {data: PostsData}) => {
           ))}
         </motion.div>
       </AnimatePresence>
-      {/* <PaginationGamePage /> */}
+      <PaginationGamePage />
     </div>
   );
 };

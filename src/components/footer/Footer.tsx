@@ -78,15 +78,15 @@ const Footer = () => {
     FaGithub: FaGithub,
   };
   return (
-    <div className="bg-bg p-[30px] border border-border rounded-t-lg text-white/80 text-[15px] mt-[60px]">
+    <div className="bg-bg p-[30px] border border-border  text-white/80 text-[15px] mt-[60px] ">
       <div className="flex justify-between items-center">
-        <div className="flex flex-col gap-5 max-w-[400px]">
+        <div className="flex flex-col gap-5 max-w-[400px] ">
           <div className="flex items-center gap-3">
             <Image src="/logo.svg" width={135} height={135} alt="logo" />
             <span className="text-[15px]">© 2024</span>
           </div>
         </div>
-        <div className="flex gap-8 ">
+        <div className="flex gap-8  ">
           <div className="flex gap-2 items-center max-[800px]:hidden">
             <p> Search Bar</p>
             <div className="flex gap-[2px]">
@@ -101,8 +101,7 @@ const Footer = () => {
           <DarkModeCheckbox />
         </div>
       </div>
-
-      <div className="flex flex-col mt-8">
+      <div className="flex flex-col mt-8  ">
         <div className="flex justify-between items-center max-[800px]:flex-col max-[800px]:items-start">
           <ul className="flex gap-10 max-[925px]:gap-5 max-[800px]:grid grid-cols-3 max-[800px]:gap-x-10 max-[800px]:w-full max-[800px]:mb-5 order-2 max-[800px]:order-1">
             {listOfFooterLinks.map((link, index) => {
