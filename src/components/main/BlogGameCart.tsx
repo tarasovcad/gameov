@@ -13,7 +13,7 @@ const BlogGameCart = ({
   index = 0,
 }: {
   item: Post;
-  gridView?: boolean;
+  gridView?: boolean | null;
   totalItems?: number;
   index?: number;
 }) => {
@@ -34,7 +34,6 @@ const BlogGameCart = ({
 
   const isFirst = index === 0;
   const isLast = index === totalItems - 1;
-  const [imageError, setImageError] = useState(false);
   return (
     <Link href={item.slug || ""}>
       <div

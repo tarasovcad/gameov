@@ -10,15 +10,25 @@ import SortByButton from "@/components/gamePage/SortByButton";
 import {AnimatePresence, motion} from "framer-motion";
 import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 import {PostsData} from "@/types/singlePost";
-const GamesPage = ({data}: {data: PostsData}) => {
-  const [gridView, setGridView] = useState(true);
-  const [isClient, setIsClient] = useState(false);
+import {BlogGameCartSkeleton} from "@/components/main/BlogGameCartSkeleton";
+import Cookies from "js-cookie";
+
+const GamesPage = ({
+  data,
+  gridViewCookie,
+}: {
+  data: PostsData;
+  gridViewCookie: boolean | undefined;
+}) => {
+  const [gridView, setGridView] = useState<boolean>(gridViewCookie ?? true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const containerVariants = {
     hidden: {opacity: 0},
     visible: {opacity: 1},
     exit: {opacity: 0},
   };
+
   const cardVariants = {
     hidden: {opacity: 0, scale: 0.6},
     visible: (i: number) => ({
@@ -34,16 +44,13 @@ const GamesPage = ({data}: {data: PostsData}) => {
   };
 
   useEffect(() => {
-    setIsClient(true);
-    const savedGridView = localStorage.getItem("gridViewGameov");
-    if (savedGridView !== null) {
-      setGridView(JSON.parse(savedGridView));
-    }
+    setIsLoading(false);
   }, []);
 
   const handleGridViewChange = (isGrid: boolean) => {
     setGridView(isGrid);
-    localStorage.setItem("gridViewGameov", JSON.stringify(isGrid));
+    Cookies.set("gridViewGameov", isGrid.toString(), {expires: 30});
+    console.log(isGrid, "isGrid");
   };
 
   return (
@@ -91,10 +98,10 @@ const GamesPage = ({data}: {data: PostsData}) => {
       <AnimatePresence mode="wait">
         <motion.div
           key={gridView ? "grid" : "list"}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
+          // variants={containerVariants}
+          // initial="hidden"
+          // animate="visible"
+          // exit="exit"
           className={`grid  mt-5  max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1  ${
             !gridView ? "!grid-cols-1" : "grid-cols-3 gap-5 "
           } `}>
@@ -104,12 +111,16 @@ const GamesPage = ({data}: {data: PostsData}) => {
               custom={index}
               variants={cardVariants}
               layout>
-              <BlogGameCart
-                item={item}
-                gridView={gridView}
-                totalItems={data.posts.edges.length}
-                index={index}
-              />
+              {isLoading ? (
+                <BlogGameCartSkeleton gridView={gridView} />
+              ) : (
+                <BlogGameCart
+                  item={item}
+                  gridView={gridView}
+                  totalItems={data.posts.edges.length}
+                  index={index}
+                />
+              )}
             </motion.div>
           ))}
         </motion.div>
