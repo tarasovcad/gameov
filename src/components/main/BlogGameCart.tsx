@@ -51,7 +51,7 @@ const BlogGameCart = ({
         <div
           className={`relative ${
             gridView
-              ? "aspect-[339/176] w-full max-[850px]:aspect-auto max-[850px]:h-[200px] overflow-hidden "
+              ? "aspect-[339/156] w-full max-[850px]:aspect-auto max-[850px]:h-[200px] overflow-hidden "
               : "h-full aspect-square "
           }`}>
           <ImageWithFallback

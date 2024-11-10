@@ -69,5 +69,6 @@ export const typeDefs = gql`
   type Query {
     posts(page: Int, limit: Int, status: PostStatus): PostConnection!
     post(slug: String!): Post
+    latestPosts(limit: Int): [Post!]!
   }
 `;

@@ -1,5 +1,5 @@
 "use client";
-import {LatestSectionProps, Post} from "@/types/postProps";
+import {LatestSectionProps} from "@/types/postProps";
 import React, {useEffect, useRef, useState} from "react";
 import {motion} from "framer-motion";
 import {ChevronLeft, ChevronRight, Eye, MessageSquare} from "lucide-react";

@@ -21,6 +21,20 @@ export const GET_POSTS_FOR_GAME_LIST_PAGE = gql`
     }
   }
 `;
+
+export const GET_SIX_LATEST_GAME_POSTS = gql`
+  query GetSixLatestPosts($limit: Int!) {
+    latestPosts(limit: $limit) {
+      id
+      title
+      cardDescription
+      slug
+      date
+      images
+    }
+  }
+`;
+
 // export const GET_POSTS = gql`
 //   query GetPosts {
 //     posts {

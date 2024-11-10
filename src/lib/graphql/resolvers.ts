@@ -10,6 +10,9 @@ interface ResolverArgs {
   limit?: number;
   status?: PostStatus;
 }
+interface LatestPostsArgs {
+  limit?: number;
+}
 
 export const resolvers: Resolvers = {
   Query: {
@@ -47,6 +50,22 @@ export const resolvers: Resolvers = {
           currentPage: page,
         },
       };
+    },
+    latestPosts: async (
+      _parent: ResolverParent,
+      {limit = 6}: LatestPostsArgs,
+    ) => {
+      const posts = await prisma.post.findMany({
+        where: {
+          status: "PUBLISHED",
+        },
+        take: limit,
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      return posts;
     },
   },
 };

@@ -48,7 +48,7 @@ export default function RootLayout({
                 {/* responsive design for 700-0px is inside the page */}
                 <div className="flex-1 flex flex-col ">
                   <NavbarServerComponent />
-                  <div className="max-w-[1440px] mx-auto w-full">
+                  <div className="max-w-[1340px] mx-auto w-full">
                     <main>{children}</main>
                   </div>
                 </div>

@@ -30,3 +30,7 @@ export interface PostsData {
     };
   };
 }
+
+export interface SixLatestPostsData {
+  latestPosts: Post[];
+}

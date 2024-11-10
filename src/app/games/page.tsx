@@ -39,7 +39,7 @@ const Page = async ({searchParams}: PageProps) => {
     variables: {
       page: currentPage,
       limit: pageSize,
-      status: "PUBLISHED",
+      // status: "PUBLISHED",
     },
     context: {
       fetchOptions: {
@@ -55,7 +55,6 @@ const Page = async ({searchParams}: PageProps) => {
     console.log(`Fetched in ${fetchTime / 1000} seconds`);
   }
 
-  console.log(gridViewCookie, "gridViewCookie at page");
   return <GamesPage data={data} gridViewCookie={gridViewCookie} />;
 };
 

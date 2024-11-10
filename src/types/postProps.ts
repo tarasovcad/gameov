@@ -1,15 +1,4 @@
-export interface Post {
-  title: string;
-  description: string;
-  briefDescription?: string;
-  new?: boolean;
-  section?: string;
-  image: string;
-  year: number;
-  views?: string;
-  comments?: number;
-  date?: string;
-}
+import {Post} from "./singlePost";
 
 export interface LatestSectionProps {
   title?: string;

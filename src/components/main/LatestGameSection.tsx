@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import LatestMainSection from "./LatestMainSection";
-import {gamesList} from "@/data/fakePostData";
 import BlogGameCart from "./BlogGameCart";
 import {defaultBreakpointsGameCart} from "@/data/defaultBreakpoints";
+import {SixLatestPostsData} from "@/types/singlePost";
 
-const LatestGameSection = () => {
+const LatestGameSection = ({data}: {data: SixLatestPostsData}) => {
+  const gamesList = data.latestPosts;
   return (
     <LatestMainSection
       title="Latest PC Games"

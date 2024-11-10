@@ -7,19 +7,48 @@ import LatestSoftwareSection from "@/components/main/LatestSoftwareSection";
 import PopularBlogSection from "@/components/main/PopularBlogSection";
 import BestPostsCollection from "@/components/main/BestPostsCollection";
 import {FooterSection} from "@/components/main/FooterSection";
+import {getClient} from "@/lib/apollo-client";
+import {GET_SIX_LATEST_GAME_POSTS} from "@/graphql/queries/posts";
+import {SixLatestPostsData} from "@/types/singlePost";
 
-const Home = () => {
+const Home = async () => {
+  const start = performance.now();
+  const pageSize = 6; // Can be reduces to optimize performance if needed
+
+  const client = getClient();
+
+  const gamesData = await client.query<SixLatestPostsData>({
+    query: GET_SIX_LATEST_GAME_POSTS,
+    fetchPolicy: "cache-first",
+    variables: {
+      limit: pageSize,
+      // status: "PUBLISHED",
+    },
+    context: {
+      fetchOptions: {
+        next: {revalidate: 30},
+      },
+    },
+  });
+
+  const end = performance.now();
+  const fetchTime = end - start;
+
+  if (process.env.NODE_ENV === "development") {
+    console.log(`Fetched in ${fetchTime / 1000} seconds`);
+  }
+
   return (
     <div className="max-[700px]:px-0 relative">
       <Hero />
       <div className="flex flex-col gap-[60px]  max-[700px]:px-4 max-[450px]:px-[3.5vw] ">
-        <LatestGameSection />
-        {/* <LatestSoftwareSection />
+        <LatestGameSection data={gamesData.data} />
+        <LatestSoftwareSection />
         <LatestGraphicsSection />
         <PopularBlogSection />
         <LatestMacOSSoftware />
         <BestPostsCollection />
-        <FooterSection /> */}
+        <FooterSection />
       </div>
     </div>
   );

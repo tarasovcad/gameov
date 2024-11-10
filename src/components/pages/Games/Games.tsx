@@ -22,7 +22,7 @@ const GamesPage = ({
 }) => {
   const [gridView, setGridView] = useState<boolean>(gridViewCookie ?? true);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const containerVariants = {
     hidden: {opacity: 0},
     visible: {opacity: 1},
@@ -46,6 +46,12 @@ const GamesPage = ({
   useEffect(() => {
     setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (isInitialLoad) {
+      setIsInitialLoad(false);
+    }
+  }, [setIsInitialLoad, isInitialLoad]);
 
   const handleGridViewChange = (isGrid: boolean) => {
     setGridView(isGrid);
@@ -98,10 +104,10 @@ const GamesPage = ({
       <AnimatePresence mode="wait">
         <motion.div
           key={gridView ? "grid" : "list"}
-          // variants={containerVariants}
-          // initial="hidden"
-          // animate="visible"
-          // exit="exit"
+          variants={containerVariants}
+          initial={isInitialLoad ? undefined : "hidden"}
+          animate={isInitialLoad ? undefined : "visible"}
+          exit={isInitialLoad ? undefined : "exit"}
           className={`grid  mt-5  max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1  ${
             !gridView ? "!grid-cols-1" : "grid-cols-3 gap-5 "
           } `}>
