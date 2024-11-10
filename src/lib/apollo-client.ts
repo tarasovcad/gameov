@@ -1,23 +1,30 @@
 import {ApolloClient, InMemoryCache} from "@apollo/client";
-import {registerApolloClient} from "@apollo/experimental-nextjs-app-support/rsc";
 
-// Create cache with debugging
-const cache = new InMemoryCache({
-  resultCaching: false, // Disable result caching
-});
+let client: ApolloClient<any> | null = null;
 
-export const {getClient} = registerApolloClient(() => {
-  return new ApolloClient({
-    uri: "http://localhost:3000/api/graphql",
-    cache,
-    defaultOptions: {
-      watchQuery: {
-        fetchPolicy: "no-cache",
+export function getClient() {
+  const baseUrl = process.env.SERVER_HOST || process.env.NEXT_PUBLIC_APP_URL;
+
+  if (!client) {
+    client = new ApolloClient({
+      uri: `${baseUrl}/api/graphql`,
+      cache: new InMemoryCache(),
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: "cache-first",
+        },
+        query: {
+          fetchPolicy: "cache-first",
+        },
       },
-      query: {
-        fetchPolicy: "no-cache",
-      },
-    },
-    connectToDevTools: true, // Enable Apollo dev tools
-  });
-});
+      connectToDevTools: typeof window !== "undefined",
+    });
+  }
+
+  return client;
+}
+
+// Optional: Reset client (useful for testing)
+export function resetClient() {
+  client = null;
+}
