@@ -16,6 +16,7 @@ import {
   initialFaqList,
   interfaceLanguageList,
   platformList,
+  PostCategory,
   voiceLanguageList,
 } from "@/data/postData";
 import AccordionPostInuts from "@/components/admin/posts/AccordionPostInuts";
@@ -35,6 +36,8 @@ import uploadFileToS3 from "@/lib/upload/uploadFileToS3";
 import Loader from "@/components/ui/Loader";
 import {Editor} from "@tiptap/react";
 import {Textarea} from "@/components/ui/textarea";
+import CategorySelector from "@/components/admin/posts/CategorySelector";
+
 const Page = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -53,6 +56,8 @@ const Page = () => {
   const {data: session} = useSession();
   const [editorRef, setEditorRef] = useState<Editor | null>(null);
   //  ---
+  const [selectedCategory, setSelectedCategory] =
+    useState<PostCategory>("PC_GAMES");
   const [appVersion, setAppVersion] = useState<string>("");
   const [publisher, setPublisher] = useState<string>("");
 
@@ -142,6 +147,7 @@ const Page = () => {
         systemRequirements,
         appVersion,
         publisher,
+        selectedCategory,
         // releasedDate,
       };
       localStorage.setItem("postFormDataGameov", JSON.stringify(formData));
@@ -161,6 +167,7 @@ const Page = () => {
     systemRequirements,
     appVersion,
     publisher,
+    selectedCategory,
     // releasedDate,
   ]);
 
@@ -185,6 +192,7 @@ const Page = () => {
       setFaqList(parsed.faqList || initialFaqList);
       setAppVersion(parsed.appVersion || "");
       setPublisher(parsed.publisher || "");
+      setSelectedCategory(parsed.selectedCategory || "");
       // setReleasedDate(new Date(parsed.releasedDate) || new Date());
       setSystemRequirements(
         parsed.systemRequirements || {
@@ -225,6 +233,7 @@ const Page = () => {
     faqList,
     systemRequirements,
     saveFormData,
+    selectedCategory,
   ]);
 
   const handleEditorReset = (editor: Editor | null) => {
@@ -343,6 +352,7 @@ const Page = () => {
         systemRequirements,
         appVersion,
         publisher,
+        selectedCategory,
         // releasedDate,
         images,
         author: author,
@@ -366,6 +376,7 @@ const Page = () => {
       if (!response.ok) {
         setIsLoading(false);
         toast.error("Failed to create post");
+        return;
       }
 
       const endTime = performance.now();
@@ -499,6 +510,16 @@ const Page = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <ErrorMessage error={errors.title} />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <CustomInputLabel label="Category" />
+              <div className="relative ">
+                <CategorySelector
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                />
+                {/* <ErrorMessage error={errors.title} /> */}
               </div>
             </div>
             <div className="flex flex-col gap-3">

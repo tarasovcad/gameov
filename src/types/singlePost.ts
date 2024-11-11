@@ -12,6 +12,7 @@ export interface Post {
   platforms: string[];
   publisher: string;
   releasedDate: string;
+  selectedCategory: string;
   images: string[];
   status: string;
   createdAt: string;

@@ -13,7 +13,7 @@ import {PostsData} from "@/types/singlePost";
 import {BlogGameCartSkeleton} from "@/components/main/BlogGameCartSkeleton";
 import Cookies from "js-cookie";
 
-const GamesPage = ({
+const ListOfPosts = ({
   data,
   gridViewCookie,
 }: {
@@ -136,4 +136,4 @@ const GamesPage = ({
   );
 };
 
-export default GamesPage;
+export default ListOfPosts;

@@ -27,6 +27,13 @@ export const typeDefs = gql`
     posts: [Post!]
   }
 
+  enum Category {
+    PC_GAMES
+    SOFTWARE
+    GRAPHICS_AND_DESIGN
+    MAC_OS_SOFTWARE
+  }
+
   type Post {
     id: ID!
     title: String!
@@ -46,6 +53,7 @@ export const typeDefs = gql`
     cardDescription: String!
     faqList: [FaqItem!]!
     images: [String!]!
+    selectedCategory: Category!
     author: User!
     authorId: String!
     status: PostStatus!
@@ -67,8 +75,13 @@ export const typeDefs = gql`
   }
 
   type Query {
-    posts(page: Int, limit: Int, status: PostStatus): PostConnection!
+    posts(
+      page: Int
+      limit: Int
+      status: PostStatus
+      selectedCategory: String!
+    ): PostConnection!
     post(slug: String!): Post
-    latestPosts(limit: Int): [Post!]!
+    latestPosts(limit: Int, selectedCategory: String!): [Post!]!
   }
 `;

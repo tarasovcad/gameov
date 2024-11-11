@@ -1,5 +1,5 @@
 import {typeDefs} from "@/graphql/schema";
-import {resolvers} from "@/lib/graphql/resolvers";
+import {resolvers} from "@/graphql/resolvers";
 
 import {ApolloServer} from "@apollo/server";
 import {startServerAndCreateNextHandler} from "@as-integrations/next";

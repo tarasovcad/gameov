@@ -3,9 +3,9 @@ import {Eye, MessageSquare} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {Card} from "@/components/ui/card";
-import {Post} from "@/types/postProps";
 import FavoriteTooltip from "./FavoriteTooltip";
 import {useState} from "react";
+import {Post} from "@/types/singlePost";
 
 const BestPostsCollectionCart = ({item}: {item: Post}) => {
   const {section} = item;

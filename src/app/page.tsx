@@ -13,7 +13,7 @@ import {SixLatestPostsData} from "@/types/singlePost";
 
 const Home = async () => {
   const start = performance.now();
-  const pageSize = 6; // Can be reduces to optimize performance if needed
+  const pageSize = 9; // Can be reduces to optimize performance if needed
 
   const client = getClient();
 
@@ -47,7 +47,7 @@ const Home = async () => {
         <LatestGraphicsSection />
         <PopularBlogSection />
         <LatestMacOSSoftware />
-        <BestPostsCollection />
+        {/* <BestPostsCollection /> */}
         <FooterSection />
       </div>
     </div>

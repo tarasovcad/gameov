@@ -91,3 +91,13 @@ export const initialFaqList = [
       "We appreciate your feedback! You can report bugs or share your thoughts through our in-game feedback option in the settings menu, or by visiting our official website and using the 'Support' section.",
   },
 ];
+
+// export type PostCategory = "pc-games" | "software" | "graphics-and-design" | "mac-os-software";
+// export type PostCategory = "PC Games" | "Software" | "Mac OS Software" | "Graphics and design";
+
+// /games, /software, /graphics-and-design, /mac-os-software
+export type PostCategory =
+  | "PC_GAMES"
+  | "SOFTWARE"
+  | "GRAPHICS_AND_DESIGN"
+  | "MAC_OS_SOFTWARE";

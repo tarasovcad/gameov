@@ -15,7 +15,8 @@
     "format:fix": "prettier --write .",
     "test:ui": "vitest --coverage --ui",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' 'test/**/*.ts' --write",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "update-posts": "ts-node update-posts.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
@@ -123,7 +124,8 @@
     "sass": "^1.77.8",
     "tailwind-merge": "^2.4.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
     "vitest": "^2.0.4"
   },
   "husky": {

@@ -21,6 +21,7 @@ export async function POST(req: Request) {
       author,
       appVersion,
       publisher,
+      selectedCategory,
       // releaseDate,
     } = body;
 
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
         publisher,
         images: images || [],
         systemRequirements,
+        selectedCategory,
         status: "PUBLISHED",
         author: {
           connect: {

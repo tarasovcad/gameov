@@ -6,7 +6,7 @@ import AdminLayoutHeader from "@/components/admin/AdminLayoutHeader";
 
 const layout = ({children}: {children: React.ReactNode}) => {
   return (
-    <div className="bg">
+    <div className="">
       <SidebarProvider>
         <AdminSidebar />
         <SidebarInset>

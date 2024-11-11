@@ -12,7 +12,8 @@ export default function LayoutWrapper({children, className}: any) {
 
   return (
     <div
-      className={`${shouldUseWrapper ? "bodywrapper pr-12 max-[1100px]:pr-5 max-[700px]:p-0" : ""} bg-[#f0f0f0]  dark:bg-backgound ${className}`}>
+      // max-w-[1540px]
+      className={`${shouldUseWrapper ? "bodywrapper   pr-12 max-[1100px]:pr-5 max-[700px]:p-0" : ""} bg-[#f0f0f0]  dark:bg-backgound ${className}`}>
       {children}
     </div>
   );

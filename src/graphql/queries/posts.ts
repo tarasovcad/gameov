@@ -1,8 +1,12 @@
 import {gql} from "@apollo/client";
 
-export const GET_POSTS_FOR_GAME_LIST_PAGE = gql`
-  query GetPostsForGameListPage($page: Int!, $limit: Int!) {
-    posts(page: $page, limit: $limit) {
+export const GET_POSTS_FOR_LIST_PAGE = gql`
+  query GetPostsForListPage(
+    $page: Int!
+    $limit: Int!
+    $selectedCategory: String!
+  ) {
+    posts(page: $page, limit: $limit, selectedCategory: $selectedCategory) {
       edges {
         id
         title
@@ -23,8 +27,8 @@ export const GET_POSTS_FOR_GAME_LIST_PAGE = gql`
 `;
 
 export const GET_SIX_LATEST_GAME_POSTS = gql`
-  query GetSixLatestPosts($limit: Int!) {
-    latestPosts(limit: $limit) {
+  query GetSixLatestPosts($limit: Int!, $selectedCategory: String!) {
+    latestPosts(limit: $limit, selectedCategory: $selectedCategory) {
       id
       title
       cardDescription
