@@ -3,6 +3,7 @@ import {cn} from "@/lib/utils";
 import {motion} from "framer-motion";
 import {AppleIcon, BoxIcon, LaptopIcon, PaletteIcon} from "lucide-react";
 import React from "react";
+import {FieldError} from "react-hook-form";
 
 interface CategoryOption {
   value: PostCategory;
@@ -15,9 +16,11 @@ interface CategoryOption {
 const CategorySelector = ({
   selectedCategory,
   setSelectedCategory,
+  error,
 }: {
-  selectedCategory: PostCategory;
+  selectedCategory: PostCategory | string;
   setSelectedCategory: (category: PostCategory) => void;
+  error?: FieldError;
 }) => {
   const categories: CategoryOption[] = [
     {
@@ -68,6 +71,8 @@ const CategorySelector = ({
             selectedCategory === category.value
               ? "ring-2 ring-blue-500"
               : "ring-1 ring-zinc-700",
+            error &&
+              "border border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0",
           )}>
           {category.icon}
           <span className="text-sm font-medium line-clamp-1 line">

@@ -12,13 +12,22 @@ import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 import {PostsData} from "@/types/singlePost";
 import {BlogGameCartSkeleton} from "@/components/main/BlogGameCartSkeleton";
 import Cookies from "js-cookie";
+import BlogCart from "../main/BlogCart";
+
+interface CategoryOption {
+  graphqlValue: string;
+  searchParams: string;
+  label: string;
+}
 
 const ListOfPosts = ({
   data,
   gridViewCookie,
+  selectedCategory,
 }: {
   data: PostsData;
   gridViewCookie: boolean | undefined;
+  selectedCategory: CategoryOption;
 }) => {
   const [gridView, setGridView] = useState<boolean>(gridViewCookie ?? true);
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +73,7 @@ const ListOfPosts = ({
       <div className="flex justify-between items-center mb-5 max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-4">
         <div className="flex gap-3 ">
           <h2 className="font-semibold text-[32px] max-[1100px]:text-[30px] max-[850px]:text-[28px] ">
-            All Games{" "}
+            {selectedCategory.label}{" "}
             <span className="text-secondary_text ml-2 max-[730px]:ml-1">
               {data.posts.pageInfo.totalPosts}
             </span>
@@ -119,8 +128,15 @@ const ListOfPosts = ({
               layout>
               {isLoading ? (
                 <BlogGameCartSkeleton gridView={gridView} />
-              ) : (
+              ) : selectedCategory.searchParams === "pc-games" ? (
                 <BlogGameCart
+                  item={item}
+                  gridView={gridView}
+                  totalItems={data.posts.edges.length}
+                  index={index}
+                />
+              ) : (
+                <BlogCart
                   item={item}
                   gridView={gridView}
                   totalItems={data.posts.edges.length}

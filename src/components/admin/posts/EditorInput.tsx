@@ -49,6 +49,12 @@ const EditorInput = ({
   });
 
   useEffect(() => {
+    if (editor && initialContent !== editor.getHTML()) {
+      editor.commands.setContent(initialContent);
+    }
+  }, [initialContent, editor]);
+
+  useEffect(() => {
     if (onReset) {
       onReset(editor);
     }

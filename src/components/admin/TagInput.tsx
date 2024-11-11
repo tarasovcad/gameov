@@ -4,6 +4,7 @@ import React, {useState, KeyboardEvent, useEffect, useRef} from "react";
 import {X} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {AnimatePresence, motion} from "framer-motion";
+import {FieldError} from "react-hook-form";
 
 interface TagInputProps {
   tags: string[];
@@ -148,7 +149,7 @@ export default function TagInput({
           ${error || isInvalid ? "border-[#F31260] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none  focus:shadow-none" : "border-input"}
           ${tags.length === 0 ? "" : "px-2"}`}>
         <AnimatePresence>
-          {tags.map((tag) => (
+          {tags?.map((tag) => (
             <motion.button
               type="button"
               onClick={() => removeTag(tag)}

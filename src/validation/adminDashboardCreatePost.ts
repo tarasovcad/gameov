@@ -1,5 +1,12 @@
 import {date, z} from "zod";
 
+const postCategories = [
+  "PC_GAMES",
+  "SOFTWARE",
+  "MAC_OS_SOFTWARE",
+  "GRAPHICS_AND_DESIGN",
+] as const;
+
 export const createPostSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z
@@ -33,6 +40,12 @@ export const createPostSchema = z.object({
     .min(1, "At least one image is required")
     .max(10, "Maximum 10 images allowed"),
   descriptionCard: z.string().min(1, "Description card is required"),
+  selectedCategory: z.union([z.enum(postCategories), z.literal("")]).refine(
+    // @ts-ignore
+
+    (category) => postCategories.includes(category),
+    "Invalid category",
+  ),
 });
 
 export type CreatePostData = z.infer<typeof createPostSchema>;

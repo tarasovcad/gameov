@@ -2,12 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {Post} from "@/types/postProps";
+
 import {useState} from "react";
 import {Card} from "../ui/card";
 import FavoriteTooltip from "./FavoriteTooltip";
+import {Post} from "@/types/singlePost";
 
-const BlogCart = ({item}: {item: Post}) => {
+const BlogCart = ({
+  item,
+  gridView = true,
+  totalItems = 1,
+  index = 0,
+}: {
+  item: Post;
+  gridView?: boolean | null;
+  totalItems?: number;
+  index?: number;
+}) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
     <Link href={"/games/" + item.title}>
@@ -16,15 +27,15 @@ const BlogCart = ({item}: {item: Post}) => {
         className="dark:bg-bg overflow-hidden border transition-colors duration-300 ease-in-out border-border/40 hover:border-border flex flex-col w-full h-full px-2 py-8 dark:hover:bg-bg/90 bg-white hover:bg-[#f5f5f5] group max-[600px]:py-6 max-[600px]:px-[6px]"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}>
-        {item.new ? (
+        {/* {item ? (
           <div className="absolute top-[12px] left-[12px] bg-green-600 text-[13px] px-[9px] py-[2px] rounded-sm text-white">
             NEW
           </div>
-        ) : null}
+        ) : null} */}
         <div className="flex justify-center items-center w-full mb-5 relative">
           <div className="relative w-[70px] h-[70px] rounded-md">
             <Image
-              src={item.image}
+              src={item.images[0]}
               alt={item.title}
               layout="fill"
               objectFit="cover"
@@ -35,12 +46,12 @@ const BlogCart = ({item}: {item: Post}) => {
         <FavoriteTooltip color={"!bg-backgound"} />
         <div className=" flex flex-col text-center">
           <p className="dark:text-white/50 text-[#808080]  text-[13px] max-[1150px]:text-[13px] ">
-            {item.section}
+            {item.selectedCategory}
           </p>
           <h3 className="text-[19px] font-bold mb-[6px] px-1">{item.title}</h3>
           <div className="">
             <p className="text-secondary_text text-[13px]">
-              {item.briefDescription}
+              {item.cardDescription}
             </p>
           </div>
         </div>

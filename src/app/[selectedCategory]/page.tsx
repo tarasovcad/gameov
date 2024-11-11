@@ -3,10 +3,10 @@ import {GET_POSTS_FOR_LIST_PAGE} from "@/graphql/queries/posts";
 import {getClient} from "@/lib/apollo-client";
 import {PostsData} from "@/types/singlePost";
 import {cookies} from "next/headers";
-import {notFound} from "next/navigation";
+import {notFound, redirect} from "next/navigation";
 import React from "react";
 
-interface CateGoryPageProps {
+interface CategoryPageProps {
   params: {
     selectedCategory: string;
   };
@@ -15,7 +15,7 @@ interface CateGoryPageProps {
   };
 }
 
-const CateGoryPage = async ({params, searchParams}: CateGoryPageProps) => {
+const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
   const cookieStore = cookies();
   const gridViewCookie = cookieStore.get("gridViewGameov")?.value === "true";
   const start = performance.now();
@@ -28,7 +28,7 @@ const CateGoryPage = async ({params, searchParams}: CateGoryPageProps) => {
     {
       graphqlValue: "PC_GAMES",
       searchParams: "pc-games",
-      label: "PC GAMES",
+      label: "Games",
     },
     {
       graphqlValue: "SOFTWARE",
@@ -50,6 +50,10 @@ const CateGoryPage = async ({params, searchParams}: CateGoryPageProps) => {
   const selectedCategory = categoryOptions.find(
     (option) => option.searchParams === params.selectedCategory,
   );
+
+  if (params.selectedCategory === "games") {
+    redirect("/pc-games");
+  }
 
   if (!selectedCategory) {
     notFound();
@@ -80,12 +84,12 @@ const CateGoryPage = async ({params, searchParams}: CateGoryPageProps) => {
   }
 
   return (
-    <div>
-      {selectedCategory.searchParams === "pc-games" && (
-        <ListOfPosts data={data} gridViewCookie={gridViewCookie} />
-      )}
-    </div>
+    <ListOfPosts
+      data={data}
+      gridViewCookie={gridViewCookie}
+      selectedCategory={selectedCategory}
+    />
   );
 };
 
-export default CateGoryPage;
+export default CategoryPage;

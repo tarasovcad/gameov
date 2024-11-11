@@ -5,6 +5,10 @@ input {
   color: inherit;
 }
 
+/* * {
+  outline: 4px solid green !important;
+} */
+
 .overflow-hidden {
   overflow: hidden !important;
 }
