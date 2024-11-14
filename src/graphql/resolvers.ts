@@ -14,6 +14,7 @@ interface ResolverArgs {
 interface LatestPostsArgs {
   limit?: number;
   selectedCategory?: Category;
+  status?: PostStatus;
 }
 
 export const resolvers: Resolvers = {
@@ -47,7 +48,6 @@ export const resolvers: Resolvers = {
           createdAt: "desc",
         },
       });
-
       return {
         edges: posts,
         pageInfo: {
@@ -61,16 +61,28 @@ export const resolvers: Resolvers = {
     },
     latestPosts: async (
       _parent: ResolverParent,
-      {limit = 6, selectedCategory = "PC_GAMES"}: LatestPostsArgs,
+      {
+        limit = 6,
+        selectedCategory = "PC_GAMES",
+        status = "PUBLISHED",
+      }: LatestPostsArgs,
     ) => {
       const posts = await prisma.post.findMany({
         where: {
-          status: "PUBLISHED",
+          status: status,
           selectedCategory: selectedCategory,
         },
         take: limit,
         orderBy: {
           createdAt: "desc",
+        },
+        select: {
+          id: true,
+          title: true,
+          cardDescription: true,
+          slug: true,
+          date: true,
+          images: true,
         },
       });
 

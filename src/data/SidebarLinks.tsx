@@ -9,7 +9,7 @@ export const SidebarGeneralLinks = [
     title: "PC Games",
     src: "/sidemenu/swords.svg",
     hasArrow: true,
-    link: "/games",
+    link: "/pc-games",
   },
   {
     title: "Software",
@@ -22,19 +22,19 @@ export const SidebarGeneralLinks = [
     title: "Graphics and design",
     src: "/sidemenu/mac-apps.svg",
     hasArrow: false,
-    link: "/mac",
+    link: "/graphics-and-design",
   },
   {
     title: "Mac OS Software",
     src: "/sidemenu/mac.svg",
     hasArrow: false,
-    link: "/mac-apps",
+    link: "/mac-os-software",
   },
   {
     title: "Blog",
     src: "/sidemenu/book.svg",
     hasArrow: false,
-    link: "/mac-apps",
+    link: "/blog",
   },
 ];
 

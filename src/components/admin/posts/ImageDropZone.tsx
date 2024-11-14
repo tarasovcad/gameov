@@ -22,6 +22,7 @@ const ALLOWED_FILE_TYPES = [
   "image/svg+xml",
   "image/heif",
   "image/heic",
+  "image/webp",
 ];
 const ALLOWED_FILE_EXTENSIONS = [
   ".jpeg",
@@ -30,6 +31,7 @@ const ALLOWED_FILE_EXTENSIONS = [
   ".svg",
   ".heif",
   ".heic",
+  ".webp",
 ];
 const MAX_NAME_LENGTH = 50;
 const MAX_IMAGES = 10;

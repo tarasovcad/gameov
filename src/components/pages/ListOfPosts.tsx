@@ -1,6 +1,5 @@
 "use client";
 
-import BlogGameCart from "@/components/main/BlogGameCart";
 import React, {useEffect, useState} from "react";
 import {LayoutGrid} from "lucide-react";
 import {Icon} from "lucide-react";
@@ -12,7 +11,9 @@ import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 import {PostsData} from "@/types/singlePost";
 import {BlogGameCartSkeleton} from "@/components/main/BlogGameCartSkeleton";
 import Cookies from "js-cookie";
-import BlogCart from "../main/BlogCart";
+import BlogGameCard from "../main/BlogGameCard";
+import BlogCard from "../main/BlogCard";
+import SinglePostCard from "../main/SinglePostCard";
 
 interface CategoryOption {
   graphqlValue: string;
@@ -68,8 +69,10 @@ const ListOfPosts = ({
     console.log(isGrid, "isGrid");
   };
 
+  const isPcGames = selectedCategory.searchParams === "pc-games";
+
   return (
-    <div className="max-[700px]:px-4 max-[450px]:px-[3.5vw] pt-3">
+    <div className="max-[700px]:px-4 max-[450px]:px-[3.5vw]">
       <div className="flex justify-between items-center mb-5 max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-4">
         <div className="flex gap-3 ">
           <h2 className="font-semibold text-[32px] max-[1100px]:text-[30px] max-[850px]:text-[28px] ">
@@ -117,9 +120,14 @@ const ListOfPosts = ({
           initial={isInitialLoad ? undefined : "hidden"}
           animate={isInitialLoad ? undefined : "visible"}
           exit={isInitialLoad ? undefined : "exit"}
-          className={`grid  mt-5  max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1  ${
-            !gridView ? "!grid-cols-1" : "grid-cols-3 gap-5 "
-          } `}>
+          className={`grid mt-5   ${
+            !gridView
+              ? "!grid-cols-1"
+              : (isPcGames
+                  ? "grid-cols-3 max-[1131px]:grid-cols-2 max-[850px]:grid-cols-1"
+                  : "grid-cols-4 max-[1390px]:grid-cols-3 max-[870px]:grid-cols-2 max-[590px]:grid-cols-1") +
+                " gap-5"
+          }  `}>
           {data.posts.edges.map((item, index) => (
             <motion.div
               key={item.slug + index}
@@ -128,19 +136,13 @@ const ListOfPosts = ({
               layout>
               {isLoading ? (
                 <BlogGameCartSkeleton gridView={gridView} />
-              ) : selectedCategory.searchParams === "pc-games" ? (
-                <BlogGameCart
-                  item={item}
-                  gridView={gridView}
-                  totalItems={data.posts.edges.length}
-                  index={index}
-                />
               ) : (
-                <BlogCart
+                <SinglePostCard
                   item={item}
                   gridView={gridView}
                   totalItems={data.posts.edges.length}
                   index={index}
+                  cardType={selectedCategory.searchParams}
                 />
               )}
             </motion.div>

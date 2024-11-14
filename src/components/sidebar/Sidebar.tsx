@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
 import SidebarItem from "./SidebarItem";
-import {SidebarGeneralLinks, SidebarSmallLinks} from "@/data/SidebarLinks";
+import {SidebarGeneralLinks} from "@/data/SidebarLinks";
 import {SidebarOtherLinks} from "@/data/SidebarLinks";
 import Logo from "../logo/Logo";
 import {noRoutes} from "@/data/WrapperRoutes";
-import UnderlineLinkTerms from "../ui/UnderlineLinkTerms";
 import {usePathname} from "next/navigation";
 
 const Sidebar = () => {
@@ -51,21 +50,6 @@ const Sidebar = () => {
             })}
           </div>
         </div>
-
-        {/* <div className="absolute bottom-7 max-[1000px]:hidden">
-          <p className="text-xs text-secondary_text font-normal leading-5 pr-5">
-            {SidebarSmallLinks.map((link, index) => {
-              return (
-                <>
-                  <UnderlineLinkTerms
-                    title={`${link.title}${", "}  `}
-                    link={link.link}
-                  />
-                </>
-              );
-            })}
-          </p>
-        </div> */}
       </div>
     </aside>
   );

@@ -72,6 +72,7 @@ export const defaultBreakpointsCart = {
     spaceBetween: 20,
   },
 };
+
 export const defaultBreakpointsPopularBlogs = {
   0: {
     slidesPerView: 1,

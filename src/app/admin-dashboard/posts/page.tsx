@@ -376,7 +376,7 @@ const Page = () => {
       setSystemRequirements(parsedData.systemRequirements || {});
       setAppVersion(parsedData.appVersion || "");
       setPublisher(parsedData.publisher || "");
-      setSelectedCategory(parsedData.selectedCategory || null);
+
       // setReleasedDate(new Date(parsedData.releasedDate));
 
       // Update the form fields

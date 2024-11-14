@@ -37,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.className} bg-backgound`}
       suppressHydrationWarning>
-      <body className=" mx-auto bg-[#f0f0f0] selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound  min-h-screen flex flex-col">
+      <body className=" mx-auto bg-[#f0f0f0]  selection:bg-[#d8ff2e] selection:text-black  dark:bg-backgound min-h-screen flex flex-col">
         <CustomThemeProvider>
           <AuthProvider>
             <Toaster richColors={true} position="bottom-right" closeButton />
@@ -48,7 +48,7 @@ export default function RootLayout({
                 {/* responsive design for 700-0px is inside the page */}
                 <div className="flex-1 flex flex-col ">
                   <NavbarServerComponent />
-                  <div className=" mx-auto w-full">
+                  <div className="mx-auto w-full max-w-[1340px]">
                     <main>{children}</main>
                   </div>
                 </div>
