@@ -1,10 +1,11 @@
 "use client";
 import {ChevronDown, ChevronUp, Filter, X} from "lucide-react";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {filterSectionGame} from "@/data/filterSection";
+// import {filterSectionGame} from "@/data/filterSection";
 import {ScrollArea} from "../ui/scroll-area";
 import {motion} from "framer-motion";
+import {FiltersData} from "@/types/singlePost";
 
 interface OpenPopovers {
   [key: string]: boolean;
@@ -13,16 +14,42 @@ interface InputValues {
   [key: string]: string;
 }
 
-const FilterButton = () => {
+const FilterButton = ({filters}: {filters: FiltersData}) => {
   const [openPopovers, setOpenPopovers] = useState<OpenPopovers>({});
   const [inputValues, setInputValues] = useState<InputValues>({});
   const [popoverVisible, setPopoverVisible] = useState(false);
+
+  const filterSections = useMemo(
+    () => [
+      {
+        title: "Tags",
+        options: filters.getAllUniqueFilters.tags,
+      },
+      {
+        title: "Publishers",
+        options: filters.getAllUniqueFilters.publisher,
+      },
+      {
+        title: "Platforms",
+        options: filters.getAllUniqueFilters.platforms,
+      },
+      {
+        title: "Interface Languages",
+        options: filters.getAllUniqueFilters.interfaceLanguages,
+      },
+      {
+        title: "Voice Languages",
+        options: filters.getAllUniqueFilters.voiceLanguages,
+      },
+    ],
+    [filters],
+  );
 
   useEffect(() => {
     Object.keys(inputValues).forEach((title) => {
       const value = inputValues[title];
       const options =
-        filterSectionGame.find((item) => item.title === title)?.options || [];
+        filterSections.find((item) => item.title === title)?.options || [];
       const hasMatch = options.some((option) =>
         option.toLowerCase().includes(value.toLowerCase()),
       );
@@ -31,7 +58,7 @@ const FilterButton = () => {
         setOpenPopovers((prev) => ({...prev, [title]: false}));
       }
     });
-  }, [inputValues]);
+  }, [inputValues, filterSections]);
 
   const togglePopover = (title: string) => {
     setOpenPopovers((prev) => ({
@@ -55,7 +82,7 @@ const FilterButton = () => {
     }));
 
     const options =
-      filterSectionGame.find((item) => item.title === title)?.options || [];
+      filterSections.find((item) => item.title === title)?.options || [];
     const hasMatch = options.some((option) =>
       option.toLowerCase().includes(value.toLowerCase()),
     );
@@ -97,7 +124,7 @@ const FilterButton = () => {
   const handleInputBlur = (title: string) => {
     setTimeout(() => {
       const options =
-        filterSectionGame.find((item) => item.title === title)?.options || [];
+        filterSections.find((item) => item.title === title)?.options || [];
       const value = inputValues[title] || "";
       const matchingOptions = options.filter((option) =>
         option.toLowerCase().includes(value.toLowerCase()),
@@ -172,7 +199,7 @@ const FilterButton = () => {
           <h2 className="px-4 text-[16px] font-medium">Filters</h2>
           <div className="stroke"></div>
           <div className="flex flex-col gap-2.5 px-4">
-            {filterSectionGame.map((item) => {
+            {filterSections.map((item) => {
               const filteredOptions = filterOptions(
                 item.options || [],
                 inputValues[item.title] || "",

@@ -8,7 +8,7 @@ import FilterButton from "@/components/gamePage/FilterButton";
 import SortByButton from "@/components/gamePage/SortByButton";
 import {AnimatePresence, motion} from "framer-motion";
 import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
-import {PostsData} from "@/types/singlePost";
+import {FiltersData, PostsData} from "@/types/singlePost";
 import {BlogGameCartSkeleton} from "@/components/main/BlogGameCartSkeleton";
 import Cookies from "js-cookie";
 import SinglePostCard from "../main/SinglePostCard";
@@ -23,10 +23,12 @@ const ListOfPosts = ({
   data,
   gridViewCookie,
   selectedCategory,
+  filters,
 }: {
   data: PostsData;
   gridViewCookie: boolean | undefined;
   selectedCategory: CategoryOption;
+  filters: FiltersData;
 }) => {
   const [gridView, setGridView] = useState<boolean>(gridViewCookie ?? true);
   const [isLoading, setIsLoading] = useState(true);
@@ -124,7 +126,7 @@ const ListOfPosts = ({
             </div>
           </div>
           <SortByButton />
-          <FilterButton />
+          <FilterButton filters={filters} />
         </div>
       </div>
 

@@ -94,8 +94,6 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
     // },
   });
 
-  console.log("publisher", allTags.data.getAllUniqueFilters);
-
   const end = performance.now();
   const fetchTime = end - start;
 
@@ -108,6 +106,7 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
       data={data}
       gridViewCookie={gridViewCookie}
       selectedCategory={selectedCategory}
+      filters={allTags.data}
     />
   );
 };

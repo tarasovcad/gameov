@@ -123,7 +123,7 @@ export const resolvers: Resolvers = {
         new Set(posts.flatMap((post) => post.tags)),
       ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
       const uniquePlatforms = Array.from(
-        new Set(posts.flatMap((post) => post.tags)),
+        new Set(posts.flatMap((post) => post.platforms)),
       ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
       const uniquePublisher = Array.from(
         new Set(
@@ -134,7 +134,7 @@ export const resolvers: Resolvers = {
         new Set(posts.flatMap((post) => post.interfaceLanguages)),
       ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
       const voiceInterfaceLanguages = Array.from(
-        new Set(posts.flatMap((post) => post.interfaceLanguages)),
+        new Set(posts.flatMap((post) => post.voiceLanguages)),
       ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
       return {
         tags: uniqueTags,
