@@ -35,3 +35,15 @@ export interface PostsData {
 export interface SixLatestPostsData {
   latestPosts: Post[];
 }
+
+export type FilterOptions = {
+  tags: string[];
+  publisher: string[];
+  platforms: string[];
+  interfaceLanguages: string[];
+  voiceLanguages: string[];
+};
+
+export type FiltersData = {
+  getAllUniqueFilters: FilterOptions;
+};

@@ -5,8 +5,14 @@ export const GET_POSTS_FOR_LIST_PAGE = gql`
     $page: Int!
     $limit: Int!
     $selectedCategory: String!
+    $sortBy: String!
   ) {
-    posts(page: $page, limit: $limit, selectedCategory: $selectedCategory) {
+    posts(
+      page: $page
+      limit: $limit
+      selectedCategory: $selectedCategory
+      sortBy: $sortBy
+    ) {
       edges {
         id
         title
@@ -33,8 +39,20 @@ export const GET_SIX_LATEST_GAME_POSTS = gql`
       title
       cardDescription
       slug
-      date
+      dated
       images
+    }
+  }
+`;
+
+export const GET_ALL_UNIQUE_FILTERS = gql`
+  query GetAllUniqueFilters {
+    getAllUniqueFilters {
+      tags
+      publisher
+      platforms
+      interfaceLanguages
+      voiceLanguages
     }
   }
 `;

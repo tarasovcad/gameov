@@ -11,8 +11,6 @@ import PaginationGamePage from "@/components/gamePage/PaginationGamePage";
 import {PostsData} from "@/types/singlePost";
 import {BlogGameCartSkeleton} from "@/components/main/BlogGameCartSkeleton";
 import Cookies from "js-cookie";
-import BlogGameCard from "../main/BlogGameCard";
-import BlogCard from "../main/BlogCard";
 import SinglePostCard from "../main/SinglePostCard";
 
 interface CategoryOption {
@@ -33,10 +31,23 @@ const ListOfPosts = ({
   const [gridView, setGridView] = useState<boolean>(gridViewCookie ?? true);
   const [isLoading, setIsLoading] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [currentData, setCurrentData] = useState(data);
   const containerVariants = {
     hidden: {opacity: 0},
-    visible: {opacity: 1},
-    exit: {opacity: 0},
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        when: "beforeChildren",
+        staggerChildren: 0.05,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
   };
 
   const cardVariants = {
@@ -54,6 +65,10 @@ const ListOfPosts = ({
   };
 
   useEffect(() => {
+    setCurrentData(data);
+  }, [data]);
+
+  useEffect(() => {
     setIsLoading(false);
   }, []);
 
@@ -61,16 +76,16 @@ const ListOfPosts = ({
     if (isInitialLoad) {
       setIsInitialLoad(false);
     }
-  }, [setIsInitialLoad, isInitialLoad]);
+  }, [isInitialLoad]);
 
   const handleGridViewChange = (isGrid: boolean) => {
     setGridView(isGrid);
     Cookies.set("gridViewGameov", isGrid.toString(), {expires: 30});
-    console.log(isGrid, "isGrid");
   };
 
   const isPcGames = selectedCategory.searchParams === "pc-games";
 
+  console.log(`${gridView}-${data.posts.edges[0]?.slug}`, "key");
   return (
     <div className="max-[700px]:px-4 max-[450px]:px-[3.5vw]">
       <div className="flex justify-between items-center mb-5 max-[480px]:flex-col max-[480px]:items-start max-[480px]:gap-4">
@@ -115,7 +130,7 @@ const ListOfPosts = ({
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={gridView ? "grid" : "list"}
+          key={`${gridView}-${data.posts.edges[0]?.slug}`}
           variants={containerVariants}
           initial={isInitialLoad ? undefined : "hidden"}
           animate={isInitialLoad ? undefined : "visible"}
@@ -128,7 +143,7 @@ const ListOfPosts = ({
                   : "grid-cols-4 max-[1390px]:grid-cols-3 max-[870px]:grid-cols-2 max-[590px]:grid-cols-1") +
                 " gap-5"
           }  `}>
-          {data.posts.edges.map((item, index) => (
+          {currentData.posts.edges.map((item, index) => (
             <motion.div
               key={item.slug + index}
               custom={index}

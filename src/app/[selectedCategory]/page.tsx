@@ -1,7 +1,10 @@
 import ListOfPosts from "@/components/pages/ListOfPosts";
-import {GET_POSTS_FOR_LIST_PAGE} from "@/graphql/queries/posts";
+import {
+  GET_ALL_UNIQUE_FILTERS,
+  GET_POSTS_FOR_LIST_PAGE,
+} from "@/graphql/queries/posts";
 import {getClient} from "@/lib/apollo-client";
-import {PostsData} from "@/types/singlePost";
+import {FiltersData, PostsData} from "@/types/singlePost";
 import {cookies} from "next/headers";
 import {notFound, redirect} from "next/navigation";
 import React from "react";
@@ -12,6 +15,8 @@ interface CategoryPageProps {
   };
   searchParams: {
     page?: string;
+    sortBy?: string;
+    category?: string;
   };
 }
 
@@ -21,8 +26,10 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
   const start = performance.now();
   const currentPage = Number(searchParams.page) || 1;
 
-  const pageSize = 100; // Can be reduces to optimize performance if needed
+  const pageSize = 2; // Can be reduces to optimize performance if needed
   const client = getClient();
+
+  const sortBy = (searchParams.sortBy as string) || "Newest";
 
   const categoryOptions = [
     {
@@ -67,6 +74,7 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
       limit: pageSize,
       status: "PUBLISHED",
       selectedCategory: selectedCategory?.graphqlValue,
+      sortBy: sortBy,
     },
 
     context: {
@@ -75,6 +83,18 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
       },
     },
   });
+
+  const allTags = await client.query<FiltersData>({
+    query: GET_ALL_UNIQUE_FILTERS,
+    fetchPolicy: "cache-first",
+    // context: {
+    //   fetchOptions: {
+    //     next: {revalidate: 3600}, // Cache for 1 hour
+    //   },
+    // },
+  });
+
+  console.log("publisher", allTags.data.getAllUniqueFilters);
 
   const end = performance.now();
   const fetchTime = end - start;

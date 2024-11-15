@@ -4,6 +4,7 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {ArrowDownUp} from "lucide-react";
 import {sortBySection} from "@/data/filterSection";
 import {motion} from "framer-motion";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 const SortByButton = () => {
   const [popoverVisible, setPopoverVisible] = useState(false);
@@ -11,6 +12,26 @@ const SortByButton = () => {
   const [alignItems, setAlignItems] = useState<"start" | "center" | "end">(
     "center",
   );
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  console.log("searchParams", searchParams.toString());
+
+  const createQueryString = (name: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(name, value);
+    params.set("page", "1");
+    return params.toString();
+  };
+
+  useEffect(() => {
+    const sortBy = searchParams.get("sortBy");
+    if (sortBy) {
+      setSortInput(sortBy);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,8 +73,11 @@ const SortByButton = () => {
                 onClick={() => {
                   setPopoverVisible(false);
                   setSortInput(option);
+                  router.push(
+                    pathname + "?" + createQueryString("sortBy", option),
+                  );
                 }}
-                className={`transition-colors text-white duration-200 ease-in-out hover:bg-[#1a1a1a] py-2 rounded-md px-2 text-start text-[14.5px]  ${sortInput === option && "bg-[#1a1a1a]  "}`}>
+                className={`transition-colors duration-200 ease-in-out hover:bg-[#1a1a1a] py-2 rounded-md px-2 text-start text-[14.5px]  ${sortInput === option ? "bg-[#1a1a1a]  text-white " : "text-secondary_text"}`}>
                 {option}
               </button>
             ))}

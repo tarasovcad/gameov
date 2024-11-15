@@ -10,6 +10,8 @@ interface ResolverArgs {
   limit?: number;
   status?: PostStatus;
   selectedCategory?: Category;
+  sortBy?: string;
+  category?: string;
 }
 interface LatestPostsArgs {
   limit?: number;
@@ -26,6 +28,7 @@ export const resolvers: Resolvers = {
         limit = 12,
         status = "PUBLISHED",
         selectedCategory = "PC_GAMES",
+        sortBy = "Newest",
       }: ResolverArgs,
     ) => {
       const skip = (page - 1) * limit;
@@ -34,6 +37,21 @@ export const resolvers: Resolvers = {
         status: status as PostStatus,
         selectedCategory: selectedCategory,
       };
+
+      let orderBy = {};
+      switch (sortBy) {
+        case "Newest":
+          orderBy = {createdAt: "desc"};
+          break;
+        case "Oldest":
+          orderBy = {createdAt: "asc"};
+          break;
+        case "Alphabetical":
+          orderBy = {title: "asc"};
+          break;
+        default:
+          orderBy = {createdAt: "desc"};
+      }
 
       // Get total count for pagination info
       const totalPosts = await prisma.post.count({where});
@@ -44,9 +62,7 @@ export const resolvers: Resolvers = {
         where,
         skip,
         take: limit,
-        orderBy: {
-          createdAt: "desc",
-        },
+        orderBy,
       });
       return {
         edges: posts,
@@ -87,6 +103,46 @@ export const resolvers: Resolvers = {
       });
 
       return posts;
+    },
+    getAllUniqueFilters: async () => {
+      const posts = await prisma.post.findMany({
+        where: {
+          status: "PUBLISHED",
+        },
+        select: {
+          tags: true,
+          publisher: true,
+          platforms: true,
+          interfaceLanguages: true,
+          voiceLanguages: true,
+          // releasedDate: true,
+          // size
+        },
+      });
+      const uniqueTags = Array.from(
+        new Set(posts.flatMap((post) => post.tags)),
+      ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
+      const uniquePlatforms = Array.from(
+        new Set(posts.flatMap((post) => post.tags)),
+      ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
+      const uniquePublisher = Array.from(
+        new Set(
+          posts.flatMap((post) => (post.publisher ? [post.publisher] : [])),
+        ),
+      ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
+      const uniqueInterfaceLanguages = Array.from(
+        new Set(posts.flatMap((post) => post.interfaceLanguages)),
+      ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
+      const voiceInterfaceLanguages = Array.from(
+        new Set(posts.flatMap((post) => post.interfaceLanguages)),
+      ).sort((a, b) => a.localeCompare(b, "en", {sensitivity: "base"}));
+      return {
+        tags: uniqueTags,
+        publisher: uniquePublisher,
+        platforms: uniquePlatforms,
+        interfaceLanguages: uniqueInterfaceLanguages,
+        voiceLanguages: voiceInterfaceLanguages,
+      };
     },
   },
 };

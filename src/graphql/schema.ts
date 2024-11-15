@@ -74,14 +74,24 @@ export const typeDefs = gql`
     pageInfo: PageInfo!
   }
 
+  type FilterOptions {
+    tags: [String!]!
+    publisher: [String!]!
+    platforms: [String!]!
+    interfaceLanguages: [String!]!
+    voiceLanguages: [String!]!
+  }
+
   type Query {
     posts(
       page: Int
       limit: Int
       status: PostStatus
       selectedCategory: String!
+      sortBy: String!
     ): PostConnection!
     post(slug: String!): Post
     latestPosts(limit: Int, selectedCategory: String!): [Post!]!
+    getAllUniqueFilters: FilterOptions!
   }
 `;
